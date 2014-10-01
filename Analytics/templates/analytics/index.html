@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ STATIC_URL }}analytics/css/bootstrap.css"/>
+
+    <script>
+        var appsAndroid = {{ aplicacionesAndroid|safe }};
+        var appsIOS = {{ aplicacionesIOS|safe }};
+        var appsAll = {{ aplicacionesAll|safe }};
+        var appsFlurry = {{ aplicacionesFlurry|safe }};
+        var appsFlurryAll = {{ aplicacionesFlurryAll|safe }}
+    </script>
+
+    <script src="{{ STATIC_URL }}analytics/jquery-2.1.1.min.js"></script>
+    <script src="{{ STATIC_URL }}analytics/bootstrap.js"></script>
+    <script src="{{ STATIC_URL }}analytics/jquery.tablesorter.js"></script>
+    <script src="{{ STATIC_URL }}analytics/main.js"></script>
+    <title>ZED Analytics</title>
+</head>
+<body>
+    <div id="cabecera" class="col-xs-12">
+        <div class="col-xs-2"></div>
+        <div id="OS" class="col-xs-2" style="margin: 20px">
+            <label>Operating System</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones" id="allOS" value="ALL" checked>
+                    All
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones" id="android" value="Android">
+                    Android
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones" id="ios" value="IOS">
+                    IOS
+                </label>
+            </div>
+        </div>
+        <div id="category" class="col-xs-2" style="margin: 20px">
+            <label>Category</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones1" id="allCategories" value="ALL" checked>
+                    All
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones1" id="games" value="Games">
+                    Games
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones1" id="others" value="Others">
+                    Others
+                </label>
+            </div>
+        </div>
+        <div id="source" class="col-xs-2" style="margin: 20px">
+            <label>Source</label>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones2" id="appannie" value="appannie" checked>
+                    Appannie
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones2" id="flurry" value="flurry">
+                    Flurry
+                </label>
+            </div>
+        </div>
+        <div class="col-xs2"b>
+            <button class="tn btn-primary" style="margin-top: 60px" id="show" onclick="verEstadisticas()"> SHOW </button>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+    <div class="col-xs-2"></div>
+    <div class="col-xs-8" id="resultado"></div>
+    <div class="col-xs-2"></div>
+</body>
+</html>
