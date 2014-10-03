@@ -10,7 +10,7 @@ import simplejson
 
 def index(request):
 
-    # fillDataBase()
+    fillDataBase()
 
     aplicacionesIOS = {}
     aplicacionesAndroid = {}
