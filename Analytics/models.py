@@ -10,3 +10,4 @@ class Application(models.Model):
 
     def __str__(self):
         return self.name
+z

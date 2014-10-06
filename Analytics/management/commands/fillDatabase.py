@@ -78,7 +78,7 @@ class Command(BaseCommand):
         for i in range(len(AndroidAppList)):
             app_ids_android.append((AndroidAppList[i]["app_id"]))
 
-        #Crea un diccionario por cada tienda con id de aplicacion y nombre, categoría y numero de descargas
+        #Crea un diccionario por cada tienda con id de aplicacion y nombre, categoria y numero de descargas
         for app_id in app_ids_ios:
             r = requests.get('https://api.appannie.com/v1/accounts/' + ACCOUNT_ID_IOS + '/apps/' + app_id + '/sales',
                              headers={"Authorization": APIKEY_APPANNIE})
@@ -122,3 +122,5 @@ class Command(BaseCommand):
                 a2.save()
             except Exception as ex:
                 a1.save()
+
+        time.sleep(60)
