@@ -1,5 +1,6 @@
 import time
 import datetime
+import sys
 from Analytics.models import Application
 import requests
 import simplejson
@@ -83,6 +84,7 @@ class Command(BaseCommand):
 
             #Crea un diccionario por cada tienda con id de aplicacion y nombre, categoria y numero de descargas
             for app_id in app_ids_ios:
+                time.sleep(4)
                 r = requests.get('https://api.appannie.com/v1/accounts/' + ACCOUNT_ID_IOS + '/apps/' + app_id + '/sales',
                                  headers={"Authorization": APIKEY_APPANNIE})
                 json = simplejson.loads(r.content)
@@ -105,6 +107,7 @@ class Command(BaseCommand):
                     a1.save()
 
             for app_id in app_ids_android:
+                time.sleep(4)
                 r = requests.get('https://api.appannie.com/v1/accounts/' + ACCOUNT_ID_ANDROID + '/apps/' + app_id + '/sales',
                                  headers={"Authorization": APIKEY_APPANNIE})
                 json = simplejson.loads(r.content)
@@ -125,5 +128,8 @@ class Command(BaseCommand):
                     a2.save()
                 except Exception as ex:
                     a1.save()
+        except Exception as ex:
+            print(ex)
         finally:
+            print('Database updated')
             time.sleep(60)
