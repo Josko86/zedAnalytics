@@ -129,7 +129,9 @@ class Command(BaseCommand):
                 except Exception as ex:
                     a1.save()
         except Exception as ex:
-            print(ex)
+            if ex:
+                print(ex)
+            else:
+                print('Database updated')
         finally:
-            print('Database updated')
             time.sleep(60)
