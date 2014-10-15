@@ -4,11 +4,12 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}analytics/css/bootstrap.css"/>
 
     <script>
-        var appsAndroid = {{ aplicacionesAndroid|safe }};
-        var appsIOS = {{ aplicacionesIOS|safe }};
-        var appsAll = {{ aplicacionesAll|safe }};
-        var appsFlurry = {{ aplicacionesFlurry|safe }};
-        var appsFlurryAll = {{ aplicacionesFlurryAll|safe }}
+        var appsPlayerX = {{ aplicacionesPlayerX|safe }};
+        var appsZW = {{ aplicacionesZW|safe }};
+        var appsZGPS = {{ aplicacionesZGPS|safe }};
+        var appsAZW = {{ aplicacionesAZW|safe }};
+        //var appsFlurry = {{ aplicacionesFlurry|safe }};
+        //var appsFlurryAll = {{ aplicacionesFlurryAll|safe }};
     </script>
 
     <script src="{{ STATIC_URL }}analytics/jquery-2.1.1.min.js"></script>
@@ -66,14 +67,26 @@
             <label>Source</label>
             <div class="radio">
                 <label>
-                    <input type="radio" name="opciones2" id="appannie" value="appannie" checked>
-                    Appannie
+                    <input type="radio" name="opciones3" id="allTime" value="date" checked>
+                    All time
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio" name="opciones2" id="flurry" value="flurry">
-                    Flurry
+                    <input type="radio" name="opciones3" id="month" value="date">
+                    Last 30 days
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones3" id="week" value="date">
+                    Last 7 days
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="opciones3" id="day" value="date">
+                    Last day
                 </label>
             </div>
         </div>
