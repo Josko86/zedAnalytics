@@ -1,6 +1,5 @@
 import time
 import datetime
-import sys
 from Analytics.models import Application
 import requests
 import simplejson
@@ -19,7 +18,6 @@ class Command(BaseCommand):
             ACCOUNT_ID_ZGPS = "46490"
             ACCOUNT_ID_AZW = "173002"
             APIKEY_APPANNIE = "bearer 5dba15b181bd108344478ee985a7e0b737562377"
-            APIFLURRY = "5DP8FCDNCBP3XRCC9NM3"
 
             app_ids_PlayerX = []
             app_ids_ZW = []
@@ -125,13 +123,6 @@ class Command(BaseCommand):
             yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
             lastWeek = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
             lastMonth = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
-
-
-            aplicacionesPlayerX = {}
-            aplicacionesZW = {}
-            aplicacionesZGPS = {}
-            aplicacionesAZW = {}
-            aplicacionesFlurry = {}
 
             #rellenar el array de las aplicaciones flurry
             # flurryAppList = requests.get('http://api.flurry.com/appInfo/getAllApplications?apiAccessCode=' + APIFLURRY +

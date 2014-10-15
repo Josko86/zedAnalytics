@@ -12,6 +12,8 @@ def index(request):
     aplicacionesZW = {}
     aplicacionesAZW = {}
     aplicacionesZGPS = {}
+    aplicacionesRUSAndroid = {}
+    aplicacionesRUSiOS = {}
     aplicacionesFlurry = {}
     aplicacionesFlurryAll = {}
 
@@ -19,6 +21,8 @@ def index(request):
     ZWList = Application.objects.filter(account="ZW")
     ZGPSList = Application.objects.filter(account="ZGPS")
     AZWList = Application.objects.filter(account="AZW")
+    RUSListAndroid = Application.objects.filter(os="Android", account="RUS")
+    RUSListiOS = Application.objects.filter(os="iOS", account="RUS")
     # flurryList = Application.objects.filter(account="flurry")
 
     for i in range(len(playerXList)):
@@ -85,6 +89,38 @@ def index(request):
         aplicacionesAZW[app.appKey].append(app.revenueW)
         aplicacionesAZW[app.appKey].append(app.revenueT)
 
+    for i in range(len(RUSListAndroid)):
+        app = RUSListAndroid[i]
+        aplicacionesRUSAndroid[app.appKey] = []
+        aplicacionesRUSAndroid[app.appKey].append(app.name)
+        aplicacionesRUSAndroid[app.appKey].append(app.category)
+        aplicacionesRUSAndroid[app.appKey].append(app.os)
+        aplicacionesRUSAndroid[app.appKey].append(app.account)
+        aplicacionesRUSAndroid[app.appKey].append(app.downloadsA)
+        aplicacionesRUSAndroid[app.appKey].append(app.downloadsM)
+        aplicacionesRUSAndroid[app.appKey].append(app.downloadsW)
+        aplicacionesRUSAndroid[app.appKey].append(app.downloadsT)
+        aplicacionesRUSAndroid[app.appKey].append(app.revenueA)
+        aplicacionesRUSAndroid[app.appKey].append(app.revenueM)
+        aplicacionesRUSAndroid[app.appKey].append(app.revenueW)
+        aplicacionesRUSAndroid[app.appKey].append(app.revenueT)
+
+    for i in range(len(RUSListiOS)):
+        app = RUSListiOS[i]
+        aplicacionesRUSiOS[app.appKey] = []
+        aplicacionesRUSiOS[app.appKey].append(app.name)
+        aplicacionesRUSiOS[app.appKey].append(app.category)
+        aplicacionesRUSiOS[app.appKey].append(app.os)
+        aplicacionesRUSiOS[app.appKey].append(app.account)
+        aplicacionesRUSiOS[app.appKey].append(app.downloadsA)
+        aplicacionesRUSiOS[app.appKey].append(app.downloadsM)
+        aplicacionesRUSiOS[app.appKey].append(app.downloadsW)
+        aplicacionesRUSiOS[app.appKey].append(app.downloadsT)
+        aplicacionesRUSiOS[app.appKey].append(app.revenueA)
+        aplicacionesRUSiOS[app.appKey].append(app.revenueM)
+        aplicacionesRUSiOS[app.appKey].append(app.revenueW)
+        aplicacionesRUSiOS[app.appKey].append(app.revenueT)
+
     # for i in range(len(flurryList)):
     #     app = flurryList[i]
     #     aplicacionesFlurry[app.appKey] = []
@@ -112,6 +148,8 @@ def index(request):
         "aplicacionesZW": simplejson.dumps(aplicacionesZW),
         "aplicacionesZGPS": simplejson.dumps(aplicacionesZGPS),
         "aplicacionesAZW": simplejson.dumps(aplicacionesAZW),
+        "aplicacionesRUSAndroid": simplejson.dumps(aplicacionesRUSAndroid),
+        "aplicacionesRUSiOS": simplejson.dumps(aplicacionesRUSiOS),
         # "aplicacionesFlurry": simplejson.dumps(aplicacionesFlurry),
         # "aplicacionesFlurryAll": simplejson.dumps(aplicacionesFlurryAll)
     }

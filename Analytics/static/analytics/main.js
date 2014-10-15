@@ -12,6 +12,8 @@ $(document).ready(function(){
     ZWKeys = Object.keys(appsZW);
     ZGPSKeys = Object.keys(appsZGPS);
     AZWKeys = Object.keys(appsAZW);
+    RUSAndroidKeys = Object.keys(appsRUSAndroid);
+    RUSiOSKeys = Object.keys(appsRUSiOS);
 //    flurryKeys = Object.keys(appsFlurry);
 //    flurryAllKeys = Object.keys(appsFlurryAll);
 //    for (var k in androidKeys){
@@ -30,6 +32,8 @@ $(document).ready(function(){
     showAllCat(ZWKeys, appsZW, 4);
     showAllCat(ZGPSKeys, appsZGPS, 4);
     showAllCat(AZWKeys, appsAZW, 4);
+    showAllCat(RUSAndroidKeys, appsRUSAndroid, 4);
+    showAllCat(RUSiOSKeys, appsRUSiOS, 4);
 
     miTabla.appendChild(tbBody);
     miCapa = document.getElementById('resultado');
@@ -61,18 +65,24 @@ function verEstadisticas(){
             showAllCat(ZWKeys, appsZW, time);
             showAllCat(ZGPSKeys, appsZGPS, time);
             showAllCat(AZWKeys, appsAZW, time);
+            showAllCat(RUSAndroidKeys, appsRUSAndroid, 4);
+            showAllCat(RUSiOSKeys, appsRUSiOS, 4);
         }
         else if($("#games").is(':checked')){
             showGames(playerXKeys, appsPlayerX, time);
             showGames(ZWKeys, appsZW, time);
             showGames(ZGPSKeys, appsZGPS, time);
             showGames(AZWKeys, appsAZW, time);
+            showGames(RUSAndroidKeys, appsRUSAndroid, 4);
+            showGames(RUSiOSKeys, appsRUSiOS, 4);
         }
         else{
             showOthers(playerXKeys, appsPlayerX, time);
             showOthers(ZWKeys, appsZW, time);
             showOthers(ZGPSKeys, appsZGPS, time);
             showOthers(AZWKeys, appsAZW, time);
+            showOthers(RUSAndroidKeys, appsRUSAndroid, 4);
+            showOthers(RUSiOSKeys, appsRUSiOS, 4);
         }
     }
 
@@ -80,14 +90,17 @@ function verEstadisticas(){
         if( $("#allCategories").is(':checked')){
             showAllCat(ZGPSKeys, appsZGPS, time);
             showAllCat(AZWKeys, appsAZW, time);
+            showAllCat(RUSAndroidKeys, appsRUSAndroid, 4);
         }
         else if($("#games").is(':checked')){
             showGames(ZGPSKeys, appsZGPS, time);
             showGames(AZWKeys, appsAZW, time);
+            showGames(RUSAndroidKeys, appsRUSAndroid, 4);
         }
         else{
             showOthers(ZGPSKeys, appsZGPS, time);
             showOthers(AZWKeys, appsAZW, time);
+            showOthers(RUSAndroidKeys, appsRUSAndroid, 4);
         }
     }
 
@@ -95,14 +108,17 @@ function verEstadisticas(){
         if( $("#allCategories").is(':checked')){
             showAllCat(playerXKeys, appsPlayerX, time);
             showAllCat(ZWKeys, appsZW, time);
+            showAllCat(RUSiOSKeys, appsRUSiOS, 4);
         }
         else if($("#games").is(':checked')){
             showGames(playerXKeys, appsPlayerX, time);
             showGames(ZWKeys, appsZW, time);
+            showGames(RUSiOSKeys, appsRUSiOS, 4);
         }
         else{
             showOthers(playerXKeys, appsPlayerX, time);
             showOthers(ZWKeys, appsZW, time);
+            showOthers(RUSiOSKeys, appsRUSiOS, 4);
         }
     }
 //    }else if($("#flurry").is(':checked')){
