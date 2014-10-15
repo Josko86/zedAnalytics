@@ -415,4 +415,4 @@ class Command(BaseCommand):
             print(ex)
 
         finally:
-            time.sleep(60)
+            time.sleep(85800)
