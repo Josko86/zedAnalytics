@@ -1,6 +1,6 @@
 import time
 import datetime
-from Analytics.models import Application
+from Analytics.models import Application, Date
 import requests
 import simplejson
 import xlrd
@@ -23,13 +23,18 @@ class Command(BaseCommand):
             app_ids_ZW = []
             app_ids_ZGPS = []
             app_ids_AZW = []
+            lastDateExcel = "unknown"
 
             # Recoger datos del excel rusia xlsx
             try:
                 book = xlrd.open_workbook('rusia.xlsx')
                 sheet = book.sheet_by_name('Android market overall')
                 num_cells = sheet.ncols - 1
-                curr_row = 0
+                curr_row = 1
+
+                lastDateExcel = (datetime.datetime.strptime('1899-12-30', '%Y-%m-%d') +
+                                     datetime.timedelta(days=sheet.cell_value(1, num_cells))).strftime("%Y-%m-%d")
+
                 while sheet.cell_value(curr_row,0) != 'Daily installs by device':
                     curr_row += 1
 
@@ -48,15 +53,15 @@ class Command(BaseCommand):
                         cell_type = sheet.cell_type(curr_row, curr_cell)
                         cell_value = sheet.cell_value(curr_row, curr_cell)
                         if cell_type == 2:
-                            if curr_cell > num_cells - 32:
+                            if curr_cell > num_cells - 30:
                                 totalM += cell_value
-                                if curr_cell > num_cells - 9:
+                                if curr_cell > num_cells - 7:
                                     totalW += cell_value
-                                    if curr_cell > num_cells - 2:
+                                    if curr_cell > num_cells - 1:
                                         totalT += cell_value
                             totalA += cell_value
                     if name!='Total':
-                        a1 = Application(appKey=name+'A', name=name, category='tool', downloadsA=totalA, os='Android',
+                        a1 = Application(appKey=name+'A', name=cleanName(name), category='unknown', downloadsA=totalA, os='Android',
                                          account="RUS", downloadsM=totalM, downloadsW=totalW, downloadsT=totalT,
                                          revenueA=0.00, revenueM=0.00, revenueW=0.00, revenueT=0.00)
                         try:
@@ -91,15 +96,15 @@ class Command(BaseCommand):
                         cell_type = sheet.cell_type(curr_row, curr_cell)
                         cell_value = sheet.cell_value(curr_row, curr_cell)
                         if cell_type == 2:
-                            if curr_cell > num_cells - 32:
+                            if curr_cell > num_cells - 30:
                                 totalM += cell_value
-                                if curr_cell > num_cells - 9:
+                                if curr_cell > num_cells - 7:
                                     totalW += cell_value
-                                    if curr_cell > num_cells - 2:
+                                    if curr_cell > num_cells - 1:
                                         totalT += cell_value
                             totalA += cell_value
                     if name!='':
-                        a1 = Application(appKey=name+'I', name=name, category='tool', downloadsA=totalA, os='iOS',
+                        a1 = Application(appKey=name+'I', name=cleanName(name), category='unknown', downloadsA=totalA, os='iOS',
                                          account="RUS", downloadsM=totalM, downloadsW=totalW, downloadsT=totalT,
                                          revenueA=0.00, revenueM=0.00, revenueW=0.00, revenueT=0.00)
                         try:
@@ -116,6 +121,7 @@ class Command(BaseCommand):
                         except Exception as ex:
                             a1.save()
 
+                print('Database updated from excel')
             except Exception as ex:
                 print(ex)
 
@@ -123,6 +129,14 @@ class Command(BaseCommand):
             yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
             lastWeek = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
             lastMonth = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+
+            a1 = Date(dateAppannie=yesterday, dateExcel=lastDateExcel)
+            try:
+                a2= Date.objects.get(id=1)
+                a2.dateAppannie = a1.dateAppannie
+                a2.dateExcel = a1.dateExcel
+            except Exception as ex:
+                a1.save()
 
             #rellenar el array de las aplicaciones flurry
             # flurryAppList = requests.get('http://api.flurry.com/appInfo/getAllApplications?apiAccessCode=' + APIFLURRY +
@@ -237,7 +251,7 @@ class Command(BaseCommand):
                 revenueW = jsonW["sales_list"][0]["revenue"]["app"]["downloads"]
                 revenueY = jsonY["sales_list"][0]["revenue"]["app"]["downloads"]
 
-                a1 = Application(appKey=app_id, name=name, category=category, downloadsA=downloadsA, os='iOS',
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="PlayerX", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                 try:
@@ -289,7 +303,7 @@ class Command(BaseCommand):
                 revenueY = jsonY["sales_list"][0]["revenue"]["app"]["downloads"]
 
                 if name!=None:
-                    a1 = Application(appKey=app_id, name=name, category=category, downloadsA=downloadsA, os='iOS',
+                    a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                      account="ZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                      revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                     try:
@@ -340,7 +354,7 @@ class Command(BaseCommand):
                 revenueW = jsonW["sales_list"][0]["revenue"]["app"]["downloads"]
                 revenueY = jsonY["sales_list"][0]["revenue"]["app"]["downloads"]
 
-                a1 = Application(appKey=app_id, name=name, category=category, downloadsA=downloadsA, os='Android',
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
                                  account="ZGPS", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                 try:
@@ -381,7 +395,6 @@ class Command(BaseCommand):
                 jsonM = simplejson.loads(v.content)
 
                 name = json["app"]["app_name"]
-                # category = json["app"]["main_category"]
                 downloadsA = jsonA["sales_list"][0]["units"]["app"]["downloads"]
                 downloadsM = jsonM["sales_list"][0]["units"]["app"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["app"]["downloads"]
@@ -391,7 +404,7 @@ class Command(BaseCommand):
                 revenueW = jsonW["sales_list"][0]["revenue"]["app"]["downloads"]
                 revenueY = jsonY["sales_list"][0]["revenue"]["app"]["downloads"]
 
-                a1 = Application(appKey=app_id, name=name, category='unknown', downloadsA=downloadsA, os='Fire/Android',
+                a1 = Application(appKey=app_id, name=cleanName(name), category='Game', downloadsA=downloadsA, os='Fire/Android',
                                  account="AZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                 try:
@@ -409,10 +422,31 @@ class Command(BaseCommand):
                     a1.save()
 
 
-            print('Database updated')
+            print('Database updated from appannie')
 
         except Exception as ex:
             print(ex)
 
         finally:
-            time.sleep(85800)
+            time.sleep(1)
+
+def cleanName(name):
+    appNames = {
+        '2in1 Bubble Blaster': '2 in 1 Bubble Blaster',
+        'beeline music': 'Beeline Music',
+        'Bubble Boom Challenge 3 Free': 'Bubble Boom Challenge 3 - Free',
+        'Candies City : The Battle. Join the Candy SupeFreers Troop !': 'Candies City : The Battle',
+        'Candies City : The Battle. Join the Candy Supers Troop !': 'Candies City : The Battle',
+        'Hollywood Hospital 3 - Cure your VIP patients and stay away from gossip and scandal !': 'Hollywood Hospital 3',
+        'Hollywood Hospital 3 - Cure your VIP patients and stay away from gossip and scandal!': 'Hollywood Hospital 3',
+        'MOBILE TV ': 'Mobile TV',
+        'Track Nest - Keep your family safe through your mobile and act in case your loved ones need help.': 'Track Nest',
+        '2 in 1 Dragons & Demons': '2 in 1 Dragons And Demons',
+        'beeinfo': 'Beeinfo'
+    }
+
+    if name in appNames:
+        nameCleaned = appNames[name]
+    else:
+        nameCleaned = name
+    return nameCleaned

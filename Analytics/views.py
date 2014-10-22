@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
-from Analytics.models import Application
+from Analytics.models import Application, Date
 import simplejson
 
 
@@ -14,8 +14,11 @@ def index(request):
     aplicacionesZGPS = {}
     aplicacionesRUSAndroid = {}
     aplicacionesRUSiOS = {}
-    aplicacionesFlurry = {}
-    aplicacionesFlurryAll = {}
+    aplicacionesAll = {}
+    aplicacionesRUSAll = {}
+    dates = {}
+    # aplicacionesFlurry = {}
+    # aplicacionesFlurryAll = {}
 
     playerXList = Application.objects.filter(account="PlayerX")
     ZWList = Application.objects.filter(account="ZW")
@@ -23,7 +26,13 @@ def index(request):
     AZWList = Application.objects.filter(account="AZW")
     RUSListAndroid = Application.objects.filter(os="Android", account="RUS")
     RUSListiOS = Application.objects.filter(os="iOS", account="RUS")
+    datesList = Date.objects.filter(id=1)
     # flurryList = Application.objects.filter(account="flurry")
+
+    for i in range(len(datesList)):
+        date = datesList[i]
+        dates["excel"] = date.dateExcel
+        dates["appannie"] = date.dateAppannie
 
     for i in range(len(playerXList)):
         app = playerXList[i]
@@ -121,6 +130,139 @@ def index(request):
         aplicacionesRUSiOS[app.appKey].append(app.revenueW)
         aplicacionesRUSiOS[app.appKey].append(app.revenueT)
 
+    #  rellenar aplicacionesAll con los datos de descargas y revenue combinados
+    for i in range(len(playerXList)):
+        app = playerXList[i]
+        aplicacionesAll[app.appKey] = []
+        aplicacionesAll[app.appKey].append(app.name)
+        aplicacionesAll[app.appKey].append(app.category)
+        aplicacionesAll[app.appKey].append(app.os)
+        aplicacionesAll[app.appKey].append(app.account)
+        aplicacionesAll[app.appKey].append(app.downloadsA)
+        aplicacionesAll[app.appKey].append(app.downloadsM)
+        aplicacionesAll[app.appKey].append(app.downloadsW)
+        aplicacionesAll[app.appKey].append(app.downloadsT)
+        aplicacionesAll[app.appKey].append(app.revenueA)
+        aplicacionesAll[app.appKey].append(app.revenueM)
+        aplicacionesAll[app.appKey].append(app.revenueW)
+        aplicacionesAll[app.appKey].append(app.revenueT)
+
+    for i in range(len(ZWList)):
+        appZW = ZWList[i]
+        aplicacionesAll[appZW.appKey] = []
+        aplicacionesAll[appZW.appKey].append(appZW.name)
+        aplicacionesAll[appZW.appKey].append(appZW.category)
+        aplicacionesAll[appZW.appKey].append(appZW.os)
+        aplicacionesAll[appZW.appKey].append(appZW.account)
+        aplicacionesAll[appZW.appKey].append(appZW.downloadsA)
+        aplicacionesAll[appZW.appKey].append(appZW.downloadsM)
+        aplicacionesAll[appZW.appKey].append(appZW.downloadsW)
+        aplicacionesAll[appZW.appKey].append(appZW.downloadsT)
+        aplicacionesAll[appZW.appKey].append(appZW.revenueA)
+        aplicacionesAll[appZW.appKey].append(appZW.revenueM)
+        aplicacionesAll[appZW.appKey].append(appZW.revenueW)
+        aplicacionesAll[appZW.appKey].append(appZW.revenueT)
+
+    for i in range(len(ZGPSList)):
+        app = ZGPSList[i]
+        aplicacionesAll[app.appKey] = []
+        aplicacionesAll[app.appKey].append(app.name)
+        aplicacionesAll[app.appKey].append(app.category)
+        aplicacionesAll[app.appKey].append(app.os)
+        aplicacionesAll[app.appKey].append(app.account)
+        aplicacionesAll[app.appKey].append(app.downloadsA)
+        aplicacionesAll[app.appKey].append(app.downloadsM)
+        aplicacionesAll[app.appKey].append(app.downloadsW)
+        aplicacionesAll[app.appKey].append(app.downloadsT)
+        aplicacionesAll[app.appKey].append(app.revenueA)
+        aplicacionesAll[app.appKey].append(app.revenueM)
+        aplicacionesAll[app.appKey].append(app.revenueW)
+        aplicacionesAll[app.appKey].append(app.revenueT)
+
+        for j in range(len(AZWList)):
+            appAZW = AZWList[j]
+            if appAZW.name == app.name:
+                aplicacionesAll[app.appKey][2] = app.os + '-' + appAZW.os
+                aplicacionesAll[app.appKey][4] = app.downloadsA + appAZW.downloadsA
+                aplicacionesAll[app.appKey][5] = app.downloadsM + appAZW.downloadsM
+                aplicacionesAll[app.appKey][6] = app.downloadsW + appAZW.downloadsW
+                aplicacionesAll[app.appKey][7] = app.downloadsT + appAZW.downloadsT
+                aplicacionesAll[app.appKey][8] = str(float(app.revenueA) + float(appAZW.revenueA))
+                aplicacionesAll[app.appKey][9] = str(float(app.revenueM) + float(appAZW.revenueM))
+                aplicacionesAll[app.appKey][10] = str(float(app.revenueW) + float(appAZW.revenueW))
+                aplicacionesAll[app.appKey][11] = str(float(app.revenueT) + float(appAZW.revenueT))
+            else:
+                if appAZW.name == 'Commandos' or appAZW.name == 'Animal Planet: Trivia Challenge_DE':
+                    aplicacionesAll[appAZW.appKey] = []
+                    aplicacionesAll[appAZW.appKey].append(appAZW.name)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.category)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.os)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.account)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsA)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsM)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsW)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsT)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueA)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueM)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueW)
+                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueT)
+        for j in range(len(ZWList)):
+            appZW = ZWList[j]
+            if appZW.name == app.name:
+                aplicacionesAll[app.appKey][2] = app.os + '-' + appZW.os
+                aplicacionesAll[app.appKey][4] = app.downloadsA + appZW.downloadsA
+                aplicacionesAll[app.appKey][5] = app.downloadsM + appZW.downloadsM
+                aplicacionesAll[app.appKey][6] = app.downloadsW + appZW.downloadsW
+                aplicacionesAll[app.appKey][7] = app.downloadsT + appZW.downloadsT
+                aplicacionesAll[app.appKey][8] = str(float(app.revenueA) + float(appZW.revenueA))
+                aplicacionesAll[app.appKey][9] = str(float(app.revenueM) + float(appZW.revenueM))
+                aplicacionesAll[app.appKey][10] = str(float(app.revenueW) + float(appZW.revenueW))
+                aplicacionesAll[app.appKey][11] = str(float(app.revenueT) + float(appZW.revenueT))
+                del aplicacionesAll[appZW.appKey]
+
+            for k in range(len(AZWList)):
+                appAZW = AZWList[k]
+                if app.name == appZW.name == appAZW.name:
+                    aplicacionesAll[app.appKey][2] = app.os + '-' + appZW.os + '-' + appAZW.os
+                    aplicacionesAll[app.appKey][4] = app.downloadsA + appZW.downloadsA + appAZW.downloadsA
+                    aplicacionesAll[app.appKey][5] = app.downloadsM + appZW.downloadsM + appAZW.downloadsM
+                    aplicacionesAll[app.appKey][6] = app.downloadsW + appZW.downloadsW + appAZW.downloadsW
+                    aplicacionesAll[app.appKey][7] = app.downloadsT + appZW.downloadsT + appAZW.downloadsT
+                    aplicacionesAll[app.appKey][8] = str(float(app.revenueA) + float(appZW.revenueA) + float(appAZW.revenueA))
+                    aplicacionesAll[app.appKey][9] = str(float(app.revenueM) + float(appZW.revenueM) + float(appAZW.revenueM))
+                    aplicacionesAll[app.appKey][10] = str(float(app.revenueW) + float(appZW.revenueW) + float(appAZW.revenueW))
+                    aplicacionesAll[app.appKey][11] = str(float(app.revenueT) + float(appZW.revenueT) + float(appAZW.revenueT))
+
+    for i in range(len(RUSListAndroid)):
+        appAnd = RUSListAndroid[i]
+        aplicacionesRUSAll[appAnd.appKey] = []
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.name)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.category)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.os)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.account)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.downloadsA)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.downloadsM)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.downloadsW)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.downloadsT)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.revenueA)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.revenueM)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.revenueW)
+        aplicacionesRUSAll[appAnd.appKey].append(appAnd.revenueT)
+
+        for j in range(len(RUSListiOS)):
+            appIOS = RUSListiOS[j]
+            if appAnd.name == appIOS.name:
+                aplicacionesRUSAll[appAnd.appKey][2] = appAnd.os + '-' + appIOS.os
+                aplicacionesRUSAll[appAnd.appKey][4] = appAnd.downloadsA + appIOS.downloadsA
+                aplicacionesRUSAll[appAnd.appKey][5] = appAnd.downloadsM + appIOS.downloadsM
+                aplicacionesRUSAll[appAnd.appKey][6] = appAnd.downloadsW + appIOS.downloadsW
+                aplicacionesRUSAll[appAnd.appKey][7] = appAnd.downloadsT + appIOS.downloadsT
+                aplicacionesRUSAll[appAnd.appKey][8] = str(float(appAnd.revenueA) + float(appIOS.revenueA))
+                aplicacionesRUSAll[appAnd.appKey][9] = str(float(appAnd.revenueM) + float(appIOS.revenueM))
+                aplicacionesRUSAll[appAnd.appKey][10] = str(float(appAnd.revenueW) + float(appIOS.revenueW))
+                aplicacionesRUSAll[appAnd.appKey][11] = str(float(appAnd.revenueT) + float(appIOS.revenueT))
+
+
     # for i in range(len(flurryList)):
     #     app = flurryList[i]
     #     aplicacionesFlurry[app.appKey] = []
@@ -150,6 +292,10 @@ def index(request):
         "aplicacionesAZW": simplejson.dumps(aplicacionesAZW),
         "aplicacionesRUSAndroid": simplejson.dumps(aplicacionesRUSAndroid),
         "aplicacionesRUSiOS": simplejson.dumps(aplicacionesRUSiOS),
+        "aplicacionesAll": simplejson.dumps(aplicacionesAll),
+        "aplicacionesRUSAll": simplejson.dumps(aplicacionesRUSAll),
+        "dateExcel": dates["excel"],
+        "dateAppannie": dates["appannie"]
         # "aplicacionesFlurry": simplejson.dumps(aplicacionesFlurry),
         # "aplicacionesFlurryAll": simplejson.dumps(aplicacionesFlurryAll)
     }

@@ -15,6 +15,10 @@ class Application(models.Model):
     revenueW = models.CharField(max_length=8, blank=False)
     revenueT = models.CharField(max_length=8, blank=False)
 
-
     def __str__(self):
         return self.name
+
+
+class Date(models.Model):
+    dateAppannie = models.CharField(max_length=20, blank=False)
+    dateExcel = models.CharField(max_length=20, blank=False)
