@@ -14,14 +14,14 @@
     <file path="$PROJECT_DIR$/../LabeleeV3/log/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119758778" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/analytics/Services/Users.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119868313" ignored="false" />
     <file path="/Python Console" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414150894904" ignored="false" />
-    <file path="/fragment.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414076658405" ignored="false" />
+    <file path="/fragment.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414163520549" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/templates/map/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411380180119" ignored="false" />
     <file path="/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413907623045" ignored="false" />
     <file path="/settings.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413995530940" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411996513914" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412008678058" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/map_editor/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412074035247" ignored="false" />
-    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414067396285" ignored="false" />
+    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414163494268" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/core/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/scrapper/utils.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412673859776" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/twitter_bots/settings.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
@@ -67,11 +67,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ZED_Annalytics/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="435" selection-end="435" vertical-scroll-proportion="0.3984375">
+            <state line="14" column="0" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="24" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fillDatabase.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="405" column="0" selection-start="22231" selection-end="22231" vertical-scroll-proportion="2.93894">
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,10 +123,10 @@
         <option value="$PROJECT_DIR$/Analytics/save_file.py" />
         <option value="$PROJECT_DIR$/Analytics/static/save_file.py" />
         <option value="$PROJECT_DIR$/ZED_Annalytics/settings.py" />
-        <option value="$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py" />
         <option value="$PROJECT_DIR$/ZED_Annalytics/urls.py" />
         <option value="$PROJECT_DIR$/Analytics/views.py" />
         <option value="$PROJECT_DIR$/Analytics/templates/analytics/index.html" />
+        <option value="$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py" />
       </list>
     </option>
   </component>
@@ -203,7 +223,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -473,17 +493,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15117522" sideWeight="0.6026786" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15117522" sideWeight="0.54129463" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45870537" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3203125" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39732143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39732143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -561,7 +581,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py</url>
-          <line>326</line>
+          <line>330</line>
           <option name="timeStamp" value="185" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -575,24 +595,10 @@
           <option name="timeStamp" value="206" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="207" />
+      <option name="time" value="219" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/core/handlers/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="0" selection-start="7646" selection-end="7646" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/contrib/staticfiles/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/wsgiref/handlers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="0" selection-start="2959" selection-end="2959" vertical-scroll-proportion="0.0">
@@ -666,15 +672,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="311" column="0" selection-start="16772" selection-end="16772" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#15#70#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="28" selection-start="1829" selection-end="1829" vertical-scroll-proportion="-11.115385">
@@ -686,8 +683,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ZED_Annalytics/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="435" selection-end="435" vertical-scroll-proportion="0.3984375">
+        <state line="14" column="0" selection-start="435" selection-end="435" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="24" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="311" column="0" selection-start="16772" selection-end="16772" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#15#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="405" column="0" selection-start="22231" selection-end="22231" vertical-scroll-proportion="2.93894">
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

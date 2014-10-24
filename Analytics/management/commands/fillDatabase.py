@@ -135,6 +135,7 @@ class Command(BaseCommand):
                 a2= Date.objects.get(id=1)
                 a2.dateAppannie = a1.dateAppannie
                 a2.dateExcel = a1.dateExcel
+                a2.save()
             except Exception as ex:
                 a1.save()
 
@@ -195,8 +196,11 @@ class Command(BaseCommand):
             json = simplejson.loads(ZWAppList.content)
             ZWAppList = json["products"]
             for i in range(len(ZWAppList)):
-                if ZWAppList[i]['status'] and (len(ZWAppList[i]['devices'])>0):
-                    app_ids_ZW.append((ZWAppList[i]["product_id"]))
+                try:
+                    if ZWAppList[i]['status'] and (len(ZWAppList[i]['devices'])>0):
+                        app_ids_ZW.append((ZWAppList[i]["product_id"]))
+                except:
+                    pass
 
             ZGPSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_ZGPS +'/products',
                                  headers={"Authorization": APIKEY_APPANNIE})
@@ -220,24 +224,24 @@ class Command(BaseCommand):
             for app_id in app_ids_PlayerX:
 
                 time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + app_id + '/details',
+                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
                                  headers={"Authorization": APIKEY_APPANNIE})
                 json = simplejson.loads(r.content)
 
                 s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 app_id + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
                 jsonA = simplejson.loads(s.content)
 
                 t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 app_id + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
                 jsonY = simplejson.loads(t.content)
 
                 u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 app_id + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
                 jsonW = simplejson.loads(u.content)
 
                 v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 app_id + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
                 jsonM = simplejson.loads(v.content)
 
                 name = json["product"]["product_name"]
@@ -273,24 +277,24 @@ class Command(BaseCommand):
             for app_id in app_ids_ZW:
 
                 time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + app_id + '/details',
+                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
                                  headers={"Authorization": APIKEY_APPANNIE})
                 json = simplejson.loads(r.content)
 
                 s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 app_id + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
                 jsonA = simplejson.loads(s.content)
 
                 t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 app_id + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
                 jsonY = simplejson.loads(t.content)
 
                 u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 app_id + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
                 jsonW = simplejson.loads(u.content)
 
                 v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 app_id + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
                 jsonM = simplejson.loads(v.content)
 
                 name = json["product"]["product_name"]
@@ -327,24 +331,24 @@ class Command(BaseCommand):
             for app_id in app_ids_ZGPS:
 
                 time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + app_id + '/details',
+                r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + str(app_id) + '/details',
                                  headers={"Authorization": APIKEY_APPANNIE})
                 json = simplejson.loads(r.content)
 
                 s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 app_id + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
                 jsonA = simplejson.loads(s.content)
 
                 t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 app_id + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
                 jsonY = simplejson.loads(t.content)
 
                 u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 app_id + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
                 jsonW = simplejson.loads(u.content)
 
                 v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 app_id + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
                 jsonM = simplejson.loads(v.content)
 
                 name = json["product"]["product_name"]
@@ -380,24 +384,24 @@ class Command(BaseCommand):
             for app_id in app_ids_AZW:
 
                 time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/amazon-appstore/app/' + app_id + '/details',
+                r = requests.get('https://api.appannie.com/v1.2/apps/amazon-appstore/app/' + str(app_id) + '/details',
                                  headers={"Authorization": APIKEY_APPANNIE})
                 json = simplejson.loads(r.content)
 
                 s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 app_id + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
                 jsonA = simplejson.loads(s.content)
 
                 t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 app_id + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
                 jsonY = simplejson.loads(t.content)
 
                 u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 app_id + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
                 jsonW = simplejson.loads(u.content)
 
                 v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 app_id + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
                 jsonM = simplejson.loads(v.content)
 
                 name = json["product"]["product_name"]
