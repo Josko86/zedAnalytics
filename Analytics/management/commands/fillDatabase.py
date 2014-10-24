@@ -32,8 +32,15 @@ class Command(BaseCommand):
                 num_cells = sheet.ncols - 1
                 curr_row = 1
 
+                num_cellsAux = num_cells
+                badDays = 0
+                while sheet.cell_value(7, num_cellsAux) == '':
+                    num_cellsAux = num_cellsAux -1
+                    badDays += 1
+
+
                 lastDateExcel = (datetime.datetime.strptime('1899-12-30', '%Y-%m-%d') +
-                                     datetime.timedelta(days=sheet.cell_value(1, num_cells))).strftime("%Y-%m-%d")
+                                     datetime.timedelta(days=sheet.cell_value(1, num_cells) - badDays)).strftime("%Y-%m-%d")
 
                 while sheet.cell_value(curr_row,0) != 'Daily installs by device':
                     curr_row += 1

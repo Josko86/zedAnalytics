@@ -29,11 +29,11 @@
             <p>Excel: {{ dateExcel }} </p>
             <p>Appannie: {{ dateAppannie }} </p>
             <p><button class="tn bg-success" style="margin: 6px" id="pdf" onclick="descargarPDF()"> Download PDF </button></p>
-{#            <form enctype="multipart/form-data" action="{% url 'upload' %}"  method="post">#}
-{#                {% csrf_token %}#}
-{#                <p>File: <input type="file" name="file"></p>#}
-{#                <input class="tn bg-success" type="submit" value="Upload excel">#}
-{#            </form>#}
+            <form enctype="multipart/form-data" action="{% url 'upload' %}"  method="post">
+                {% csrf_token %}
+                <p>File: <input type="file" name="file"></p>
+                <input class="tn bg-success" type="submit" value="Upload excel">
+            </form>
         </div>
         <div id="account" class="col-xs-2" style="margin: 20px">
             <label>Account</label>

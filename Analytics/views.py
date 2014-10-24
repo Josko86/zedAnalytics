@@ -328,7 +328,7 @@ def save_file(request):
     if os.path.isfile(file_path):
         exists = True
 
-    # url = reverse('index', kwargs={'exists': exists})
+    url = reverse('index')
 
-    return HttpResponseRedirect('index')
+    return HttpResponseRedirect(url)
 
