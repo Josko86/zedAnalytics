@@ -3,10 +3,9 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from Analytics.models import Application, Date
 import simplejson
-
+from django.http import HttpResponseRedirect
 
 def index(request):
-
 
     aplicacionesPlayerX = {}
     aplicacionesZW = {}
@@ -301,3 +300,35 @@ def index(request):
     }
 
     return render_to_response('analytics/index.html', ctx, context_instance=RequestContext(request))
+
+def save_file(request):
+    import os
+    from django.core.urlresolvers import reverse
+
+    exists = False
+    file_path = os.path.join('rusia.xlsx')
+    if os.path.isfile(file_path):
+        os.remove(os.path.join('rusia.xlsx'))
+
+    input_file = request.FILES['file'].file
+
+    temp_file_path = file_path + '~'
+    output_file = open(temp_file_path, 'wb')
+
+    input_file.seek(0)
+    while True:
+        data = input_file.read(2<<16)
+        if not data:
+            break
+        output_file.write(data)
+
+    output_file.close()
+    os.rename(temp_file_path, file_path)
+
+    if os.path.isfile(file_path):
+        exists = True
+
+    # url = reverse('index', kwargs={'exists': exists})
+
+    return HttpResponseRedirect('index')
+

@@ -29,7 +29,8 @@
             <p>Excel: {{ dateExcel }} </p>
             <p>Appannie: {{ dateAppannie }} </p>
             <p><button class="tn bg-success" style="margin: 6px" id="pdf" onclick="descargarPDF()"> Download PDF </button></p>
-{#            <form enctype="multipart/form-data" action="{{ BASE_DIR }}" method="post">#}
+{#            <form enctype="multipart/form-data" action="{% url 'upload' %}"  method="post">#}
+{#                {% csrf_token %}#}
 {#                <p>File: <input type="file" name="file"></p>#}
 {#                <input class="tn bg-success" type="submit" value="Upload excel">#}
 {#            </form>#}
