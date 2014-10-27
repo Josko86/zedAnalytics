@@ -10,8 +10,12 @@
         var appsAZW = {{ aplicacionesAZW|safe }};
         var appsRUSAndroid = {{ aplicacionesRUSAndroid|safe }};
         var appsRUSiOS = {{ aplicacionesRUSiOS|safe }};
-        var appsAll = {{ aplicacionesAll|safe }};
+        var appsZEDAll = {{ aplicacionesZEDAll|safe }};
         var appsRUSAll = {{ aplicacionesRUSAll|safe }};
+        var appsBitmonIOS = {{ aplicacionesBitmonIOS|safe }};
+        var appsBitmonAndroid = {{ aplicacionesBitmonAndroid|safe }};
+        var appsBitmonAll = {{ aplicacionesBitmonAll|safe }};
+        var appsPyroMIOS = {{ aplicacionesPyroMIOS|safe }};
     </script>
 
     <script src="{{ STATIC_URL }}analytics/jquery-2.1.1.min.js"></script>
@@ -51,26 +55,26 @@
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio" name="opciones2" id="ZW" value="ZW">
-                    ZW
+                    <input type="radio" name="opciones2" id="bitmon" value="ZW">
+                    Bitmonlab
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio" name="opciones2" id="ZGPS" value="ZGPS">
-                    ZGPS
+                    <input type="radio" name="opciones2" id="pyro" value="ZGPS">
+                    Pyro M.
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <input type="radio" name="opciones2" id="AZW" value="AZW">
-                    AZW
+                    <input type="radio" name="opciones2" id="zed" value="AZW">
+                    ZED
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="opciones2" id="RUS" value="RUS">
-                    RUS
+                    Russia
                 </label>
             </div>
         </div>

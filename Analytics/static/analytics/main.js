@@ -14,8 +14,12 @@ $(document).ready(function(){
     AZWKeys = Object.keys(appsAZW);
     RUSAndroidKeys = Object.keys(appsRUSAndroid);
     RUSiOSKeys = Object.keys(appsRUSiOS);
-    AllKeys = Object.keys(appsAll);
+    ZEDAllKeys = Object.keys(appsZEDAll);
     RUSAllKeys = Object.keys(appsRUSAll);
+    BitmoniOSKeys = Object.keys(appsBitmonIOS);
+    BitmonAndroidKeys = Object.keys(appsBitmonAndroid);
+    BitmonAllKeys = Object.keys(appsBitmonAll);
+    PyroMIOSKeys = Object.keys(appsPyroMIOS);
 //    flurryKeys = Object.keys(appsFlurry);
 //    flurryAllKeys = Object.keys(appsFlurryAll);
 //    for (var k in androidKeys){
@@ -32,8 +36,11 @@ $(document).ready(function(){
     createTable();
     totalDownloads = 0;
     totalRevenue = 0;
-    showAllCat(AllKeys,appsAll, 4);
+    showAllCat(ZEDAllKeys,appsZEDAll, 4);
     showAllCat(RUSAllKeys,appsRUSAll, 4);
+    showAllCat(playerXKeys,appsPlayerX, 4);
+    showAllCat(BitmonAllKeys,appsBitmonAll, 4);
+    showAllCat(PyroMIOSKeys,appsPyroMIOS, 4);
 
     addTotal();
     miTabla.appendChild(tbBody);
@@ -53,9 +60,9 @@ function verEstadisticas(){
     totalRevenue = 0;
     allAccount= $("#allAccount").is(':checked');
     playerX= $("#playerX").is(':checked');
-    zw= $("#ZW").is(':checked');
-    zgps= $("#ZGPS").is(':checked');
-    azw= $("#AZW").is(':checked');
+    bitmon= $("#bitmon").is(':checked');
+    pyro= $("#pyro").is(':checked');
+    zed= $("#zed").is(':checked');
     rus= $("#RUS").is(':checked');
 
     time = 4;
@@ -71,35 +78,44 @@ function verEstadisticas(){
     if( $("#combined").is(':checked')) {
         if( $("#allCategories").is(':checked')){
             if (allAccount){
-                showAllCat(AllKeys,appsAll, time);
+                showAllCat(playerXKeys,appsPlayerX, time);
+                showAllCat(ZEDAllKeys,appsZEDAll, time);
                 showAllCat(RUSAllKeys,appsRUSAll, time);
+                showAllCat(BitmonAllKeys,appsBitmonAll, time);
+                showAllCat(PyroMIOSKeys,appsPyroMIOS, time);
             }
             if (playerX) showAllCat(playerXKeys, appsPlayerX, time);
-            if (zw) showAllCat(ZWKeys, appsZW, time);
-            if (zgps) showAllCat(ZGPSKeys, appsZGPS, time);
-            if (azw) showAllCat(AZWKeys, appsAZW, time);
+            if (bitmon) showAllCat(BitmonAllKeys,appsBitmonAll, time);
+            if (pyro) showAllCat(PyroMIOSKeys,appsPyroMIOS, time);
+            if (zed) showAllCat(ZEDAllKeys,appsZEDAll, time);
             if (rus) showAllCat(RUSAllKeys,appsRUSAll, time);
         }
         else if($("#games").is(':checked')){
             if (allAccount){
-                showGames(AllKeys,appsAll, time);
+                showGames(playerXKeys,appsPlayerX, time);
+                showGames(ZEDAllKeys,appsZEDAll, time);
                 showGames(RUSAllKeys,appsRUSAll, time);
+                showGames(BitmonAllKeys,appsBitmonAll, time);
+                showGames(PyroMIOSKeys,appsPyroMIOS, time);
             }
             if (playerX) showGames(playerXKeys, appsPlayerX, time);
-            if (zw) showGames(ZWKeys, appsZW, time);
-            if (zgps) showGames(ZGPSKeys, appsZGPS, time);
-            if (azw) showGames(AZWKeys, appsAZW, time);
+            if (bitmon) showGames(BitmonAllKeys,appsBitmonAll, time);
+            if (pyro) showGames(PyroMIOSKeys,appsPyroMIOS, time);
+            if (zed) showGames(ZEDAllKeys,appsZEDAll, time);
             if (rus) showGames(RUSAllKeys,appsRUSAll, time);
         }
         else{
             if (allAccount){
-                showOthers(AllKeys,appsAll, time);
+                showOthers(playerXKeys,appsPlayerX, time);
+                showOthers(ZEDAllKeys,appsZEDAll, time);
                 showOthers(RUSAllKeys,appsRUSAll, time);
+                showOthers(BitmonAllKeys,appsBitmonAll, time);
+                showOthers(PyroMIOSKeys,appsPyroMIOS, time);
             }
             if (playerX) showOthers(playerXKeys, appsPlayerX, time);
-            if (zw) showOthers(ZWKeys, appsZW, time);
-            if (zgps) showOthers(ZGPSKeys, appsZGPS, time);
-            if (azw) showOthers(AZWKeys, appsAZW, time);
+            if (bitmon) showOthers(BitmonAllKeys,appsBitmonAll, time);
+            if (pyro) showOthers(PyroMIOSKeys,appsPyroMIOS, time);
+            if (zed) showOthers(ZEDAllKeys,appsZEDAll, time);
             if (rus) showOthers(RUSAllKeys,appsRUSAll, time);
         }
     }
@@ -107,9 +123,16 @@ function verEstadisticas(){
     if( $("#allOS").is(':checked')) {
         if( $("#allCategories").is(':checked')){
             if(allAccount || playerX) showAllCat(playerXKeys, appsPlayerX, time);
-            if(allAccount || zw) showAllCat(ZWKeys, appsZW, time);
-            if(allAccount || zgps) showAllCat(ZGPSKeys, appsZGPS, time);
-            if(allAccount || azw) showAllCat(AZWKeys, appsAZW, time);
+            if(allAccount || bitmon){
+                showAllCat(BitmoniOSKeys, appsBitmonIOS, time);
+                showAllCat(BitmonAndroidKeys, appsBitmonAndroid, time);
+            }
+            if(allAccount || pyro) showAllCat(PyroMIOSKeys, appsPyroMIOS, time);
+            if(allAccount || zed){
+                showAllCat(ZWKeys, appsZW, time);
+                showAllCat(AZWKeys, appsAZW, time);
+                showAllCat(ZGPSKeys, appsZGPS, time);
+            }
             if(allAccount || rus) {
                 showAllCat(RUSAndroidKeys, appsRUSAndroid, time);
                 showAllCat(RUSiOSKeys, appsRUSiOS, time);
@@ -117,9 +140,16 @@ function verEstadisticas(){
         }
         else if($("#games").is(':checked')){
             if(allAccount || playerX) showGames(playerXKeys, appsPlayerX, time);
-            if(allAccount || zw) showGames(ZWKeys, appsZW, time);
-            if(allAccount || zgps) showGames(ZGPSKeys, appsZGPS, time);
-            if(allAccount || azw) showGames(AZWKeys, appsAZW, time);
+            if(allAccount || bitmon){
+                showGames(BitmoniOSKeys, appsBitmonIOS, time);
+                showGames(BitmonAndroidKeys, appsBitmonAndroid, time);
+            }
+            if(allAccount || pyro) showGames(PyroMIOSKeys, appsPyroMIOS, time);
+            if(allAccount || zed){
+                showGames(ZWKeys, appsZW, time);
+                showGames(AZWKeys, appsAZW, time);
+                showGames(ZGPSKeys, appsZGPS, time);
+            }
             if(allAccount || rus) {
                 showGames(RUSAndroidKeys, appsRUSAndroid, time);
                 showGames(RUSiOSKeys, appsRUSiOS, time);
@@ -127,10 +157,17 @@ function verEstadisticas(){
         }
         else{
             if(allAccount || playerX) showOthers(playerXKeys, appsPlayerX, time);
-            if(allAccount || zw) showOthers(ZWKeys, appsZW, time);
-            if(allAccount || zgps) showOthers(ZGPSKeys, appsZGPS, time);
-            if(allAccount || azw) showOthers(AZWKeys, appsAZW, time);
-            if(allAccount || rus){
+            if(allAccount || bitmon){
+                showOthers(BitmoniOSKeys, appsBitmonIOS, time);
+                showOthers(BitmonAndroidKeys, appsBitmonAndroid, time);
+            }
+            if(allAccount || pyro) showOthers(PyroMIOSKeys, appsPyroMIOS, time);
+            if(allAccount || zed){
+                showOthers(ZWKeys, appsZW, time);
+                showOthers(AZWKeys, appsAZW, time);
+                showOthers(ZGPSKeys, appsZGPS, time);
+            }
+            if(allAccount || rus) {
                 showOthers(RUSAndroidKeys, appsRUSAndroid, time);
                 showOthers(RUSiOSKeys, appsRUSiOS, time);
             }
@@ -139,46 +176,55 @@ function verEstadisticas(){
 
     if( $("#android").is(':checked')) {
         if( $("#allCategories").is(':checked')){
-            if(allAccount || zgps) showAllCat(ZGPSKeys, appsZGPS, time);
+            if(allAccount || zed) showAllCat(ZGPSKeys, appsZGPS, time);
             if(allAccount || rus) showAllCat(RUSAndroidKeys, appsRUSAndroid, time);
+            if(allAccount || bitmon) showAllCat(BitmonAndroidKeys, appsBitmonAndroid, time);
         }
         else if($("#games").is(':checked')){
-            if(allAccount || zgps) showGames(ZGPSKeys, appsZGPS, time);
+            if(allAccount || zed) showGames(ZGPSKeys, appsZGPS, time);
             if(allAccount || rus) showGames(RUSAndroidKeys, appsRUSAndroid, time);
+            if(allAccount || bitmon) showGames(BitmonAndroidKeys, appsBitmonAndroid, time);
         }
         else{
-            if(allAccount || zgps) showOthers(ZGPSKeys, appsZGPS, time);
+            if(allAccount || zed) showOthers(ZGPSKeys, appsZGPS, time);
             if(allAccount || rus) showOthers(RUSAndroidKeys, appsRUSAndroid, time);
+            if(allAccount || bitmon) showOthers(BitmonAndroidKeys, appsBitmonAndroid, time);
         }
     }
 
     if( $("#ios").is(':checked')) {
         if( $("#allCategories").is(':checked')){
             if(allAccount || playerX) showAllCat(playerXKeys, appsPlayerX, time);
-            if(allAccount || zw) showAllCat(ZWKeys, appsZW, time);
+            if(allAccount || bitmon) showAllCat(BitmoniOSKeys, appsBitmonIOS, time);
             if(allAccount || rus) showAllCat(RUSiOSKeys, appsRUSiOS, time);
+            if(allAccount || pyro) showAllCat(PyroMIOSKeys, appsPyroMIOS, time);
+            if(allAccount || zed) showAllCat(ZWKeys, appsZW, time);
         }
         else if($("#games").is(':checked')){
             if(allAccount || playerX) showGames(playerXKeys, appsPlayerX, time);
-            if(allAccount || zw) showGames(ZWKeys, appsZW, time);
+            if(allAccount || bitmon) showGames(BitmoniOSKeys, appsBitmonIOS, time);
             if(allAccount || rus) showGames(RUSiOSKeys, appsRUSiOS, time);
+            if(allAccount || pyro) showGames(PyroMIOSKeys, appsPyroMIOS, time);
+            if(allAccount || zed) showGames(ZWKeys, appsZW, time);
         }
         else{
             if(allAccount || playerX) showOthers(playerXKeys, appsPlayerX, time);
-            if(allAccount || zw) showOthers(ZWKeys, appsZW, time);
+            if(allAccount || bitmon) showOthers(BitmoniOSKeys, appsBitmonIOS, time);
             if(allAccount || rus) showOthers(RUSiOSKeys, appsRUSiOS, time);
+            if(allAccount || pyro) showOthers(PyroMIOSKeys, appsPyroMIOS, time);
+            if(allAccount || zed) showOthers(ZWKeys, appsZW, time);
         }
     }
 
     if( $("#amazon").is(':checked')) {
         if( $("#allCategories").is(':checked')){
-            if(allAccount || azw) showAllCat(AZWKeys, appsAZW, time);
+            if(allAccount || zed) showAllCat(AZWKeys, appsAZW, time);
         }
         else if($("#games").is(':checked')){
-            if(allAccount || azw) showGames(AZWKeys, appsAZW, time);
+            if(allAccount || zed) showGames(AZWKeys, appsAZW, time);
         }
         else{
-            if(allAccount || azw) showOthers(AZWKeys, appsAZW, time);
+            if(allAccount || zed) showOthers(AZWKeys, appsAZW, time);
         }
     }
 //    }else if($("#flurry").is(':checked')){

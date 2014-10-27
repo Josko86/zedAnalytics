@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 import datetime
 from Analytics.models import Application, Date
@@ -13,14 +14,21 @@ class Command(BaseCommand):
 
         try:
 
+            print("updating database")
+            ACCOUNT_ID_BITMONLAB_IOS = "179195"
+            ACCOUNT_ID_PYROM_IOS = "179354"
             ACCOUNT_ID_PLAYERX = "173012"
             ACCOUNT_ID_ZW = "39230"
+            ACCOUNT_ID_BITMONLAB_ANDROID = "179197"
             ACCOUNT_ID_ZGPS = "46490"
             ACCOUNT_ID_AZW = "173002"
             APIKEY_APPANNIE = "bearer 5dba15b181bd108344478ee985a7e0b737562377"
 
+            app_ids_BitmonlabIOS = []
+            app_ids_PyroMIOS = []
             app_ids_PlayerX = []
             app_ids_ZW = []
+            app_ids_BitmonlabAndroid = []
             app_ids_ZGPS = []
             app_ids_AZW = []
             lastDateExcel = "unknown"
@@ -57,8 +65,8 @@ class Command(BaseCommand):
                     curr_cell = 0
                     while curr_cell < num_cells:
                         curr_cell += 1
-                        cell_type = sheet.cell_type(curr_row, curr_cell)
-                        cell_value = sheet.cell_value(curr_row, curr_cell)
+                        cell_type = sheet.cell_type(curr_row, curr_cell - badDays)
+                        cell_value = sheet.cell_value(curr_row, curr_cell - badDays)
                         if cell_type == 2:
                             if curr_cell > num_cells - 30:
                                 totalM += cell_value
@@ -100,8 +108,8 @@ class Command(BaseCommand):
                     curr_cell = 0
                     while curr_cell < num_cells:
                         curr_cell += 1
-                        cell_type = sheet.cell_type(curr_row, curr_cell)
-                        cell_value = sheet.cell_value(curr_row, curr_cell)
+                        cell_type = sheet.cell_type(curr_row, curr_cell - badDays)
+                        cell_value = sheet.cell_value(curr_row, curr_cell - badDays)
                         if cell_type == 2:
                             if curr_cell > num_cells - 30:
                                 totalM += cell_value
@@ -190,6 +198,22 @@ class Command(BaseCommand):
 
 
             #rellenar array de ids de aplicaciones de cada tienda
+            BitmonlabIOSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_BITMONLAB_IOS +'/products',
+                                 headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(BitmonlabIOSAppList.content)
+            BitmonlabIOSAppList = json["products"]
+            for i in range(len(BitmonlabIOSAppList)):
+                if BitmonlabIOSAppList[i]['status']:
+                    app_ids_BitmonlabIOS.append((BitmonlabIOSAppList[i]["product_id"]))
+
+            PyroMIOSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_PYROM_IOS +'/products',
+                                 headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(PyroMIOSAppList.content)
+            PyroMIOSAppList = json["products"]
+            for i in range(len(PyroMIOSAppList)):
+                if PyroMIOSAppList[i]['status']:
+                    app_ids_PyroMIOS.append((PyroMIOSAppList[i]["product_id"]))
+
             PlayerXAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_PLAYERX +'/products',
                                  headers={"Authorization": APIKEY_APPANNIE})
             json = simplejson.loads(PlayerXAppList.content)
@@ -209,6 +233,14 @@ class Command(BaseCommand):
                 except:
                     pass
 
+            BitmonlabAndroidAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_BITMONLAB_ANDROID +'/products',
+                                 headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(BitmonlabAndroidAppList.content)
+            BitmonlabAndroidAppList = json["products"]
+            for i in range(len(BitmonlabAndroidAppList)):
+                if BitmonlabAndroidAppList[i]['status']:
+                    app_ids_BitmonlabAndroid.append((BitmonlabAndroidAppList[i]["product_id"]))
+
             ZGPSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_ZGPS +'/products',
                                  headers={"Authorization": APIKEY_APPANNIE})
             json = simplejson.loads(ZGPSAppList.content)
@@ -225,9 +257,119 @@ class Command(BaseCommand):
                 if AZWAppList[i]['status']:
                     app_ids_AZW.append((AZWAppList[i]["product_id"]))
 
-            time.sleep(8)
+            time.sleep(14)
 
             #Crea un diccionario por cada tienda con id de aplicacion y nombre, categoria y numero de descargas, y revenues
+            for app_id in app_ids_BitmonlabIOS:
+
+                time.sleep(10)
+                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
+                                 headers={"Authorization": APIKEY_APPANNIE})
+                json = simplejson.loads(r.content)
+
+                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                jsonA = simplejson.loads(s.content)
+
+                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                jsonY = simplejson.loads(t.content)
+
+                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                jsonW = simplejson.loads(u.content)
+
+                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                jsonM = simplejson.loads(v.content)
+
+                name = json["product"]["product_name"]
+                category = json["product"]["main_category"]
+                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                                 account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+                try:
+                    a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
+
+            print('Bitmonlab iTunes updated')
+
+
+            for app_id in app_ids_PyroMIOS:
+
+                time.sleep(10)
+                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
+                                 headers={"Authorization": APIKEY_APPANNIE})
+                json = simplejson.loads(r.content)
+
+                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                jsonA = simplejson.loads(s.content)
+
+                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                jsonY = simplejson.loads(t.content)
+
+                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                jsonW = simplejson.loads(u.content)
+
+                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                jsonM = simplejson.loads(v.content)
+
+                name = json["product"]["product_name"]
+                category = json["product"]["main_category"]
+                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                                 account="PyroM", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+                try:
+                    a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
+
+            print('PyroM iTunes updated')
+
+
             for app_id in app_ids_PlayerX:
 
                 time.sleep(10)
@@ -267,6 +409,7 @@ class Command(BaseCommand):
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                 try:
                     a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
                     a2.downloadsA = a1.downloadsA
                     a2.downloadsT = a1.downloadsT
                     a2.downloadsW = a1.downloadsW
@@ -280,6 +423,7 @@ class Command(BaseCommand):
                     a1.save()
 
             print('PlayerX updated')
+
 
             for app_id in app_ids_ZW:
 
@@ -321,6 +465,7 @@ class Command(BaseCommand):
                                      revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                     try:
                         a2= Application.objects.get(appKey=app_id)
+                        a2.name = a1.name
                         a2.downloadsA = a1.downloadsA
                         a2.downloadsT = a1.downloadsT
                         a2.downloadsW = a1.downloadsW
@@ -334,6 +479,62 @@ class Command(BaseCommand):
                         a1.save()
 
             print('ZW updated')
+
+
+            for app_id in app_ids_BitmonlabAndroid:
+
+                time.sleep(10)
+                r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + str(app_id) + '/details',
+                                 headers={"Authorization": APIKEY_APPANNIE})
+                json = simplejson.loads(r.content)
+
+                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                jsonA = simplejson.loads(s.content)
+
+                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                jsonY = simplejson.loads(t.content)
+
+                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                jsonW = simplejson.loads(u.content)
+
+                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                jsonM = simplejson.loads(v.content)
+
+                name = json["product"]["product_name"]
+                category = json["product"]["main_category"]
+                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
+                                 account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+                try:
+                    a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
+
+            print('Bitmonlab Android updated')
+
 
             for app_id in app_ids_ZGPS:
 
@@ -374,6 +575,7 @@ class Command(BaseCommand):
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                 try:
                     a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
                     a2.downloadsA = a1.downloadsA
                     a2.downloadsT = a1.downloadsT
                     a2.downloadsW = a1.downloadsW
@@ -426,6 +628,7 @@ class Command(BaseCommand):
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
                 try:
                     a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
                     a2.downloadsA = a1.downloadsA
                     a2.downloadsT = a1.downloadsT
                     a2.downloadsW = a1.downloadsW
@@ -446,7 +649,7 @@ class Command(BaseCommand):
             print(ex)
 
         finally:
-            time.sleep(84900)
+            time.sleep(84800)
 
 def cleanName(name):
     appNames = {
@@ -455,9 +658,11 @@ def cleanName(name):
         'Bubble Boom Challenge 3 Free': 'Bubble Boom Challenge 3 - Free',
         'Candies City : The Battle. Join the Candy SupeFreers Troop !': 'Candies City : The Battle',
         'Candies City : The Battle. Join the Candy Supers Troop !': 'Candies City : The Battle',
+        'Candies City: The Battle. Join the Candy Supers troop !': 'Candies City : The Battle',
         'Hollywood Hospital 3 - Cure your VIP patients and stay away from gossip and scandal !': 'Hollywood Hospital 3',
         'Hollywood Hospital 3 - Cure your VIP patients and stay away from gossip and scandal!': 'Hollywood Hospital 3',
         'MOBILE TV ': 'Mobile TV',
+        'Zed Aywant': 'AYWANT, tu monedero en tu móvil',
         'Track Nest - Keep your family safe through your mobile and act in case your loved ones need help.': 'Track Nest',
         '2 in 1 Dragons & Demons': '2 in 1 Dragons And Demons',
         'beeinfo': 'Beeinfo'

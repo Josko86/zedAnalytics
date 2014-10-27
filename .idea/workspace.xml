@@ -7,21 +7,21 @@
     <file path="/Django Console" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413903929350" ignored="false" />
     <file path="/Dummy.txt" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414075805381" ignored="false" />
     <file path="/urls.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414155409811" ignored="false" />
-    <file path="/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414164309980" ignored="false" />
-    <file path="/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413995936872" ignored="false" />
+    <file path="/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414412905037" ignored="false" />
+    <file path="/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414419400175" ignored="false" />
     <file path="/*.regexp" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413992812302" ignored="false" />
-    <file path="/main.js" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413899518920" ignored="false" />
+    <file path="/main.js" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414422254823" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/log/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119758778" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/analytics/Services/Users.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119868313" ignored="false" />
     <file path="/Python Console" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414150894904" ignored="false" />
-    <file path="/fragment.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414165140083" ignored="false" />
+    <file path="/fragment.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414416620927" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/templates/map/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411380180119" ignored="false" />
     <file path="/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413907623045" ignored="false" />
     <file path="/settings.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413995530940" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411996513914" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412008678058" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/map_editor/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412074035247" ignored="false" />
-    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414165197385" ignored="false" />
+    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414416476257" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/core/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/scrapper/utils.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412673859776" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/twitter_bots/settings.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
@@ -59,10 +59,8 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Analytics/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="307" column="0" selection-start="16630" selection-end="16630" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#15#70#0" expanded="true" />
-              </folding>
+            <state line="357" column="0" selection-start="20294" selection-end="20294" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -70,9 +68,9 @@
       <file leaf-file-name="fillDatabase.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="0" selection-start="1364" selection-end="1364" vertical-scroll-proportion="-5.02407">
+            <state line="653" column="20" selection-start="36348" selection-end="36348" vertical-scroll-proportion="24.779018">
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#24#35#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,19 +88,8 @@
       <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="24" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.0">
+            <state line="207" column="61" selection-start="8842" selection-end="8842" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="21" selection-start="1259" selection-end="1259" vertical-scroll-proportion="-9.153846">
-              <folding>
-                <element signature="n#style#0;n#button#0;n#p#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -118,15 +105,15 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/Analytics/static/analytics/main.js" />
         <option value="$PROJECT_DIR$/Analytics/models.py" />
         <option value="$PROJECT_DIR$/Analytics/save_file.py" />
         <option value="$PROJECT_DIR$/Analytics/static/save_file.py" />
         <option value="$PROJECT_DIR$/ZED_Annalytics/settings.py" />
         <option value="$PROJECT_DIR$/ZED_Annalytics/urls.py" />
-        <option value="$PROJECT_DIR$/Analytics/templates/analytics/index.html" />
         <option value="$PROJECT_DIR$/Analytics/views.py" />
+        <option value="$PROJECT_DIR$/Analytics/templates/analytics/index.html" />
         <option value="$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py" />
+        <option value="$PROJECT_DIR$/Analytics/static/analytics/main.js" />
       </list>
     </option>
   </component>
@@ -162,7 +149,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -233,6 +219,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -266,7 +253,7 @@
       <recent name="C:\Users\Josko\Desktop\Python\ZED_Annalytics\Analytics\static\analytics" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.manage">
+  <component name="RunManager" selected="Django server.ZED_Annalytics">
     <configuration default="false" name="ZED_Annalytics" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -493,14 +480,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15117522" sideWeight="0.54129463" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45870537" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.54241073" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15438034" sideWeight="0.53125" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3203125" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39732143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -573,32 +560,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Analytics/views.py</url>
-          <line>262</line>
-          <option name="timeStamp" value="166" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py</url>
-          <line>337</line>
-          <option name="timeStamp" value="185" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="221" />
+      <option name="time" value="257" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/pyramid/interfaces.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="6" selection-start="1885" selection-end="1885" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/pyramid/response.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="18" selection-start="639" selection-end="639" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="26" column="18" selection-start="639" selection-end="639" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ZED_Annalytics/wsgi.py">
@@ -608,31 +576,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/conf/urls/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="4" selection-start="1996" selection-end="1996" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="50" column="4" selection-start="1996" selection-end="1996" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/core/urlresolvers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="477" column="4" selection-start="19425" selection-end="19425" vertical-scroll-proportion="0.33260393">
+        <state line="477" column="4" selection-start="19425" selection-end="19425" vertical-scroll-proportion="0.33260393" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/http/response.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="460" column="0" selection-start="17077" selection-end="17077" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/core/handlers/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="214" column="0" selection-start="7646" selection-end="7646" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/contrib/staticfiles/handlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="0" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/wsgiref/handlers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="0" selection-start="2959" selection-end="2959" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/wsgiref/simple_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="0" selection-start="3789" selection-end="3789" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/utils/importlib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="0" selection-start="1326" selection-end="1326" vertical-scroll-proportion="0.70305675">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
+    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/core/handlers/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="24" selection-start="1997" selection-end="1997" vertical-scroll-proportion="0.0">
+        <state line="111" column="0" selection-start="4475" selection-end="4475" vertical-scroll-proportion="0.33258426">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="21" selection-start="1259" selection-end="1259" vertical-scroll-proportion="-9.153846">
-          <folding>
-            <element signature="n#style#0;n#button#0;n#p#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="14" column="25" selection-start="576" selection-end="589" vertical-scroll-proportion="0.5819071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="357" column="0" selection-start="20294" selection-end="20294" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -643,62 +644,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/http/response.py">
+    <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="460" column="0" selection-start="17077" selection-end="17077" vertical-scroll-proportion="0.0">
+        <state line="207" column="61" selection-start="8842" selection-end="8842" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/core/handlers/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="0" selection-start="7646" selection-end="7646" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/contrib/staticfiles/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/wsgiref/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="2959" selection-end="2959" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/wsgiref/simple_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="0" selection-start="3789" selection-end="3789" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../TwitterBots/putosbots/Lib/site-packages/django/core/handlers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="198" column="0" selection-start="8711" selection-end="8711" vertical-scroll-proportion="0.33260393">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="307" column="0" selection-start="16630" selection-end="16630" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#15#70#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1364" selection-end="1364" vertical-scroll-proportion="-5.02407">
+        <state line="653" column="20" selection-start="36348" selection-end="36348" vertical-scroll-proportion="24.779018">
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#24#35#0" expanded="true" />
           </folding>
         </state>
       </provider>

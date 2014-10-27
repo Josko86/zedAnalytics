@@ -7,14 +7,18 @@ from django.http import HttpResponseRedirect
 
 def index(request):
 
+    aplicacionesBitmonIOS = {}
+    aplicacionesBitmonAndroid = {}
+    aplicacionesPyroMIOS = {}
     aplicacionesPlayerX = {}
     aplicacionesZW = {}
     aplicacionesAZW = {}
     aplicacionesZGPS = {}
     aplicacionesRUSAndroid = {}
     aplicacionesRUSiOS = {}
-    aplicacionesAll = {}
+    aplicacionesZEDAll = {}
     aplicacionesRUSAll = {}
+    aplicacionesBitmonAll = {}
     dates = {}
     # aplicacionesFlurry = {}
     # aplicacionesFlurryAll = {}
@@ -25,6 +29,9 @@ def index(request):
     AZWList = Application.objects.filter(account="AZW")
     RUSListAndroid = Application.objects.filter(os="Android", account="RUS")
     RUSListiOS = Application.objects.filter(os="iOS", account="RUS")
+    BitmonListIOS = Application.objects.filter(os="iOS", account="Bitmonlab")
+    BitmonListAndroid = Application.objects.filter(os="Android", account="Bitmonlab")
+    PyroMListIOS = Application.objects.filter(os="iOS", account="PyroM")
     datesList = Date.objects.filter(id=1)
     # flurryList = Application.objects.filter(account="flurry")
 
@@ -48,6 +55,54 @@ def index(request):
         aplicacionesPlayerX[app.appKey].append(app.revenueM)
         aplicacionesPlayerX[app.appKey].append(app.revenueW)
         aplicacionesPlayerX[app.appKey].append(app.revenueT)
+
+    for i in range(len(BitmonListIOS)):
+        app = BitmonListIOS[i]
+        aplicacionesBitmonIOS[app.appKey] = []
+        aplicacionesBitmonIOS[app.appKey].append(app.name)
+        aplicacionesBitmonIOS[app.appKey].append(app.category)
+        aplicacionesBitmonIOS[app.appKey].append(app.os)
+        aplicacionesBitmonIOS[app.appKey].append(app.account)
+        aplicacionesBitmonIOS[app.appKey].append(app.downloadsA)
+        aplicacionesBitmonIOS[app.appKey].append(app.downloadsM)
+        aplicacionesBitmonIOS[app.appKey].append(app.downloadsW)
+        aplicacionesBitmonIOS[app.appKey].append(app.downloadsT)
+        aplicacionesBitmonIOS[app.appKey].append(app.revenueA)
+        aplicacionesBitmonIOS[app.appKey].append(app.revenueM)
+        aplicacionesBitmonIOS[app.appKey].append(app.revenueW)
+        aplicacionesBitmonIOS[app.appKey].append(app.revenueT)
+
+    for i in range(len(BitmonListAndroid)):
+        app = BitmonListAndroid[i]
+        aplicacionesBitmonAndroid[app.appKey] = []
+        aplicacionesBitmonAndroid[app.appKey].append(app.name)
+        aplicacionesBitmonAndroid[app.appKey].append(app.category)
+        aplicacionesBitmonAndroid[app.appKey].append(app.os)
+        aplicacionesBitmonAndroid[app.appKey].append(app.account)
+        aplicacionesBitmonAndroid[app.appKey].append(app.downloadsA)
+        aplicacionesBitmonAndroid[app.appKey].append(app.downloadsM)
+        aplicacionesBitmonAndroid[app.appKey].append(app.downloadsW)
+        aplicacionesBitmonAndroid[app.appKey].append(app.downloadsT)
+        aplicacionesBitmonAndroid[app.appKey].append(app.revenueA)
+        aplicacionesBitmonAndroid[app.appKey].append(app.revenueM)
+        aplicacionesBitmonAndroid[app.appKey].append(app.revenueW)
+        aplicacionesBitmonAndroid[app.appKey].append(app.revenueT)
+
+    for i in range(len(PyroMListIOS)):
+        app = PyroMListIOS[i]
+        aplicacionesPyroMIOS[app.appKey] = []
+        aplicacionesPyroMIOS[app.appKey].append(app.name)
+        aplicacionesPyroMIOS[app.appKey].append(app.category)
+        aplicacionesPyroMIOS[app.appKey].append(app.os)
+        aplicacionesPyroMIOS[app.appKey].append(app.account)
+        aplicacionesPyroMIOS[app.appKey].append(app.downloadsA)
+        aplicacionesPyroMIOS[app.appKey].append(app.downloadsM)
+        aplicacionesPyroMIOS[app.appKey].append(app.downloadsW)
+        aplicacionesPyroMIOS[app.appKey].append(app.downloadsT)
+        aplicacionesPyroMIOS[app.appKey].append(app.revenueA)
+        aplicacionesPyroMIOS[app.appKey].append(app.revenueM)
+        aplicacionesPyroMIOS[app.appKey].append(app.revenueW)
+        aplicacionesPyroMIOS[app.appKey].append(app.revenueT)
 
     for i in range(len(ZWList)):
         app = ZWList[i]
@@ -129,109 +184,95 @@ def index(request):
         aplicacionesRUSiOS[app.appKey].append(app.revenueW)
         aplicacionesRUSiOS[app.appKey].append(app.revenueT)
 
-    #  rellenar aplicacionesAll con los datos de descargas y revenue combinados
-    for i in range(len(playerXList)):
-        app = playerXList[i]
-        aplicacionesAll[app.appKey] = []
-        aplicacionesAll[app.appKey].append(app.name)
-        aplicacionesAll[app.appKey].append(app.category)
-        aplicacionesAll[app.appKey].append(app.os)
-        aplicacionesAll[app.appKey].append(app.account)
-        aplicacionesAll[app.appKey].append(app.downloadsA)
-        aplicacionesAll[app.appKey].append(app.downloadsM)
-        aplicacionesAll[app.appKey].append(app.downloadsW)
-        aplicacionesAll[app.appKey].append(app.downloadsT)
-        aplicacionesAll[app.appKey].append(app.revenueA)
-        aplicacionesAll[app.appKey].append(app.revenueM)
-        aplicacionesAll[app.appKey].append(app.revenueW)
-        aplicacionesAll[app.appKey].append(app.revenueT)
-
+    #  rellenar aplicacionesZEDAll con los datos de descargas y revenue combinados
     for i in range(len(ZWList)):
         appZW = ZWList[i]
-        aplicacionesAll[appZW.appKey] = []
-        aplicacionesAll[appZW.appKey].append(appZW.name)
-        aplicacionesAll[appZW.appKey].append(appZW.category)
-        aplicacionesAll[appZW.appKey].append(appZW.os)
-        aplicacionesAll[appZW.appKey].append(appZW.account)
-        aplicacionesAll[appZW.appKey].append(appZW.downloadsA)
-        aplicacionesAll[appZW.appKey].append(appZW.downloadsM)
-        aplicacionesAll[appZW.appKey].append(appZW.downloadsW)
-        aplicacionesAll[appZW.appKey].append(appZW.downloadsT)
-        aplicacionesAll[appZW.appKey].append(appZW.revenueA)
-        aplicacionesAll[appZW.appKey].append(appZW.revenueM)
-        aplicacionesAll[appZW.appKey].append(appZW.revenueW)
-        aplicacionesAll[appZW.appKey].append(appZW.revenueT)
+        aplicacionesZEDAll[appZW.appKey] = []
+        aplicacionesZEDAll[appZW.appKey].append(appZW.name)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.category)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.os)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.account)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.downloadsA)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.downloadsM)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.downloadsW)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.downloadsT)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.revenueA)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.revenueM)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.revenueW)
+        aplicacionesZEDAll[appZW.appKey].append(appZW.revenueT)
 
     for i in range(len(ZGPSList)):
         app = ZGPSList[i]
-        aplicacionesAll[app.appKey] = []
-        aplicacionesAll[app.appKey].append(app.name)
-        aplicacionesAll[app.appKey].append(app.category)
-        aplicacionesAll[app.appKey].append(app.os)
-        aplicacionesAll[app.appKey].append(app.account)
-        aplicacionesAll[app.appKey].append(app.downloadsA)
-        aplicacionesAll[app.appKey].append(app.downloadsM)
-        aplicacionesAll[app.appKey].append(app.downloadsW)
-        aplicacionesAll[app.appKey].append(app.downloadsT)
-        aplicacionesAll[app.appKey].append(app.revenueA)
-        aplicacionesAll[app.appKey].append(app.revenueM)
-        aplicacionesAll[app.appKey].append(app.revenueW)
-        aplicacionesAll[app.appKey].append(app.revenueT)
+        aplicacionesZEDAll[app.appKey] = []
+        aplicacionesZEDAll[app.appKey].append(app.name)
+        aplicacionesZEDAll[app.appKey].append(app.category)
+        aplicacionesZEDAll[app.appKey].append(app.os)
+        aplicacionesZEDAll[app.appKey].append(app.account)
+        aplicacionesZEDAll[app.appKey].append(app.downloadsA)
+        aplicacionesZEDAll[app.appKey].append(app.downloadsM)
+        aplicacionesZEDAll[app.appKey].append(app.downloadsW)
+        aplicacionesZEDAll[app.appKey].append(app.downloadsT)
+        aplicacionesZEDAll[app.appKey].append(app.revenueA)
+        aplicacionesZEDAll[app.appKey].append(app.revenueM)
+        aplicacionesZEDAll[app.appKey].append(app.revenueW)
+        aplicacionesZEDAll[app.appKey].append(app.revenueT)
 
         for j in range(len(AZWList)):
             appAZW = AZWList[j]
             if appAZW.name == app.name:
-                aplicacionesAll[app.appKey][2] = app.os + '-' + appAZW.os
-                aplicacionesAll[app.appKey][4] = app.downloadsA + appAZW.downloadsA
-                aplicacionesAll[app.appKey][5] = app.downloadsM + appAZW.downloadsM
-                aplicacionesAll[app.appKey][6] = app.downloadsW + appAZW.downloadsW
-                aplicacionesAll[app.appKey][7] = app.downloadsT + appAZW.downloadsT
-                aplicacionesAll[app.appKey][8] = str(float(app.revenueA) + float(appAZW.revenueA))
-                aplicacionesAll[app.appKey][9] = str(float(app.revenueM) + float(appAZW.revenueM))
-                aplicacionesAll[app.appKey][10] = str(float(app.revenueW) + float(appAZW.revenueW))
-                aplicacionesAll[app.appKey][11] = str(float(app.revenueT) + float(appAZW.revenueT))
+                aplicacionesZEDAll[app.appKey][2] = app.os + '-' + appAZW.os
+                aplicacionesZEDAll[app.appKey][4] = app.downloadsA + appAZW.downloadsA
+                aplicacionesZEDAll[app.appKey][5] = app.downloadsM + appAZW.downloadsM
+                aplicacionesZEDAll[app.appKey][6] = app.downloadsW + appAZW.downloadsW
+                aplicacionesZEDAll[app.appKey][7] = app.downloadsT + appAZW.downloadsT
+                aplicacionesZEDAll[app.appKey][8] = str(float(app.revenueA) + float(appAZW.revenueA))
+                aplicacionesZEDAll[app.appKey][9] = str(float(app.revenueM) + float(appAZW.revenueM))
+                aplicacionesZEDAll[app.appKey][10] = str(float(app.revenueW) + float(appAZW.revenueW))
+                aplicacionesZEDAll[app.appKey][11] = str(float(app.revenueT) + float(appAZW.revenueT))
             else:
                 if appAZW.name == 'Commandos' or appAZW.name == 'Animal Planet: Trivia Challenge_DE':
-                    aplicacionesAll[appAZW.appKey] = []
-                    aplicacionesAll[appAZW.appKey].append(appAZW.name)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.category)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.os)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.account)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsA)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsM)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsW)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.downloadsT)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueA)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueM)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueW)
-                    aplicacionesAll[appAZW.appKey].append(appAZW.revenueT)
+                    aplicacionesZEDAll[appAZW.appKey] = []
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.name)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.category)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.os)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.account)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.downloadsA)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.downloadsM)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.downloadsW)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.downloadsT)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.revenueA)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.revenueM)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.revenueW)
+                    aplicacionesZEDAll[appAZW.appKey].append(appAZW.revenueT)
         for j in range(len(ZWList)):
             appZW = ZWList[j]
             if appZW.name == app.name:
-                aplicacionesAll[app.appKey][2] = app.os + '-' + appZW.os
-                aplicacionesAll[app.appKey][4] = app.downloadsA + appZW.downloadsA
-                aplicacionesAll[app.appKey][5] = app.downloadsM + appZW.downloadsM
-                aplicacionesAll[app.appKey][6] = app.downloadsW + appZW.downloadsW
-                aplicacionesAll[app.appKey][7] = app.downloadsT + appZW.downloadsT
-                aplicacionesAll[app.appKey][8] = str(float(app.revenueA) + float(appZW.revenueA))
-                aplicacionesAll[app.appKey][9] = str(float(app.revenueM) + float(appZW.revenueM))
-                aplicacionesAll[app.appKey][10] = str(float(app.revenueW) + float(appZW.revenueW))
-                aplicacionesAll[app.appKey][11] = str(float(app.revenueT) + float(appZW.revenueT))
-                del aplicacionesAll[appZW.appKey]
+                aplicacionesZEDAll[app.appKey][2] = app.os + '-' + appZW.os
+                aplicacionesZEDAll[app.appKey][4] = app.downloadsA + appZW.downloadsA
+                aplicacionesZEDAll[app.appKey][5] = app.downloadsM + appZW.downloadsM
+                aplicacionesZEDAll[app.appKey][6] = app.downloadsW + appZW.downloadsW
+                aplicacionesZEDAll[app.appKey][7] = app.downloadsT + appZW.downloadsT
+                aplicacionesZEDAll[app.appKey][8] = str(float(app.revenueA) + float(appZW.revenueA))
+                aplicacionesZEDAll[app.appKey][9] = str(float(app.revenueM) + float(appZW.revenueM))
+                aplicacionesZEDAll[app.appKey][10] = str(float(app.revenueW) + float(appZW.revenueW))
+                aplicacionesZEDAll[app.appKey][11] = str(float(app.revenueT) + float(appZW.revenueT))
+                if aplicacionesZEDAll.has_key(appZW.appKey):
+                    del aplicacionesZEDAll[appZW.appKey]
 
             for k in range(len(AZWList)):
                 appAZW = AZWList[k]
                 if app.name == appZW.name == appAZW.name:
-                    aplicacionesAll[app.appKey][2] = app.os + '-' + appZW.os + '-' + appAZW.os
-                    aplicacionesAll[app.appKey][4] = app.downloadsA + appZW.downloadsA + appAZW.downloadsA
-                    aplicacionesAll[app.appKey][5] = app.downloadsM + appZW.downloadsM + appAZW.downloadsM
-                    aplicacionesAll[app.appKey][6] = app.downloadsW + appZW.downloadsW + appAZW.downloadsW
-                    aplicacionesAll[app.appKey][7] = app.downloadsT + appZW.downloadsT + appAZW.downloadsT
-                    aplicacionesAll[app.appKey][8] = str(float(app.revenueA) + float(appZW.revenueA) + float(appAZW.revenueA))
-                    aplicacionesAll[app.appKey][9] = str(float(app.revenueM) + float(appZW.revenueM) + float(appAZW.revenueM))
-                    aplicacionesAll[app.appKey][10] = str(float(app.revenueW) + float(appZW.revenueW) + float(appAZW.revenueW))
-                    aplicacionesAll[app.appKey][11] = str(float(app.revenueT) + float(appZW.revenueT) + float(appAZW.revenueT))
+                    aplicacionesZEDAll[app.appKey][2] = app.os + '-' + appZW.os + '-' + appAZW.os
+                    aplicacionesZEDAll[app.appKey][4] = app.downloadsA + appZW.downloadsA + appAZW.downloadsA
+                    aplicacionesZEDAll[app.appKey][5] = app.downloadsM + appZW.downloadsM + appAZW.downloadsM
+                    aplicacionesZEDAll[app.appKey][6] = app.downloadsW + appZW.downloadsW + appAZW.downloadsW
+                    aplicacionesZEDAll[app.appKey][7] = app.downloadsT + appZW.downloadsT + appAZW.downloadsT
+                    aplicacionesZEDAll[app.appKey][8] = str(float(app.revenueA) + float(appZW.revenueA) + float(appAZW.revenueA))
+                    aplicacionesZEDAll[app.appKey][9] = str(float(app.revenueM) + float(appZW.revenueM) + float(appAZW.revenueM))
+                    aplicacionesZEDAll[app.appKey][10] = str(float(app.revenueW) + float(appZW.revenueW) + float(appAZW.revenueW))
+                    aplicacionesZEDAll[app.appKey][11] = str(float(app.revenueT) + float(appZW.revenueT) + float(appAZW.revenueT))
 
+    # Rellenar aplicacionesRUSALL con los datos combinados
     for i in range(len(RUSListAndroid)):
         appAnd = RUSListAndroid[i]
         aplicacionesRUSAll[appAnd.appKey] = []
@@ -261,6 +302,35 @@ def index(request):
                 aplicacionesRUSAll[appAnd.appKey][10] = str(float(appAnd.revenueW) + float(appIOS.revenueW))
                 aplicacionesRUSAll[appAnd.appKey][11] = str(float(appAnd.revenueT) + float(appIOS.revenueT))
 
+    # rellenar BitmonAll con los datos combinados
+    for i in range(len(BitmonListAndroid)):
+        appAnd = BitmonListAndroid[i]
+        aplicacionesBitmonAll[appAnd.appKey] = []
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.name)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.category)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.os)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.account)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.downloadsA)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.downloadsM)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.downloadsW)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.downloadsT)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.revenueA)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.revenueM)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.revenueW)
+        aplicacionesBitmonAll[appAnd.appKey].append(appAnd.revenueT)
+
+        for j in range(len(BitmonListIOS)):
+            appIOS = BitmonListIOS[j]
+            if appAnd.name == appIOS.name:
+                aplicacionesBitmonAll[appAnd.appKey][2] = appAnd.os + '-' + appIOS.os
+                aplicacionesBitmonAll[appAnd.appKey][4] = appAnd.downloadsA + appIOS.downloadsA
+                aplicacionesBitmonAll[appAnd.appKey][5] = appAnd.downloadsM + appIOS.downloadsM
+                aplicacionesBitmonAll[appAnd.appKey][6] = appAnd.downloadsW + appIOS.downloadsW
+                aplicacionesBitmonAll[appAnd.appKey][7] = appAnd.downloadsT + appIOS.downloadsT
+                aplicacionesBitmonAll[appAnd.appKey][8] = str(float(appAnd.revenueA) + float(appIOS.revenueA))
+                aplicacionesBitmonAll[appAnd.appKey][9] = str(float(appAnd.revenueM) + float(appIOS.revenueM))
+                aplicacionesBitmonAll[appAnd.appKey][10] = str(float(appAnd.revenueW) + float(appIOS.revenueW))
+                aplicacionesBitmonAll[appAnd.appKey][11] = str(float(appAnd.revenueT) + float(appIOS.revenueT))
 
     # for i in range(len(flurryList)):
     #     app = flurryList[i]
@@ -291,8 +361,12 @@ def index(request):
         "aplicacionesAZW": simplejson.dumps(aplicacionesAZW),
         "aplicacionesRUSAndroid": simplejson.dumps(aplicacionesRUSAndroid),
         "aplicacionesRUSiOS": simplejson.dumps(aplicacionesRUSiOS),
-        "aplicacionesAll": simplejson.dumps(aplicacionesAll),
+        "aplicacionesZEDAll": simplejson.dumps(aplicacionesZEDAll),
         "aplicacionesRUSAll": simplejson.dumps(aplicacionesRUSAll),
+        "aplicacionesBitmonIOS": simplejson.dumps(aplicacionesBitmonIOS),
+        "aplicacionesBitmonAndroid": simplejson.dumps(aplicacionesBitmonAndroid),
+        "aplicacionesBitmonAll": simplejson.dumps(aplicacionesBitmonAll),
+        "aplicacionesPyroMIOS": simplejson.dumps(aplicacionesPyroMIOS),
         "dateExcel": dates["excel"],
         "dateAppannie": dates["appannie"]
         # "aplicacionesFlurry": simplejson.dumps(aplicacionesFlurry),
