@@ -21,7 +21,7 @@
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411996513914" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412008678058" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/map_editor/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412074035247" ignored="false" />
-    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414665792780" ignored="false" />
+    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414669867948" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/core/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/scrapper/utils.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412673859776" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/twitter_bots/settings.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
@@ -68,7 +68,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="31" selection-start="2332" selection-end="2332" vertical-scroll-proportion="-15.038462">
+            <state line="49" column="31" selection-start="2332" selection-end="2332" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -77,7 +77,7 @@
       <file leaf-file-name="fillDatabase.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="679" column="78" selection-start="40137" selection-end="40137" vertical-scroll-proportion="1.0922242">
+            <state line="433" column="0" selection-start="24671" selection-end="24671" vertical-scroll-proportion="0.33273056">
               <folding />
             </state>
           </provider>
@@ -223,16 +223,16 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -309,29 +309,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ZED_Annalytics" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -353,6 +330,29 @@
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ZED_Annalytics" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -478,14 +478,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.54241073" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15918803" sideWeight="0.6484375" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3515625" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16079059" sideWeight="0.6484375" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3515625" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3203125" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39732143" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -571,11 +571,16 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py</url>
-          <line>304</line>
-          <option name="timeStamp" value="271" />
+          <line>291</line>
+          <option name="timeStamp" value="272" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py</url>
+          <line>433</line>
+          <option name="timeStamp" value="273" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="272" />
+      <option name="time" value="274" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -655,14 +660,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="31" selection-start="2332" selection-end="2332" vertical-scroll-proportion="-15.038462">
+        <state line="49" column="31" selection-start="2332" selection-end="2332" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="679" column="78" selection-start="40137" selection-end="40137" vertical-scroll-proportion="1.0922242">
+        <state line="433" column="0" selection-start="24671" selection-end="24671" vertical-scroll-proportion="0.33273056">
           <folding />
         </state>
       </provider>
