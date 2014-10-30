@@ -289,10 +289,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
@@ -344,10 +352,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="PyroM", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
@@ -399,10 +415,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="PlayerX", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
@@ -454,10 +478,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 if name!=None:
                     a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
@@ -510,10 +542,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
                                  account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
@@ -565,10 +605,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
                                  account="ZGPS", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
@@ -618,10 +666,18 @@ class Command(BaseCommand):
                 downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
                 downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = jsonA["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueM = jsonM["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueW = jsonW["sales_list"][0]["revenue"]["product"]["downloads"]
-                revenueY = jsonY["sales_list"][0]["revenue"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]))
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category='Game', downloadsA=downloadsA, os='Fire/Android',
                                  account="AZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
