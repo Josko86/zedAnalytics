@@ -4,6 +4,8 @@ from django.template import RequestContext
 from Analytics.models import Application, Date
 import simplejson
 from django.http import HttpResponseRedirect
+from ZED_Annalytics.settings import BASE_DIR
+
 
 def index(request):
 
@@ -380,9 +382,9 @@ def save_file(request):
     from django.core.urlresolvers import reverse
 
     exists = False
-    file_path = os.path.join('rusia.xlsx')
+    file_path = os.path.join(BASE_DIR, 'rusia.xlsx')
     if os.path.isfile(file_path):
-        os.remove(os.path.join('rusia.xlsx'))
+        os.remove(os.path.join(BASE_DIR, 'rusia.xlsx'))
 
     input_file = request.FILES['file'].file
 
