@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
+from Analytics.management.commands.fillDatabase import fillDatabaseFromExcel
 from Analytics.models import Application, Date
 import simplejson
 from django.http import HttpResponseRedirect
@@ -405,6 +406,8 @@ def save_file(request):
         exists = True
 
     url = reverse('index')
+
+    fillDatabaseFromExcel()
 
     return HttpResponseRedirect(url)
 

@@ -31,128 +31,14 @@ class Command(BaseCommand):
             app_ids_BitmonlabAndroid = []
             app_ids_ZGPS = []
             app_ids_AZW = []
-            lastDateExcel = "unknown"
 
-            # Recoger datos del excel rusia xlsx
-            try:
-                book = xlrd.open_workbook('rusia.xlsx')
-                sheet = book.sheet_by_name('Android market overall')
-                num_cells = sheet.ncols - 1
-                curr_row = 1
-
-                num_cellsAux = num_cells
-                badDays = 0
-                while sheet.cell_value(7, num_cellsAux) == '':
-                    num_cellsAux = num_cellsAux -1
-                    badDays += 1
-
-
-                lastDateExcel = (datetime.datetime.strptime('1899-12-30', '%Y-%m-%d') +
-                                     datetime.timedelta(days=sheet.cell_value(1, num_cells) - badDays)).strftime("%Y-%m-%d")
-
-                while sheet.cell_value(curr_row,0) != 'Daily installs by device':
-                    curr_row += 1
-
-                while sheet.cell_value(curr_row,0) != 'Total':
-                    curr_row += 1
-                    name = sheet.cell_value(curr_row, 0)
-                    if '(' in name:
-                        name = name[:name.find('(')-1]
-                    totalA = 0
-                    totalM = 0
-                    totalW = 0
-                    totalT = 0
-                    curr_cell = 0
-                    while curr_cell < num_cells:
-                        curr_cell += 1
-                        cell_type = sheet.cell_type(curr_row, curr_cell - badDays)
-                        cell_value = sheet.cell_value(curr_row, curr_cell - badDays)
-                        if cell_type == 2:
-                            if curr_cell > num_cells - 30:
-                                totalM += cell_value
-                                if curr_cell > num_cells - 7:
-                                    totalW += cell_value
-                                    if curr_cell > num_cells - 1:
-                                        totalT += cell_value
-                            totalA += cell_value
-                    if name!='Total':
-                        a1 = Application(appKey=name+'A', name=cleanName(name), category='unknown', downloadsA=totalA, os='Android',
-                                         account="RUS", downloadsM=totalM, downloadsW=totalW, downloadsT=totalT,
-                                         revenueA=0.00, revenueM=0.00, revenueW=0.00, revenueT=0.00)
-                        try:
-                            a2= Application.objects.get(appKey=name+'A')
-                            a2.downloadsA = a1.downloadsA
-                            a2.downloadsT = a1.downloadsT
-                            a2.downloadsW = a1.downloadsW
-                            a2.downloadsM = a1.downloadsM
-                            a2.revenueA = a1.revenueA
-                            a2.revenueT = a1.revenueT
-                            a2.revenueW = a1.revenueW
-                            a2.revenueM = a1.revenueM
-                            a2.save()
-                        except Exception as ex:
-                            a1.save()
-
-                while sheet.cell_value(curr_row,0) != 'Daily installs by device from AppStore':
-                    curr_row += 1
-
-                while sheet.cell_value(curr_row,0) != '':
-                    curr_row += 1
-                    name = sheet.cell_value(curr_row, 0)
-                    if '(' in name:
-                        name = name[:name.find('(')-1]
-                    totalA = 0
-                    totalM = 0
-                    totalW = 0
-                    totalT = 0
-                    curr_cell = 0
-                    while curr_cell < num_cells:
-                        curr_cell += 1
-                        cell_type = sheet.cell_type(curr_row, curr_cell - badDays)
-                        cell_value = sheet.cell_value(curr_row, curr_cell - badDays)
-                        if cell_type == 2:
-                            if curr_cell > num_cells - 30:
-                                totalM += cell_value
-                                if curr_cell > num_cells - 7:
-                                    totalW += cell_value
-                                    if curr_cell > num_cells - 1:
-                                        totalT += cell_value
-                            totalA += cell_value
-                    if name!='':
-                        a1 = Application(appKey=name+'I', name=cleanName(name), category='unknown', downloadsA=totalA, os='iOS',
-                                         account="RUS", downloadsM=totalM, downloadsW=totalW, downloadsT=totalT,
-                                         revenueA=0.00, revenueM=0.00, revenueW=0.00, revenueT=0.00)
-                        try:
-                            a2= Application.objects.get(appKey=name+'I')
-                            a2.downloadsA = a1.downloadsA
-                            a2.downloadsT = a1.downloadsT
-                            a2.downloadsW = a1.downloadsW
-                            a2.downloadsM = a1.downloadsM
-                            a2.revenueA = a1.revenueA
-                            a2.revenueT = a1.revenueT
-                            a2.revenueW = a1.revenueW
-                            a2.revenueM = a1.revenueM
-                            a2.save()
-                        except Exception as ex:
-                            a1.save()
-
-                print('Database updated from excel')
-            except Exception as ex:
-                print(ex)
+            fillDatabaseFromExcel()
 
             today = datetime.date.today().strftime("%Y-%m-%d")
             yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
             lastWeek = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
             lastMonth = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
 
-            a1 = Date(dateAppannie=yesterday, dateExcel=lastDateExcel)
-            try:
-                a2= Date.objects.get(id=1)
-                a2.dateAppannie = a1.dateAppannie
-                a2.dateExcel = a1.dateExcel
-                a2.save()
-            except Exception as ex:
-                a1.save()
 
             #rellenar el array de las aplicaciones flurry
             # flurryAppList = requests.get('http://api.flurry.com/appInfo/getAllApplications?apiAccessCode=' + APIFLURRY +
@@ -762,6 +648,127 @@ class Command(BaseCommand):
 
         finally:
             time.sleep(84800)
+
+def fillDatabaseFromExcel():
+    # Recoger datos del excel rusia xlsx
+    lastDateExcel = "unknown"
+    try:
+        book = xlrd.open_workbook('rusia.xlsx')
+        sheet = book.sheet_by_name('Android market overall')
+        num_cells = sheet.ncols - 1
+        curr_row = 1
+
+        num_cellsAux = num_cells
+        badDays = 0
+        while sheet.cell_value(7, num_cellsAux) == '':
+            num_cellsAux = num_cellsAux -1
+            badDays += 1
+
+
+        lastDateExcel = (datetime.datetime.strptime('1899-12-30', '%Y-%m-%d') +
+                             datetime.timedelta(days=sheet.cell_value(1, num_cells) - badDays)).strftime("%Y-%m-%d")
+
+        while sheet.cell_value(curr_row,0) != 'Daily installs by device':
+            curr_row += 1
+
+        while sheet.cell_value(curr_row,0) != 'Total':
+            curr_row += 1
+            name = sheet.cell_value(curr_row, 0)
+            if '(' in name:
+                name = name[:name.find('(')-1]
+            totalA = 0
+            totalM = 0
+            totalW = 0
+            totalT = 0
+            curr_cell = 0
+            while curr_cell < num_cells:
+                curr_cell += 1
+                cell_type = sheet.cell_type(curr_row, curr_cell - badDays)
+                cell_value = sheet.cell_value(curr_row, curr_cell - badDays)
+                if cell_type == 2:
+                    if curr_cell > num_cells - 30:
+                        totalM += cell_value
+                        if curr_cell > num_cells - 7:
+                            totalW += cell_value
+                            if curr_cell > num_cells - 1:
+                                totalT += cell_value
+                    totalA += cell_value
+            if name!='Total':
+                a1 = Application(appKey=name+'A', name=cleanName(name), category='unknown', downloadsA=totalA, os='Android',
+                                 account="RUS", downloadsM=totalM, downloadsW=totalW, downloadsT=totalT,
+                                 revenueA=0.00, revenueM=0.00, revenueW=0.00, revenueT=0.00)
+                try:
+                    a2= Application.objects.get(appKey=name+'A')
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
+
+        while sheet.cell_value(curr_row,0) != 'Daily installs by device from AppStore':
+            curr_row += 1
+
+        while sheet.cell_value(curr_row,0) != '':
+            curr_row += 1
+            name = sheet.cell_value(curr_row, 0)
+            if '(' in name:
+                name = name[:name.find('(')-1]
+            totalA = 0
+            totalM = 0
+            totalW = 0
+            totalT = 0
+            curr_cell = 0
+            while curr_cell < num_cells:
+                curr_cell += 1
+                cell_type = sheet.cell_type(curr_row, curr_cell - badDays)
+                cell_value = sheet.cell_value(curr_row, curr_cell - badDays)
+                if cell_type == 2:
+                    if curr_cell > num_cells - 30:
+                        totalM += cell_value
+                        if curr_cell > num_cells - 7:
+                            totalW += cell_value
+                            if curr_cell > num_cells - 1:
+                                totalT += cell_value
+                    totalA += cell_value
+            if name!='':
+                a1 = Application(appKey=name+'I', name=cleanName(name), category='unknown', downloadsA=totalA, os='iOS',
+                                 account="RUS", downloadsM=totalM, downloadsW=totalW, downloadsT=totalT,
+                                 revenueA=0.00, revenueM=0.00, revenueW=0.00, revenueT=0.00)
+                try:
+                    a2= Application.objects.get(appKey=name+'I')
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
+
+        print('Database updated from excel')
+    except Exception as ex:
+        print(ex)
+
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+
+    a1 = Date(dateAppannie=yesterday, dateExcel=lastDateExcel)
+    try:
+        a2= Date.objects.get(id=1)
+        a2.dateAppannie = a1.dateAppannie
+        a2.dateExcel = a1.dateExcel
+        a2.save()
+    except Exception as ex:
+        a1.save()
 
 def cleanName(name):
     appNames = {
