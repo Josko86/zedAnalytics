@@ -407,7 +407,8 @@ def save_file(request):
 
     url = reverse('index')
 
-    fillDatabaseFromExcel()
+    if os.path.isfile(file_path):
+        fillDatabaseFromExcel()
 
     return HttpResponseRedirect(url)
 
