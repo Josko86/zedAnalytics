@@ -652,6 +652,7 @@ class Command(BaseCommand):
 def fillDatabaseFromExcel():
     # Recoger datos del excel rusia xlsx
     lastDateExcel = "unknown"
+    time.sleep(10)
     try:
         book = xlrd.open_workbook('rusia.xlsx')
         sheet = book.sheet_by_name('Android market overall')
