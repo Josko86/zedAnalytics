@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
+import time
 from Analytics.management.commands.fillDatabase import fillDatabaseFromExcel
 from Analytics.models import Application, Date
 import simplejson
@@ -407,6 +408,7 @@ def save_file(request):
 
     url = reverse('index')
 
+    time.sleep(50)
     if os.path.isfile(file_path):
         fillDatabaseFromExcel()
 
