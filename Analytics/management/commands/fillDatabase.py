@@ -7,6 +7,8 @@ import simplejson
 import xlrd
 from django.core.management.base import BaseCommand, CommandError
 import logging
+from ZED_Annalytics.settings import BASE_DIR
+
 
 class Command(BaseCommand):
 
@@ -31,8 +33,6 @@ class Command(BaseCommand):
             app_ids_BitmonlabAndroid = []
             app_ids_ZGPS = []
             app_ids_AZW = []
-
-            fillDatabaseFromExcel()
 
             today = datetime.date.today().strftime("%Y-%m-%d")
             yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
@@ -654,7 +654,7 @@ def fillDatabaseFromExcel():
     lastDateExcel = "unknown"
     logging.basicConfig(filename="sample.log", level=logging.INFO)
     try:
-        book = xlrd.open_workbook('rusia.xlsx')
+        book = xlrd.open_workbook(BASE_DIR + '/rusia.xlsx')
         sheet = book.sheet_by_name('Android market overall')
         num_cells = sheet.ncols - 1
         curr_row = 1
