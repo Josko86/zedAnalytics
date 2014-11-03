@@ -6,7 +6,7 @@ import requests
 import simplejson
 import xlrd
 from django.core.management.base import BaseCommand, CommandError
-
+import logging
 
 class Command(BaseCommand):
 
@@ -652,6 +652,7 @@ class Command(BaseCommand):
 def fillDatabaseFromExcel():
     # Recoger datos del excel rusia xlsx
     lastDateExcel = "unknown"
+    logging.basicConfig(filename="sample.log", level=logging.INFO)
     try:
         book = xlrd.open_workbook('rusia.xlsx')
         sheet = book.sheet_by_name('Android market overall')
@@ -664,7 +665,7 @@ def fillDatabaseFromExcel():
             num_cellsAux = num_cellsAux -1
             badDays += 1
 
-
+        lastDateExcel = "1"
         lastDateExcel = (datetime.datetime.strptime('1899-12-30', '%Y-%m-%d') +
                              datetime.timedelta(days=sheet.cell_value(1, num_cells) - badDays)).strftime("%Y-%m-%d")
 
@@ -756,6 +757,7 @@ def fillDatabaseFromExcel():
 
         print('Database updated from excel')
     except Exception as ex:
+        logging.info(ex)
         print(ex)
 
     today = datetime.date.today().strftime("%Y-%m-%d")
