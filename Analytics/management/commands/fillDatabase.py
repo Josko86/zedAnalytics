@@ -639,6 +639,13 @@ class Command(BaseCommand):
                 except Exception as ex:
                     a1.save()
 
+            a1 = Date(dateAppannie=yesterday, dateExcel="unknown")
+            try:
+                a2= Date.objects.get(id=1)
+                a2.dateAppannie = a1.dateAppannie
+                a2.save()
+            except Exception as ex:
+                a1.save()
 
             print(today + ' ' + time.strftime("%H:%M:%S") + 'Database updated from appannie')
 
