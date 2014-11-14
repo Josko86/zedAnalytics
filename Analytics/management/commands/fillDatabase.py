@@ -773,7 +773,6 @@ def fillDatabaseFromExcel():
     a1 = Date(dateAppannie=yesterday, dateExcel=lastDateExcel)
     try:
         a2= Date.objects.get(id=1)
-        a2.dateAppannie = a1.dateAppannie
         a2.dateExcel = a1.dateExcel
         a2.save()
     except Exception as ex:

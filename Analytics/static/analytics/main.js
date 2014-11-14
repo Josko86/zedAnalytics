@@ -36,28 +36,45 @@ $(document).ready(function(){
     createTable();
     totalDownloads = 0;
     totalRevenue = 0;
+    totalDownloadIOS = 0;
+    totalDownloadAndroid = 0;
+    totalRevenueIOS = 0;
+    totalRevenueAndroid = 0;
+
     showAllCat(ZEDAllKeys,appsZEDAll, 4);
     showAllCat(RUSAllKeys,appsRUSAll, 4);
-    showAllCat(playerXKeys,appsPlayerX, 4);
+    showAllCat(playerXKeys, appsPlayerX, 4);
     showAllCat(BitmonAllKeys,appsBitmonAll, 4);
     showAllCat(PyroMIOSKeys,appsPyroMIOS, 4);
 
     addTotal();
+
+    $('#canvas1').hide();
+    $('#canvas2').hide();
+    $('#canvas3').hide();
     miTabla.appendChild(tbBody);
     miCapa = document.getElementById('resultado');
     miCapa.appendChild(miTabla);
     $(".table").tablesorter({
         widgets: ['staticRow']
 	});
+    crearGraficos(totalDownloadIOS, totalDownloadAndroid, totalRevenueIOS, totalRevenueAndroid);
+
 });
 
 function verEstadisticas(){
 
+//    Reiniciamos la tabla y los valores de los totales
     if ($(".table")){
         $(".table").remove();
     }
     totalDownloads = 0;
     totalRevenue = 0;
+    totalDownloadIOS = 0;
+    totalDownloadAndroid = 0;
+    totalRevenueIOS = 0;
+    totalRevenueAndroid = 0;
+
     allAccount= $("#allAccount").is(':checked');
     playerX= $("#playerX").is(':checked');
     bitmon= $("#bitmon").is(':checked');
@@ -254,8 +271,11 @@ function verEstadisticas(){
     $(".table").tablesorter({
         widgets: ['staticRow']
 	});
+    crearGraficos(totalDownloadIOS, totalDownloadAndroid, totalRevenueIOS, totalRevenueAndroid);
+
 }
 
+//switch (appsOS[osKeys[k]][3]){case "PlayerX": a = 1; break; case "Bizmonlab": a = 2; break;} pa las sumas de muvis
 function showAllCat(osKeys, appsOS, time){
     for (var k in osKeys){
         if (osKeys.hasOwnProperty(k)) {
@@ -332,6 +352,118 @@ function addRow(appsOS, osKey, k, time){
     totalDownloads += appsOS[osKey[k]][time];
     totalRevenue += parseFloat(appsOS[osKey[k]][time+4]);
 
+//    Añadir el total de android y de ios para porcentajes
+    switch (appsOS[osKey[k]][3]){
+        case "PlayerX":
+            totalDownloadIOS += appsOS[osKey[k]][time];
+            totalRevenueIOS += parseFloat(appsOS[osKey[k]][time+4]);
+            break;
+        case "PyroM":
+            totalDownloadIOS += appsOS[osKey[k]][time];
+            totalRevenueIOS += parseFloat(appsOS[osKey[k]][time+4]);
+            break;
+        case "Bitmonlab":
+            if (appsOS[osKey[k]][2] == "Android-iOS"){
+                for (var j in BitmonAndroidKeys){
+                    if (BitmonAndroidKeys.hasOwnProperty(j)) {
+                        if (appsBitmonAndroid[BitmonAndroidKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadAndroid += appsBitmonAndroid[BitmonAndroidKeys[j]][time];
+                            totalRevenueAndroid +=  parseFloat(appsBitmonAndroid[BitmonAndroidKeys[j]][time+4]);
+                        }
+                    }
+                }
+                for (var l in BitmoniOSKeys){
+                    if (BitmoniOSKeys.hasOwnProperty(l)) {
+                        if (appsBitmonIOS[BitmoniOSKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadIOS += appsBitmonIOS[BitmoniOSKeys[l]][time];
+                            totalRevenueIOS +=  parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time+4]);
+                        }
+                    }
+                }
+            }
+            if (appsOS[osKey[k]][2] == "Android"){
+                totalDownloadAndroid += appsOS[osKey[k]][time];
+                totalRevenueAndroid +=  parseFloat(appsOS[osKey[k]][time+4]);
+
+            }
+            if (appsOS[osKey[k]][2] == "iOS"){
+                totalDownloadIOS += appsOS[osKey[k]][time];
+                totalRevenueIOS +=  parseFloat(appsOS[osKey[k]][time+4]);
+            }
+            break;
+        case "ZW":
+            totalDownloadIOS += appsOS[osKey[k]][time];
+            totalRevenueIOS += parseFloat(appsOS[osKey[k]][time+4]);
+            break;
+        case "ZGPS":
+            if (appsOS[osKey[k]][2] == "Android-Fire/Android"){
+                for (var j in ZGPSKeys){
+                    if (ZGPSKeys.hasOwnProperty(j)) {
+                        if (appsZGPS[ZGPSKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadAndroid += appsZGPS[ZGPSKeys[j]][time];
+                            totalRevenueAndroid +=  parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
+                        }
+                    }
+                }
+            }
+            if (appsOS[osKey[k]][2] == "Android-iOS-Fire/Android" || appsOS[osKey[k]][2] == "Android-iOS"){
+                for (var j in ZGPSKeys){
+                    if (ZGPSKeys.hasOwnProperty(j)) {
+                        if (appsZGPS[ZGPSKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadAndroid += appsZGPS[ZGPSKeys[j]][time];
+                            totalRevenueAndroid +=  parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
+                        }
+                    }
+                }
+                for (var j in ZWKeys){
+                    if (ZGPSKeys.hasOwnProperty(j)) {
+                        if (appsZW[ZWKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadIOS += appsZW[ZWKeys[j]][time];
+                            totalRevenueIOS +=  parseFloat(appsZW[ZWKeys[j]][time+4]);
+                        }
+                    }
+                }
+            }
+            if (appsOS[osKey[k]][2] == "Android"){
+                totalDownloadAndroid += appsOS[osKey[k]][time];
+                totalRevenueAndroid +=  parseFloat(appsOS[osKey[k]][time+4]);
+            }
+            break;
+        case "RUS":
+            if (appsOS[osKey[k]][2] == "Android-iOS"){
+                for (var j in RUSiOSKeys){
+                    if (RUSiOSKeys.hasOwnProperty(j)) {
+                        if (appsRUSiOS[RUSiOSKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadIOS += appsRUSiOS[RUSiOSKeys[j]][time];
+                            totalRevenueIOS +=  parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
+                        }
+                    }
+                }
+                for (var j in RUSAndroidKeys){
+                    if (RUSAndroidKeys.hasOwnProperty(j)) {
+                        if (appsRUSAndroid[RUSAndroidKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadAndroid += appsRUSAndroid[RUSAndroidKeys[j]][time];
+                            totalRevenueAndroid +=  parseFloat(appsRUSAndroid[RUSAndroidKeys[j]][time+4]);
+                        }
+                    }
+                }
+            }
+            if (appsOS[osKey[k]][2] == "Android"){
+                totalDownloadAndroid += appsOS[osKey[k]][time];
+                totalRevenueAndroid +=  parseFloat(appsOS[osKey[k]][time+4]);
+            }
+            if (appsOS[osKey[k]][2] == "iOS"){
+                for (var j in RUSiOSKeys){
+                    if (RUSiOSKeys.hasOwnProperty(j)) {
+                        if (appsRUSiOS[RUSiOSKeys[j]][0] == appsOS[osKey[k]][0]){
+                            totalDownloadIOS += appsRUSiOS[RUSiOSKeys[j]][time];
+                            totalRevenueIOS +=  parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
+                        }
+                    }
+                }
+            }
+    }
+
     tr2.appendChild(td1);
     tr2.appendChild(td2);
     tr2.appendChild(td3);
@@ -361,18 +493,142 @@ function addTotal(){
     tbBody.appendChild(tr2);
 }
 
+
+function crearGraficos(DIOS, DA, RIOS, RA){
+    nv.addGraph(function() {
+    var chart = nv.models.pieChart()
+       .x(function(d) { return d.label })
+       .y(function(d) { return d.value })
+       .showLabels(true)
+       .labelType("percent");
+
+    d3.select("#chart1 svg")
+       .datum(chart1Data(DIOS, DA))
+       .transition().duration(1200)
+       .call(chart);
+
+    d3.select('#chart1 svg')
+      .append("text")
+      .attr("x", 150)
+      .attr("y", 350)
+      .attr("text-anchor", "middle")
+      .text("Downloads by OS (%)");
+
+    d3.select("#chart2 svg")
+       .datum(chart2Data(RIOS, RA))
+       .transition().duration(1200)
+       .call(chart);
+
+    d3.select('#chart2 svg')
+      .append("text")
+      .attr("x", 150)
+      .attr("y", 350)
+      .attr("text-anchor", "middle")
+      .text("Revenue by OS (%)");
+
+    d3.select("#chart3 svg")
+       .datum(exampleData())
+       .transition().duration(1200)
+       .call(chart);
+
+    d3.select('#chart3 svg')
+      .append("text")
+      .attr("x", 150)
+      .attr("y", 350)
+      .attr("text-anchor", "middle")
+      .text("Revenue Breakdown (%) by sku");
+    return chart;
+    });
+}
+
+function exampleData() {
+  return  [
+      {
+        "label": "One",
+        "value" : 29.765957771107
+      } ,
+      {
+        "label": "Two",
+        "value" : 0
+      } ,
+      {
+        "label": "Three",
+        "value" : 32.807804682612
+      } ,
+      {
+        "label": "Four",
+        "value" : 196.45946739256
+      } ,
+      {
+        "label": "Five",
+        "value" : 0.19434030906893
+      } ,
+      {
+        "label": "Six",
+        "value" : 98.079782601442
+      } ,
+      {
+        "label": "Seven",
+        "value" : 13.925743130903
+      } ,
+      {
+        "label": "Eight",
+        "value" : 5.1387322875705
+      }
+    ];
+}
+
+function chart1Data(DIOS, DA) {
+    data= [];
+    dict1 = {"label": "iOS", "value": DIOS};
+    dict2 = {"label": "Android", "value": DA};
+    data.push(dict1);
+    data.push(dict2);
+
+  return data;
+}
+
+function chart2Data(RIOS, RA) {
+    data= [];
+    dict1 = {"label": "iOS", "value": RIOS};
+    dict2 = {"label": "Android", "value": RA};
+    data.push(dict1);
+    data.push(dict2);
+
+  return data;
+}
+
 function descargarPDF(){
-    var pdf = new jsPDF('p', 'pt', 'letter');
+    canvas();
+    var pdf = new jsPDF('p', 'pt', 'a3');
     source = $('#resultado')[0];
     specialElementHandlers = {
         '#bypassme': function (element, renderer) {
             return true
         }
     };
+    pdf.setFontSize(10);
+
+    var canvas1 = $("#canvas1")[0];
+    var imgData1 = canvas1.toDataURL("", 1.0);
+    pdf.addImage(imgData1, 'JPEG', 655, 70, 620, 370);
+    pdf.text(700, 290, 'Downloads by OS (%)');
+
+    var canvas2 = $("#canvas2")[0];
+    var imgData2 = canvas2.toDataURL("", 1.0);
+    pdf.addImage(imgData2, 'JPEG', 655, 340, 620, 370);
+    pdf.text(708, 560, 'Revenue by OS (%)');
+
+    var canvas3 = $("#canvas3")[0];
+    var imgData3 = canvas3.toDataURL("", 1.0);
+    pdf.addImage(imgData3, 'JPEG', 655, 610, 620, 370);
+    pdf.text(675, 830, 'Revenue Breakdown (%) by sku');
+
     margins = {
-        top: 80,
-        bottom: 60,
-        left: 40,
+        top: 50,
+        bottom: 40,
+        left: 20,
+        right: 350,
         width: 522
     };
     pdf.fromHTML(
@@ -386,4 +642,10 @@ function descargarPDF(){
     function (dispose) {
         pdf.save('ZED_Analytics.pdf');
     }, margins);
+}
+
+function canvas(){
+    canvg(document.getElementById('canvas1'),$("#chart1 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
+    canvg(document.getElementById('canvas2'),$("#chart2 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
+    canvg(document.getElementById('canvas3'),$("#chart3 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
 }

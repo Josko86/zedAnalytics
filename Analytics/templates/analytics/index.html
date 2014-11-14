@@ -23,6 +23,11 @@
     <script src="{{ STATIC_URL }}analytics/jquery.tablesorter.js"></script>
     <script src="{{ STATIC_URL }}analytics/jspdf.debug.js"></script>
     <script src="{{ STATIC_URL }}analytics/jquery.tablesorter.staticrow.min.js"></script>
+    <script src="{{ STATIC_URL }}analytics/d3.js"></script>
+    <script src="{{ STATIC_URL }}analytics/nv.d3.js"></script>
+    <script src="{{ STATIC_URL }}analytics/rgbcolor.js"></script>
+    <script src="{{ STATIC_URL }}analytics/StackBlur.js"></script>
+    <script src="{{ STATIC_URL }}analytics/canvg.js"></script>
     <script src="{{ STATIC_URL }}analytics/main.js"></script>
     <title>ZED Analytics</title>
 </head>
@@ -164,8 +169,29 @@
         </div>
 
     </div>
-    <div class="col-xs-2"></div>
     <div class="col-xs-8" id="resultado"></div>
-    <div class="col-xs-2"></div>
+    <div class="col-xs-4">
+        <style>
+        svg {
+          height: 400px;
+        }
+        .chart{
+            margin-bottom: 40px;
+        }
+        </style>
+
+        <div id="chart1" class="chart">
+            <svg></svg>
+            <canvas id="canvas1" width="1000px" height="600px"></canvas>
+        </div>
+        <div id="chart2" class="chart">
+            <svg></svg>
+            <canvas id="canvas2" width="1000px" height="600px"></canvas>
+        </div>
+        <div id="chart3" class="chart">
+            <svg></svg>
+            <canvas id="canvas3" width="1000px" height="600px"></canvas>
+        </div>
+    </div>
 </body>
 </html>
