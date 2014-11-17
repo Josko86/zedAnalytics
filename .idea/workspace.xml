@@ -63,7 +63,7 @@
           <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="395" column="17" selection-start="15994" selection-end="15994" vertical-scroll-proportion="0.4906205">
+                <state line="595" column="19" selection-start="25184" selection-end="25184" vertical-scroll-proportion="0.7344877">
                   <folding />
                 </state>
               </provider>
@@ -710,7 +710,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="395" column="17" selection-start="15994" selection-end="15994" vertical-scroll-proportion="0.4906205">
+        <state line="595" column="19" selection-start="25184" selection-end="25184" vertical-scroll-proportion="0.7344877">
           <folding />
         </state>
       </provider>

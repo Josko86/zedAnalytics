@@ -593,7 +593,7 @@ function crearGraficos(DIOS, DA, RIOS, RA, TRA){
     d3.select('#chart3 svg')
       .append("text")
       .attr("x", 150)
-      .attr("y", 350)
+      .attr("y", 370)
       .attr("text-anchor", "middle")
       .text("Revenue Breakdown (%) by sku");
     return chart;
