@@ -10,7 +10,7 @@
     <file path="/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1415011633399" ignored="false" />
     <file path="/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416237418650" ignored="false" />
     <file path="/*.regexp" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413992812302" ignored="false" />
-    <file path="/main.js" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416239876167" ignored="false" />
+    <file path="/main.js" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416241400814" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/log/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119758778" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/analytics/Services/Users.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119868313" ignored="false" />
     <file path="/Python Console" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414150894904" ignored="false" />
@@ -60,19 +60,19 @@
     <splitter split-orientation="horizontal" split-proportion="0.6825513">
       <split-first>
         <leaf>
-          <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="672" column="19" selection-start="26884" selection-end="26884" vertical-scroll-proportion="0.0">
+                <state line="395" column="17" selection-start="15994" selection-end="15994" vertical-scroll-proportion="0.4906205">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Analytics/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="373" column="21" selection-start="21301" selection-end="21313" vertical-scroll-proportion="-0.07936508">
+                <state line="373" column="21" selection-start="21301" selection-end="21313" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -81,7 +81,7 @@
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="17" column="59" selection-start="817" selection-end="817" vertical-scroll-proportion="-9.807693">
+                <state line="17" column="59" selection-start="817" selection-end="817" vertical-scroll-proportion="-7.1923075">
                   <folding />
                 </state>
               </provider>
@@ -94,7 +94,7 @@
           <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="304" column="0" selection-start="12310" selection-end="12310" vertical-scroll-proportion="-5.862915">
+                <state line="571" column="21" selection-start="24609" selection-end="24609" vertical-scroll-proportion="0.68686867">
                   <folding />
                 </state>
               </provider>
@@ -694,23 +694,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="373" column="21" selection-start="21301" selection-end="21313" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="59" selection-start="817" selection-end="817" vertical-scroll-proportion="-9.807693">
+        <state line="17" column="59" selection-start="817" selection-end="817" vertical-scroll-proportion="-7.1923075">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="672" column="19" selection-start="26884" selection-end="26884" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="373" column="21" selection-start="21301" selection-end="21313" vertical-scroll-proportion="-0.07936508">
+        <state line="395" column="17" selection-start="15994" selection-end="15994" vertical-scroll-proportion="0.4906205">
           <folding />
         </state>
       </provider>

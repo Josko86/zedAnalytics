@@ -396,12 +396,12 @@ function addRow(appsOS, osKey, k, time){
                 }
                 for (var l in BitmoniOSKeys){
                     if (BitmoniOSKeys.hasOwnProperty(l)) {
-                        if (appsBitmonIOS[BitmoniOSKeys[j]][0] == appsOS[osKey[k]][0]){
+                        if (appsBitmonIOS[BitmoniOSKeys[l]][0] == appsOS[osKey[k]][0]){
                             totalDownloadIOS += appsBitmonIOS[BitmoniOSKeys[l]][time];
                             totalRevenueIOS +=  parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time+4]);
-                            dictAux.label = appsBitmonIOS[BitmoniOSKeys[j]][0].substring(0,8) +
-                                "-" + appsBitmonIOS[BitmoniOSKeys[j]][2];
-                            dictAux.value = parseFloat(appsBitmonIOS[BitmoniOSKeys[j]][time+4]);
+                            dictAux.label = appsBitmonIOS[BitmoniOSKeys[l]][0].substring(0,8) +
+                                "-" + appsBitmonIOS[BitmoniOSKeys[l]][2];
+                            dictAux.value = parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time+4]);
                             totalRevenuesArray.push(dictAux);
                         }
                     }
