@@ -196,6 +196,8 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
 
+                if category == None:
+                    category = "unknown"
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
@@ -267,6 +269,8 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
 
+                if category == None:
+                    category = "unknown"
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="PyroM", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
@@ -338,6 +342,8 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
 
+                if category == None:
+                    category = "unknown"
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                  account="PlayerX", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
@@ -409,6 +415,8 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
 
+                if category == None:
+                    category = "unknown"
                 if name!=None:
                     a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
                                      account="ZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
@@ -481,6 +489,8 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
 
+                if category == None:
+                    category = "unknown"
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
                                  account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
@@ -552,6 +562,8 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
 
+                if category == None:
+                    category = "unknown"
                 a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
                                  account="ZGPS", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
                                  revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
@@ -620,6 +632,7 @@ class Command(BaseCommand):
                                float(jsonY['sales_list'][0]["revenue"]["ad"]) +
                                float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
                                float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
 
                 a1 = Application(appKey=app_id, name=cleanName(name), category='Game', downloadsA=downloadsA, os='Fire/Android',
                                  account="AZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,

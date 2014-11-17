@@ -5,12 +5,12 @@
     <ignored path="ZED_Annalytics.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Django Console" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413903929350" ignored="false" />
-    <file path="/Dummy.txt" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1415359638137" ignored="false" />
+    <file path="/Dummy.txt" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416219600127" ignored="false" />
     <file path="/urls.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414155409811" ignored="false" />
     <file path="/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1415011633399" ignored="false" />
-    <file path="/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1415792824264" ignored="false" />
+    <file path="/index.html" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416237418650" ignored="false" />
     <file path="/*.regexp" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1413992812302" ignored="false" />
-    <file path="/main.js" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1415981615579" ignored="false" />
+    <file path="/main.js" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416239876167" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/log/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119758778" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/analytics/Services/Users.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411119868313" ignored="false" />
     <file path="/Python Console" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1414150894904" ignored="false" />
@@ -21,7 +21,7 @@
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1411996513914" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/dashboard/views.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412008678058" ignored="false" />
     <file path="$PROJECT_DIR$/../LabeleeV3/map_editor/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412074035247" ignored="false" />
-    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1415180314695" ignored="false" />
+    <file path="/fillDatabase.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1416226760143" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/core/models.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/scrapper/utils.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412673859776" ignored="false" />
     <file path="$PROJECT_DIR$/../../robots/twitter_bots/twitter_bots/settings.py" changelist="18fdeec0-a7ab-44fb-b6ca-6a6d8291b4d2" time="1412779871571" ignored="false" />
@@ -57,40 +57,22 @@
     <favorites_list name="ZED_Annalytics" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.6825513">
       <split-first>
         <leaf>
-          <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="527" column="0" selection-start="20936" selection-end="20936" vertical-scroll-proportion="0.23520924">
+                <state line="672" column="19" selection-start="26884" selection-end="26884" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Analytics/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="387" column="30" selection-start="21755" selection-end="21812" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Analytics/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ZED_Annalytics/urls.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="12" column="43" selection-start="410" selection-end="410" vertical-scroll-proportion="0.0">
+                <state line="373" column="21" selection-start="21301" selection-end="21313" vertical-scroll-proportion="-0.07936508">
                   <folding />
                 </state>
               </provider>
@@ -99,7 +81,7 @@
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="192" column="31" selection-start="7375" selection-end="7375" vertical-scroll-proportion="-19.115385">
+                <state line="17" column="59" selection-start="817" selection-end="817" vertical-scroll-proportion="-9.807693">
                   <folding />
                 </state>
               </provider>
@@ -112,7 +94,7 @@
           <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="272" column="7" selection-start="11317" selection-end="11317" vertical-scroll-proportion="0.5021645">
+                <state line="304" column="0" selection-start="12310" selection-end="12310" vertical-scroll-proportion="-5.862915">
                   <folding />
                 </state>
               </provider>
@@ -137,11 +119,11 @@
         <option value="$PROJECT_DIR$/ZED_Annalytics/settings.py" />
         <option value="$PROJECT_DIR$/ZED_Annalytics/urls.py" />
         <option value="$PROJECT_DIR$/Analytics/views.py" />
-        <option value="$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py" />
         <option value="$PROJECT_DIR$/Analytics/static/analytics/svgToPdf.js" />
         <option value="$PROJECT_DIR$/Analytics/static/analytics/jspdf.debug.js" />
-        <option value="$PROJECT_DIR$/Analytics/templates/analytics/index.html" />
         <option value="$PROJECT_DIR$/Analytics/static/analytics/canvg.js" />
+        <option value="$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py" />
+        <option value="$PROJECT_DIR$/Analytics/templates/analytics/index.html" />
         <option value="$PROJECT_DIR$/Analytics/static/analytics/main.js" />
       </list>
     </option>
@@ -178,7 +160,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -261,7 +242,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="management" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -279,31 +260,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="management" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="analytics" />
+              <option name="myItemId" value="commands" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToClass.includeJavaFiles" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="GoToClass.includeJavaFiles" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -380,29 +362,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ZED_Annalytics" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -424,6 +383,29 @@
       <option name="runNoReload" value="false" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ZED_Annalytics" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -509,10 +491,10 @@
       <method />
     </configuration>
     <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.ZED_Annalytics" />
-      <item index="1" class="java.lang.String" itemvalue="Python.fillDatabase" />
-      <item index="2" class="java.lang.String" itemvalue="Django server.ZED_Annalytics" />
-      <item index="3" class="java.lang.String" itemvalue="Python.manage" />
+      <item index="0" class="java.lang.String" itemvalue="Django server.ZED_Annalytics" />
+      <item index="1" class="java.lang.String" itemvalue="Python.manage" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ZED_Annalytics" />
+      <item index="3" class="java.lang.String" itemvalue="Python.fillDatabase" />
     </list>
     <recent_temporary>
       <list size="2">
@@ -555,7 +537,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25320512" sideWeight="0.5301339" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2681624" sideWeight="0.8191964" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27136752" sideWeight="0.8191964" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46986607" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3203125" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -629,7 +611,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="285" />
+      <option name="time" value="286" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -679,11 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="767" column="17" selection-start="46038" selection-end="46038" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/HTML5.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1002" column="28" selection-start="16003" selection-end="16003" vertical-scroll-proportion="0.33333334" />
@@ -692,6 +669,13 @@
     <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/canvg.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="730" column="46" selection-start="23932" selection-end="23932" vertical-scroll-proportion="0.86996907">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/management/commands/fillDatabase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="428" column="53" selection-start="26498" selection-end="26498" vertical-scroll-proportion="0.36796537">
           <folding />
         </state>
       </provider>
@@ -710,23 +694,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="387" column="30" selection-start="21755" selection-end="21812" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/templates/analytics/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="192" column="31" selection-start="7375" selection-end="7375" vertical-scroll-proportion="-19.115385">
+        <state line="17" column="59" selection-start="817" selection-end="817" vertical-scroll-proportion="-9.807693">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Analytics/static/analytics/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="527" column="0" selection-start="20936" selection-end="20936" vertical-scroll-proportion="0.23520924">
+        <state line="672" column="19" selection-start="26884" selection-end="26884" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analytics/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="373" column="21" selection-start="21301" selection-end="21313" vertical-scroll-proportion="-0.07936508">
           <folding />
         </state>
       </provider>
