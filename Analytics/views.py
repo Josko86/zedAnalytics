@@ -382,33 +382,33 @@ def save_file(request):
     import os
     from django.core.urlresolvers import reverse
 
-    exists = False
-    file_path = os.path.join(BASE_DIR, 'rusia.xlsx')
-    if os.path.isfile(file_path):
-        os.remove(os.path.join(BASE_DIR, 'rusia.xlsx'))
+    if request.FILES.has_key('file'):
+        exists = False
+        file_path = os.path.join(BASE_DIR, 'rusia.xlsx')
+        if os.path.isfile(file_path):
+            os.remove(os.path.join(BASE_DIR, 'rusia.xlsx'))
 
-    input_file = request.FILES['file'].file
+        input_file = request.FILES['file'].file
 
-    temp_file_path = file_path + '~'
-    output_file = open(temp_file_path, 'wb')
+        temp_file_path = file_path + '~'
+        output_file = open(temp_file_path, 'wb')
 
-    input_file.seek(0)
-    while True:
-        data = input_file.read(2<<16)
-        if not data:
-            break
-        output_file.write(data)
+        input_file.seek(0)
+        while True:
+            data = input_file.read(2<<16)
+            if not data:
+                break
+            output_file.write(data)
 
-    output_file.close()
-    os.rename(temp_file_path, file_path)
+        output_file.close()
+        os.rename(temp_file_path, file_path)
 
-    if os.path.isfile(file_path):
-        exists = True
+        if os.path.isfile(file_path):
+            exists = True
+
+        if os.path.isfile(file_path):
+            fillDatabaseFromExcel()
 
     url = reverse('index')
-
-    if os.path.isfile(file_path):
-        fillDatabaseFromExcel()
-
     return HttpResponseRedirect(url)
 
