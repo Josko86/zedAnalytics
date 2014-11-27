@@ -344,22 +344,33 @@ function createTable(){
 }
 
 function addRow(appsOS, osKey, k, time){
-    tr2 = document.createElement("tr");
-    td1 = document.createElement("td");
-    td2 = document.createElement("td");
-    td3 = document.createElement("td");
-    td4 = document.createElement("td");
-    td1.setAttribute("align", "center");
-    td2.setAttribute("align", "center");
-    td3.setAttribute("align", "center");
-    td4.setAttribute("align", "center");
+    if ((appsOS[osKey[k]][time] != 0) || ((appsOS[osKey[k]][time+4] != '0.00') && (appsOS[osKey[k]][time+4] != '0.0'))){
+        tr2 = document.createElement("tr");
+        td1 = document.createElement("td");
+        td2 = document.createElement("td");
+        td3 = document.createElement("td");
+        td4 = document.createElement("td");
+        td1.setAttribute("align", "center");
+        td2.setAttribute("align", "center");
+        td3.setAttribute("align", "center");
+        td4.setAttribute("align", "center");
 
-    td1.innerHTML = appsOS[osKey[k]][2];
-    td2.innerHTML = appsOS[osKey[k]][0];
-    td3.innerHTML = appsOS[osKey[k]][time];
-    td4.innerHTML = appsOS[osKey[k]][time+4];
-    totalDownloads += appsOS[osKey[k]][time];
-    totalRevenue += parseFloat(appsOS[osKey[k]][time+4]);
+        td1.innerHTML = appsOS[osKey[k]][2];
+        td2.innerHTML = appsOS[osKey[k]][0];
+        td3.innerHTML = appsOS[osKey[k]][time];
+        if (appsOS[osKey[k]][time+4] == '0.00'){
+            td4.innerHTML = '0.0';
+        }else{
+            td4.innerHTML = appsOS[osKey[k]][time+4];
+        }
+        totalDownloads += appsOS[osKey[k]][time];
+        totalRevenue += parseFloat(appsOS[osKey[k]][time+4]);
+        tr2.appendChild(td1);
+        tr2.appendChild(td2);
+        tr2.appendChild(td3);
+        tr2.appendChild(td4);
+        tbBody.appendChild(tr2);
+    }
 
     dict = {"label": "", "value": 0};
     dictAux = {"label": "", "value": 0};
@@ -523,11 +534,6 @@ function addRow(appsOS, osKey, k, time){
             }
     }
 
-    tr2.appendChild(td1);
-    tr2.appendChild(td2);
-    tr2.appendChild(td3);
-    tr2.appendChild(td4);
-    tbBody.appendChild(tr2);
 }
 
 function addTotal(){
@@ -625,7 +631,7 @@ function chart3Data(TRA){
     data = [];
     others = {"label": "Rest of apps", "value": 0};
     for (i=0;  i < TRA.length; i++){
-        if (i<6){
+        if (i<5){
             data.push(TRA[i]);
         }else{
             others.value += TRA[i].value;
