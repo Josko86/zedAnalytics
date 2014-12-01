@@ -2,6 +2,7 @@
 import threading
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
+import time
 from Analytics.management.commands.fillDatabase import fillDatabaseFromExcel, fillDatabaseFromAppannie
 from Analytics.models import Application, Date
 import simplejson
@@ -384,6 +385,8 @@ class FillDatabaseThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
+        fillDatabaseFromAppannie()
+        time.sleep(172000)
         fillDatabaseFromAppannie()
 
 def save_file(request):
