@@ -41,6 +41,7 @@ $(document).ready(function(){
     totalRevenueIOS = 0;
     totalRevenueAndroid = 0;
     totalRevenuesArray = [];
+    totalDownloadsArray = [];
     before = 0;
 
     showAllCat(ZEDAllKeys,appsZEDAll, 4);
@@ -54,6 +55,7 @@ $(document).ready(function(){
     $('#canvas1').hide();
     $('#canvas2').hide();
     $('#canvas3').hide();
+    $('#canvas4').hide();
     miTabla.appendChild(tbBody);
     miCapa = document.getElementById('resultado');
     miCapa.appendChild(miTabla);
@@ -61,7 +63,8 @@ $(document).ready(function(){
         widgets: ['staticRow']
 	});
     totalRevenuesArray.sort(function(a,b) { return b.value - a.value;});
-    crearGraficos(totalDownloadIOS, totalDownloadAndroid, totalRevenueIOS, totalRevenueAndroid, totalRevenuesArray);
+    totalDownloadsArray.sort(function(a,b) { return b.value - a.value;});
+    crearGraficos(totalDownloadIOS, totalDownloadAndroid, totalRevenueIOS, totalRevenueAndroid, totalRevenuesArray, totalDownloadsArray);
 
 });
 
@@ -78,6 +81,7 @@ function verEstadisticas(){
     totalRevenueIOS = 0;
     totalRevenueAndroid = 0;
     totalRevenuesArray = [];
+    totalDownloadsArray = [];
     before = 0;
 
     allAccount= $("#allAccount").is(':checked');
@@ -280,7 +284,8 @@ function verEstadisticas(){
         widgets: ['staticRow']
 	});
     totalRevenuesArray.sort(function(a,b) { return b.value - a.value;});
-    crearGraficos(totalDownloadIOS, totalDownloadAndroid, totalRevenueIOS, totalRevenueAndroid, totalRevenuesArray);
+    totalDownloadsArray.sort(function(a,b) { return b.value - a.value;});
+    crearGraficos(totalDownloadIOS, totalDownloadAndroid, totalRevenueIOS, totalRevenueAndroid, totalRevenuesArray, totalDownloadsArray);
 
 }
 
@@ -374,6 +379,9 @@ function addRow(appsOS, osKey, k, time){
 
     dict = {"label": "", "value": 0};
     dictAux = {"label": "", "value": 0};
+    dictD = {"label": "", "value": 0};
+    dictAuxD = {"label": "", "value": 0};
+
 
 //    Añadir el total de android y de ios para porcentajes
     switch (appsOS[osKey[k]][3]){
@@ -383,6 +391,9 @@ function addRow(appsOS, osKey, k, time){
             dict.label = appsOS[osKey[k]][0].substring(0,13);
             dict.value = parseFloat(appsOS[osKey[k]][time+4]);
             totalRevenuesArray.push(dict);
+            dictD.label = appsOS[osKey[k]][0].substring(0,13);
+            dictD.value = parseFloat(appsOS[osKey[k]][time]);
+            totalDownloadsArray.push(dictD);
             break;
         case "PyroM":
             totalDownloadIOS += appsOS[osKey[k]][time];
@@ -390,6 +401,9 @@ function addRow(appsOS, osKey, k, time){
             dict.label = appsOS[osKey[k]][0].substring(0,13);
             dict.value = parseFloat(appsOS[osKey[k]][time+4]);
             totalRevenuesArray.push(dict);
+            dictD.label = appsOS[osKey[k]][0].substring(0,13);
+            dictD.value = parseFloat(appsOS[osKey[k]][time]);
+            totalDownloadsArray.push(dictD);
             break;
         case "Bitmonlab":
             if (appsOS[osKey[k]][2] == "Android-iOS"){
@@ -402,6 +416,10 @@ function addRow(appsOS, osKey, k, time){
                                 "-" + appsBitmonAndroid[BitmonAndroidKeys[j]][2].substring(0,3);
                             dict.value = parseFloat(appsBitmonAndroid[BitmonAndroidKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
+                            dictD.label = appsBitmonAndroid[BitmonAndroidKeys[j]][0].substring(0,8) +
+                                "-" + appsBitmonAndroid[BitmonAndroidKeys[j]][2].substring(0,3);
+                            dictD.value = parseFloat(appsBitmonAndroid[BitmonAndroidKeys[j]][time]);
+                            totalDownloadsArray.push(dictD);
                         }
                     }
                 }
@@ -414,6 +432,10 @@ function addRow(appsOS, osKey, k, time){
                                 "-" + appsBitmonIOS[BitmoniOSKeys[l]][2];
                             dictAux.value = parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time+4]);
                             totalRevenuesArray.push(dictAux);
+                            dictAuxD.label = appsBitmonIOS[BitmoniOSKeys[l]][0].substring(0,8) +
+                                "-" + appsBitmonIOS[BitmoniOSKeys[l]][2];
+                            dictAuxD.value = parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time]);
+                            totalDownloadsArray.push(dictAuxD);
                         }
                     }
                 }
@@ -424,6 +446,9 @@ function addRow(appsOS, osKey, k, time){
                 dict.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
+                dictD.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
+                dictD.value = parseFloat(appsOS[osKey[k]][time]);
+                totalDownloadsArray.push(dictD);
             }
             if (appsOS[osKey[k]][2] == "iOS"){
                 totalDownloadIOS += appsOS[osKey[k]][time];
@@ -431,6 +456,9 @@ function addRow(appsOS, osKey, k, time){
                 dict.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
+                dictD.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
+                dictD.value = parseFloat(appsOS[osKey[k]][time]);
+                totalDownloadsArray.push(dictD);
             }
             break;
         case "ZW":
@@ -439,6 +467,9 @@ function addRow(appsOS, osKey, k, time){
             dict.label = appsOS[osKey[k]][0].substring(0,13);
             dict.value = parseFloat(appsOS[osKey[k]][time+4]);
             totalRevenuesArray.push(dict);
+            dictD.label = appsOS[osKey[k]][0].substring(0,13);
+            dictD.value = parseFloat(appsOS[osKey[k]][time]);
+            totalDownloadsArray.push(dictD);
             break;
         case "ZGPS":
             if (appsOS[osKey[k]][2] == "Android-Fire/Android"){
@@ -450,6 +481,9 @@ function addRow(appsOS, osKey, k, time){
                             dict.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
                             dict.value = parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
+                            dictD.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
+                            dictD.value = parseFloat(appsZGPS[ZGPSKeys[j]][time]);
+                            totalDownloadsArray.push(dictD);
                         }
                     }
                 }
@@ -463,6 +497,9 @@ function addRow(appsOS, osKey, k, time){
                             dict.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
                             dict.value = parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
+                            dictD.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
+                            dictD.value = parseFloat(appsZGPS[ZGPSKeys[j]][time]);
+                            totalDownloadsArray.push(dictD);
                         }
                     }
                 }
@@ -474,6 +511,9 @@ function addRow(appsOS, osKey, k, time){
                             dictAux.label = appsZW[ZWKeys[j]][0].substring(0,8)+ "-" + appsZW[ZWKeys[j]][2];
                             dictAux.value = parseFloat(appsZW[ZWKeys[j]][time+4]);
                             totalRevenuesArray.push(dictAux);
+                            dictAuxD.label = appsZW[ZWKeys[j]][0].substring(0,8)+ "-" + appsZW[ZWKeys[j]][2];
+                            dictAuxD.value = parseFloat(appsZW[ZWKeys[j]][time]);
+                            totalDownloadsArray.push(dictAuxD);
                         }
                     }
                 }
@@ -484,6 +524,9 @@ function addRow(appsOS, osKey, k, time){
                 dict.label = appsOS[osKey[k]][0].substring(0,13);
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
+                dictD.label = appsOS[osKey[k]][0].substring(0,13);
+                dictD.value = parseFloat(appsOS[osKey[k]][time]);
+                totalDownloadsArray.push(dictD);
             }
             break;
         case "RUS":
@@ -496,6 +539,9 @@ function addRow(appsOS, osKey, k, time){
                             dict.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,8)+ "-" + appsRUSiOS[RUSiOSKeys[j]][2];
                             dict.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
+                            dictD.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,8)+ "-" + appsRUSiOS[RUSiOSKeys[j]][2];
+                            dictD.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time]);
+                            totalDownloadsArray.push(dictD);
                         }
                     }
                 }
@@ -508,6 +554,10 @@ function addRow(appsOS, osKey, k, time){
                                 appsRUSAndroid[RUSAndroidKeys[j]][2].substring(0,3);
                             dictAux.value = parseFloat(appsRUSAndroid[RUSAndroidKeys[j]][time+4]);
                             totalRevenuesArray.push(dictAux);
+                            dictAuxD.label = appsRUSAndroid[RUSAndroidKeys[j]][0].substring(0,8)+ "-" +
+                                appsRUSAndroid[RUSAndroidKeys[j]][2].substring(0,3);
+                            dictAuxD.value = parseFloat(appsRUSAndroid[RUSAndroidKeys[j]][time]);
+                            totalDownloadsArray.push(dictAuxD);
                         }
                     }
                 }
@@ -518,6 +568,9 @@ function addRow(appsOS, osKey, k, time){
                 dict.label = appsOS[osKey[k]][0].substring(0,13);
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
+                dictD.label = appsOS[osKey[k]][0].substring(0,13);
+                dictD.value = parseFloat(appsOS[osKey[k]][time]);
+                totalDownloadsArray.push(dictD);
             }
             if (appsOS[osKey[k]][2] == "iOS"){
                 for (var j in RUSiOSKeys){
@@ -528,6 +581,9 @@ function addRow(appsOS, osKey, k, time){
                             dict.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,13);
                             dict.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
+                            dictD.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,13);
+                            dictD.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time]);
+                            totalDownloadsArray.push(dictD);
                         }
                     }
                 }
@@ -559,7 +615,7 @@ function addTotal(){
 }
 
 
-function crearGraficos(DIOS, DA, RIOS, RA, TRA){
+function crearGraficos(DIOS, DA, RIOS, RA, TRA, TDA){
     nv.addGraph(function() {
     var chart = nv.models.pieChart()
        .x(function(d) { return d.label })
@@ -578,6 +634,18 @@ function crearGraficos(DIOS, DA, RIOS, RA, TRA){
       .attr("y", 350)
       .attr("text-anchor", "middle")
       .text("Downloads by OS (%)");
+
+    d3.select("#chart4 svg")
+       .datum(chart4Data(TDA))
+       .transition().duration(1200)
+       .call(chart);
+
+    d3.select('#chart4 svg')
+      .append("text")
+      .attr("x", 150)
+      .attr("y", 370)
+      .attr("text-anchor", "middle")
+      .text("Downloads (%) by sku");
 
     d3.select("#chart2 svg")
        .datum(chart2Data(RIOS, RA))
@@ -615,6 +683,20 @@ function chart1Data(DIOS, DA) {
     data.push(dict2);
 
   return data;
+}
+
+function chart4Data(TDA){
+    data = [];
+    others = {"label": "Rest of apps", "value": 0};
+    for (i=0;  i < TDA.length; i++){
+        if (i<5){
+            data.push(TDA[i]);
+        }else{
+            others.value += TDA[i].value;
+        }
+    }
+    data.push(others);
+    return data;
 }
 
 function chart2Data(RIOS, RA) {
@@ -693,15 +775,20 @@ function descargarPDF(){
     pdf.addImage(imgData1, 'JPEG', 655, 70, 620, 370);
     pdf.text(700, 290, 'Downloads by OS (%)');
 
+    var canvas4 = $("#canvas4")[0];
+    var imgData4 = canvas4.toDataURL("", 1.0);
+    pdf.addImage(imgData4, 'JPEG', 655, 340, 620, 370);
+    pdf.text(699, 570, 'Downloads (%) by sku');
+
     var canvas2 = $("#canvas2")[0];
     var imgData2 = canvas2.toDataURL("", 1.0);
-    pdf.addImage(imgData2, 'JPEG', 655, 340, 620, 370);
-    pdf.text(708, 560, 'Revenue by OS (%)');
+    pdf.addImage(imgData2, 'JPEG', 655, 610, 620, 370);
+    pdf.text(708, 840, 'Revenue by OS (%)');
 
     var canvas3 = $("#canvas3")[0];
     var imgData3 = canvas3.toDataURL("", 1.0);
-    pdf.addImage(imgData3, 'JPEG', 655, 610, 620, 370);
-    pdf.text(675, 840, 'Revenue Breakdown (%) by sku');
+    pdf.addImage(imgData3, 'JPEG', 655, 880, 620, 370);
+    pdf.text(675, 1120, 'Revenue Breakdown (%) by sku');
 
     margins = {
         top: 50,
@@ -727,4 +814,5 @@ function canvas(){
     canvg(document.getElementById('canvas1'),$("#chart1 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
     canvg(document.getElementById('canvas2'),$("#chart2 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
     canvg(document.getElementById('canvas3'),$("#chart3 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
+    canvg(document.getElementById('canvas4'),$("#chart4 svg")[0].innerHTML, { ignoreMouse: true, ignoreAnimation: true });
 }
