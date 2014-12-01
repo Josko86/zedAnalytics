@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import threading
 import time
 import datetime
 from Analytics.models import Application, Date
@@ -15,7 +16,17 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         pass
 
-def fillDatabaseFromAppannie():
+class FillDatabaseThread(threading.Thread):
+    def __init__(self, dateEx):
+        threading.Thread.__init__(self)
+        self.dateEx = dateEx
+
+    def run(self):
+        fillDatabaseFromAppannie(self.dateEx)
+        time.sleep(172000)
+        fillDatabaseFromAppannie(self.dateEx)
+
+def fillDatabaseFromAppannie(dateEx):
     try:
 
         print("updating database")
@@ -36,10 +47,9 @@ def fillDatabaseFromAppannie():
         app_ids_ZGPS = []
         app_ids_AZW = []
 
-        today = datetime.date.today().strftime("%Y-%m-%d")
-        yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
-        lastWeek = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
-        lastMonth = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+        today = dateEx
+        lastWeek = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+        lastMonth = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
 
 
         #rellenar el array de las aplicaciones flurry
@@ -156,19 +166,22 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today,
+                             headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today,
+                             headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today,
+                             headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -229,19 +242,19 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -302,19 +315,19 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -375,19 +388,19 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -449,19 +462,19 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -522,19 +535,19 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -594,19 +607,19 @@ def fillDatabaseFromAppannie():
             json = simplejson.loads(r.content)
 
             s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?end_date=' + today, headers={"Authorization": APIKEY_APPANNIE})
             jsonA = simplejson.loads(s.content)
 
             t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+today+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonY = simplejson.loads(t.content)
 
             u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastWeek+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonW = simplejson.loads(u.content)
 
             v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+                             str(app_id) + '/sales?start_date='+lastMonth+'&end_date='+today, headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
             name = json["product"]["product_name"]
@@ -654,7 +667,7 @@ def fillDatabaseFromAppannie():
             except Exception as ex:
                 a1.save()
 
-        a1 = Date(dateAppannie=yesterday, dateExcel="unknown")
+        a1 = Date(dateAppannie=today, dateExcel="unknown")
         try:
             a2= Date.objects.get(id=1)
             a2.dateAppannie = a1.dateAppannie
@@ -793,6 +806,9 @@ def fillDatabaseFromExcel():
         a2.save()
     except Exception as ex:
         a1.save()
+
+    t = FillDatabaseThread(lastDateExcel)
+    t.start()
 
 def cleanName(name):
     appNames = {

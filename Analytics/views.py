@@ -3,7 +3,7 @@ import threading
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 import time
-from Analytics.management.commands.fillDatabase import fillDatabaseFromExcel, fillDatabaseFromAppannie
+from Analytics.management.commands.fillDatabase import fillDatabaseFromExcel
 from Analytics.models import Application, Date
 import simplejson
 from django.http import HttpResponseRedirect
@@ -380,15 +380,6 @@ def index(request):
 
     return render_to_response('analytics/index.html', ctx, context_instance=RequestContext(request))
 
-class FillDatabaseThread(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        fillDatabaseFromAppannie()
-        time.sleep(172000)
-        fillDatabaseFromAppannie()
-
 def save_file(request):
     import os
     from django.core.urlresolvers import reverse
@@ -419,8 +410,6 @@ def save_file(request):
 
         if os.path.isfile(file_path):
             fillDatabaseFromExcel()
-            t = FillDatabaseThread()
-            t.start()
 
     url = reverse('index')
     return HttpResponseRedirect(url)
