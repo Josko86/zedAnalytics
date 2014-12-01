@@ -734,23 +734,24 @@ function descargarPDF(){
     };
     pdf.setFontSize(10);
 
-    var today = new Date();
-    var dayBefore = new Date();
-    today.setDate(today.getDate()-2);
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+//    var today = new Date();
 
-    var yyyy = today.getFullYear();
-    if(dd<10){
-        dd='0'+dd
-    }
-    if(mm<10){
-        mm='0'+mm
-    }
-    var today = dd+'/'+mm+'/'+yyyy;
+//    today.setDate(today.getDate()-2);
+//    var dd = today.getDate();
+//    var mm = today.getMonth()+1; //January is 0!
+//
+//    var yyyy = today.getFullYear();
+//    if(dd<10){
+//        dd='0'+dd
+//    }
+//    if(mm<10){
+//        mm='0'+mm
+//    }
+    var today = $('#dateExcel').first().text().substring(7,17);
 
+    var dayBefore = new Date(today);
     if (before!=0){
-        dayBefore.setDate(dayBefore.getDate()-(2+before));
+        dayBefore.setDate(dayBefore.getDate()-(before));
         var ddb = dayBefore.getDate();
         var mmb = dayBefore.getMonth()+1; //January is 0!
 
@@ -761,10 +762,10 @@ function descargarPDF(){
         if(mmb<10){
             mmb='0'+mmb
         }
-        var dayBefore = ddb+'/'+mmb+'/'+yyyyb;
-        pdf.text(530, 50, dayBefore + " - " + today);
+        var dayBefore = yyyyb+'-'+mmb+'-'+ddb;
+        pdf.text(530, 50, dayBefore + " / " + today);
     }else{
-        pdf.text(582, 50, "- " + today);
+        pdf.text(582, 50, "~ / " + today);
     }
 
     pdf.text(25, 50, "Apps and games downloads and revenue");
