@@ -13,661 +13,664 @@ from ZED_Annalytics.settings import BASE_DIR
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-
-        try:
-
-            print("updating database")
-            ACCOUNT_ID_BITMONLAB_IOS = "179195"
-            ACCOUNT_ID_PYROM_IOS = "179354"
-            ACCOUNT_ID_PLAYERX = "173012"
-            ACCOUNT_ID_ZW = "39230"
-            ACCOUNT_ID_BITMONLAB_ANDROID = "179197"
-            ACCOUNT_ID_ZGPS = "46490"
-            ACCOUNT_ID_AZW = "173002"
-            APIKEY_APPANNIE = "bearer 5dba15b181bd108344478ee985a7e0b737562377"
-
-            app_ids_BitmonlabIOS = []
-            app_ids_PyroMIOS = []
-            app_ids_PlayerX = []
-            app_ids_ZW = []
-            app_ids_BitmonlabAndroid = []
-            app_ids_ZGPS = []
-            app_ids_AZW = []
-
-            today = datetime.date.today().strftime("%Y-%m-%d")
-            yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
-            lastWeek = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
-            lastMonth = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
-
-
-            #rellenar el array de las aplicaciones flurry
-            # flurryAppList = requests.get('http://api.flurry.com/appInfo/getAllApplications?apiAccessCode=' + APIFLURRY +
-            #                             '&apiKey=2VYRJ826D32Z7TCS5899')
-            # json = simplejson.loads(flurryAppList.content)
-            # flurryAppList = json["application"]
-            # for i in range(len(flurryAppList)):
-            #     time.sleep(1)
-            #     apiKey = flurryAppList[i]["@apiKey"]
-            #     r = requests.get('http://api.flurry.com/appInfo/getApplication?apiAccessCode='  + APIFLURRY +
-            #                      '&apiKey=' + apiKey)
-            #     json = simplejson.loads(r.content)
-            #
-            #     createdDate = json["@createdDate"]
-            #
-            #     startDate = today
-            #     total = 0
-            #     while (startDate>createdDate):
-            #         endDate = startDate
-            #         startDate = (datetime.datetime.strptime(endDate, '%Y-%m-%d') - datetime.timedelta(days=365))
-            #         startDate = startDate.strftime("%Y-%m-%d")
-            #         time.sleep(1)
-            #         s = requests.get('http://api.flurry.com/appMetrics/NewUsers?apiAccessCode='  + APIFLURRY +
-            #                        '&apiKey='+ apiKey + '&startDate=' + startDate + '&endDate=' + endDate + '&groupBy=months')
-            #         json2 = simplejson.loads(s.content)
-            #         for j in range(len(json2["day"])):
-            #             total += int(json2["day"][j]["@value"])
-            #
-            #
-            #     aplicacionesFlurry[apiKey] = []
-            #     aplicacionesFlurry[apiKey].append(flurryAppList[i]["@name"])
-            #     aplicacionesFlurry[apiKey].append(json["@category"])
-            #     aplicacionesFlurry[apiKey].append(total)
-            #     aplicacionesFlurry[apiKey].append(flurryAppList[i]["@platform"])
-            #     a1 = Application(appKey=apiKey, name=aplicacionesFlurry[apiKey][0], category=aplicacionesFlurry[apiKey][1],
-            #                      downloads=aplicacionesFlurry[apiKey][2], os=aplicacionesFlurry[apiKey][3], source="flurry")
-            #     try:
-            #         a2= Application.objects.get(appKey=apiKey)
-            #         a2.downloads = a1.downloads
-            #         a2.save()
-            #     except Exception as ex:
-            #         a1.save()
-
-
-            #rellenar array de ids de aplicaciones de cada tienda
-            BitmonlabIOSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_BITMONLAB_IOS +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(BitmonlabIOSAppList.content)
-            BitmonlabIOSAppList = json["products"]
-            for i in range(len(BitmonlabIOSAppList)):
-                if BitmonlabIOSAppList[i]['status']:
-                    app_ids_BitmonlabIOS.append((BitmonlabIOSAppList[i]["product_id"]))
-
-            PyroMIOSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_PYROM_IOS +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(PyroMIOSAppList.content)
-            PyroMIOSAppList = json["products"]
-            for i in range(len(PyroMIOSAppList)):
-                if PyroMIOSAppList[i]['status']:
-                    app_ids_PyroMIOS.append((PyroMIOSAppList[i]["product_id"]))
-
-            PlayerXAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_PLAYERX +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(PlayerXAppList.content)
-            PlayerXAppList = json["products"]
-            for i in range(len(PlayerXAppList)):
-                if PlayerXAppList[i]['status']:
-                    app_ids_PlayerX.append((PlayerXAppList[i]["product_id"]))
-
-            ZWAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_ZW +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(ZWAppList.content)
-            ZWAppList = json["products"]
-            for i in range(len(ZWAppList)):
-                try:
-                    if ZWAppList[i]['status'] and (len(ZWAppList[i]['devices'])>0):
-                        app_ids_ZW.append((ZWAppList[i]["product_id"]))
-                except:
-                    pass
-
-            BitmonlabAndroidAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_BITMONLAB_ANDROID +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(BitmonlabAndroidAppList.content)
-            BitmonlabAndroidAppList = json["products"]
-            for i in range(len(BitmonlabAndroidAppList)):
-                if BitmonlabAndroidAppList[i]['status']:
-                    app_ids_BitmonlabAndroid.append((BitmonlabAndroidAppList[i]["product_id"]))
-
-            ZGPSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_ZGPS +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(ZGPSAppList.content)
-            ZGPSAppList = json["products"]
-            for i in range(len(ZGPSAppList)):
-                if ZGPSAppList[i]['status']:
-                    app_ids_ZGPS.append((ZGPSAppList[i]["product_id"]))
-
-            AZWAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_AZW +'/products',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-            json = simplejson.loads(AZWAppList.content)
-            AZWAppList = json["products"]
-            for i in range(len(AZWAppList)):
-                if AZWAppList[i]['status']:
-                    app_ids_AZW.append((AZWAppList[i]["product_id"]))
-
-            time.sleep(14)
-
-            #Crea un diccionario por cada tienda con id de aplicacion y nombre, categoria y numero de descargas, y revenues
-            for app_id in app_ids_BitmonlabIOS:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                category = json["product"]["main_category"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-                if category == None:
-                    category = "unknown"
-                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
-                                 account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                try:
-                    a2= Application.objects.get(appKey=app_id)
-                    a2.name = a1.name
-                    a2.downloadsA = a1.downloadsA
-                    a2.downloadsT = a1.downloadsT
-                    a2.downloadsW = a1.downloadsW
-                    a2.downloadsM = a1.downloadsM
-                    a2.revenueA = a1.revenueA
-                    a2.revenueT = a1.revenueT
-                    a2.revenueW = a1.revenueW
-                    a2.revenueM = a1.revenueM
-                    a2.save()
-                except Exception as ex:
-                    a1.save()
-
-            print('Bitmonlab iTunes updated')
-
-
-            for app_id in app_ids_PyroMIOS:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                category = json["product"]["main_category"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-                if category == None:
-                    category = "unknown"
-                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
-                                 account="PyroM", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                try:
-                    a2= Application.objects.get(appKey=app_id)
-                    a2.name = a1.name
-                    a2.downloadsA = a1.downloadsA
-                    a2.downloadsT = a1.downloadsT
-                    a2.downloadsW = a1.downloadsW
-                    a2.downloadsM = a1.downloadsM
-                    a2.revenueA = a1.revenueA
-                    a2.revenueT = a1.revenueT
-                    a2.revenueW = a1.revenueW
-                    a2.revenueM = a1.revenueM
-                    a2.save()
-                except Exception as ex:
-                    a1.save()
-
-            print('PyroM iTunes updated')
-
-
-            for app_id in app_ids_PlayerX:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                category = json["product"]["main_category"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-                if category == None:
-                    category = "unknown"
-                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
-                                 account="PlayerX", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                try:
-                    a2= Application.objects.get(appKey=app_id)
-                    a2.name = a1.name
-                    a2.downloadsA = a1.downloadsA
-                    a2.downloadsT = a1.downloadsT
-                    a2.downloadsW = a1.downloadsW
-                    a2.downloadsM = a1.downloadsM
-                    a2.revenueA = a1.revenueA
-                    a2.revenueT = a1.revenueT
-                    a2.revenueW = a1.revenueW
-                    a2.revenueM = a1.revenueM
-                    a2.save()
-                except Exception as ex:
-                    a1.save()
-
-            print('PlayerX updated')
-
-
-            for app_id in app_ids_ZW:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                category = json["product"]["main_category"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-                if category == None:
-                    category = "unknown"
-                if name!=None:
-                    a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
-                                     account="ZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                     revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                    try:
-                        a2= Application.objects.get(appKey=app_id)
-                        a2.name = a1.name
-                        a2.downloadsA = a1.downloadsA
-                        a2.downloadsT = a1.downloadsT
-                        a2.downloadsW = a1.downloadsW
-                        a2.downloadsM = a1.downloadsM
-                        a2.revenueA = a1.revenueA
-                        a2.revenueT = a1.revenueT
-                        a2.revenueW = a1.revenueW
-                        a2.revenueM = a1.revenueM
-                        a2.save()
-                    except Exception as ex:
-                        a1.save()
-
-            print('ZW updated')
-
-
-            for app_id in app_ids_BitmonlabAndroid:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                category = json["product"]["main_category"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-                if category == None:
-                    category = "unknown"
-                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
-                                 account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                try:
-                    a2= Application.objects.get(appKey=app_id)
-                    a2.name = a1.name
-                    a2.downloadsA = a1.downloadsA
-                    a2.downloadsT = a1.downloadsT
-                    a2.downloadsW = a1.downloadsW
-                    a2.downloadsM = a1.downloadsM
-                    a2.revenueA = a1.revenueA
-                    a2.revenueT = a1.revenueT
-                    a2.revenueW = a1.revenueW
-                    a2.revenueM = a1.revenueM
-                    a2.save()
-                except Exception as ex:
-                    a1.save()
-
-            print('Bitmonlab Android updated')
-
-
-            for app_id in app_ids_ZGPS:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                category = json["product"]["main_category"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-                if category == None:
-                    category = "unknown"
-                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
-                                 account="ZGPS", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                try:
-                    a2= Application.objects.get(appKey=app_id)
-                    a2.name = a1.name
-                    a2.downloadsA = a1.downloadsA
-                    a2.downloadsT = a1.downloadsT
-                    a2.downloadsW = a1.downloadsW
-                    a2.downloadsM = a1.downloadsM
-                    a2.revenueA = a1.revenueA
-                    a2.revenueT = a1.revenueT
-                    a2.revenueW = a1.revenueW
-                    a2.revenueM = a1.revenueM
-                    a2.save()
-                except Exception as ex:
-                    a1.save()
-
-            print('ZGPS updated')
-
-            for app_id in app_ids_AZW:
-
-                time.sleep(10)
-                r = requests.get('https://api.appannie.com/v1.2/apps/amazon-appstore/app/' + str(app_id) + '/details',
-                                 headers={"Authorization": APIKEY_APPANNIE})
-                json = simplejson.loads(r.content)
-
-                s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
-                jsonA = simplejson.loads(s.content)
-
-                t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
-                jsonY = simplejson.loads(t.content)
-
-                u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
-                jsonW = simplejson.loads(u.content)
-
-                v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
-                                 str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
-                jsonM = simplejson.loads(v.content)
-
-                name = json["product"]["product_name"]
-                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-
-                a1 = Application(appKey=app_id, name=cleanName(name), category='Game', downloadsA=downloadsA, os='Fire/Android',
-                                 account="AZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
-                try:
-                    a2= Application.objects.get(appKey=app_id)
-                    a2.name = a1.name
-                    a2.downloadsA = a1.downloadsA
-                    a2.downloadsT = a1.downloadsT
-                    a2.downloadsW = a1.downloadsW
-                    a2.downloadsM = a1.downloadsM
-                    a2.revenueA = a1.revenueA
-                    a2.revenueT = a1.revenueT
-                    a2.revenueW = a1.revenueW
-                    a2.revenueM = a1.revenueM
-                    a2.save()
-                except Exception as ex:
-                    a1.save()
-
-            a1 = Date(dateAppannie=yesterday, dateExcel="unknown")
+        pass
+
+def fillDatabaseFromAppannie():
+    try:
+
+        print("updating database")
+        ACCOUNT_ID_BITMONLAB_IOS = "179195"
+        ACCOUNT_ID_PYROM_IOS = "179354"
+        ACCOUNT_ID_PLAYERX = "173012"
+        ACCOUNT_ID_ZW = "39230"
+        ACCOUNT_ID_BITMONLAB_ANDROID = "179197"
+        ACCOUNT_ID_ZGPS = "46490"
+        ACCOUNT_ID_AZW = "173002"
+        APIKEY_APPANNIE = "bearer 5dba15b181bd108344478ee985a7e0b737562377"
+
+        app_ids_BitmonlabIOS = []
+        app_ids_PyroMIOS = []
+        app_ids_PlayerX = []
+        app_ids_ZW = []
+        app_ids_BitmonlabAndroid = []
+        app_ids_ZGPS = []
+        app_ids_AZW = []
+
+        today = datetime.date.today().strftime("%Y-%m-%d")
+        yesterday = (datetime.datetime.strptime(today, '%Y-%m-%d') - datetime.timedelta(days=2)).strftime("%Y-%m-%d")
+        lastWeek = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime("%Y-%m-%d")
+        lastMonth = (datetime.datetime.strptime(yesterday, '%Y-%m-%d') - datetime.timedelta(days=30)).strftime("%Y-%m-%d")
+
+
+        #rellenar el array de las aplicaciones flurry
+        # flurryAppList = requests.get('http://api.flurry.com/appInfo/getAllApplications?apiAccessCode=' + APIFLURRY +
+        #                             '&apiKey=2VYRJ826D32Z7TCS5899')
+        # json = simplejson.loads(flurryAppList.content)
+        # flurryAppList = json["application"]
+        # for i in range(len(flurryAppList)):
+        #     time.sleep(1)
+        #     apiKey = flurryAppList[i]["@apiKey"]
+        #     r = requests.get('http://api.flurry.com/appInfo/getApplication?apiAccessCode='  + APIFLURRY +
+        #                      '&apiKey=' + apiKey)
+        #     json = simplejson.loads(r.content)
+        #
+        #     createdDate = json["@createdDate"]
+        #
+        #     startDate = today
+        #     total = 0
+        #     while (startDate>createdDate):
+        #         endDate = startDate
+        #         startDate = (datetime.datetime.strptime(endDate, '%Y-%m-%d') - datetime.timedelta(days=365))
+        #         startDate = startDate.strftime("%Y-%m-%d")
+        #         time.sleep(1)
+        #         s = requests.get('http://api.flurry.com/appMetrics/NewUsers?apiAccessCode='  + APIFLURRY +
+        #                        '&apiKey='+ apiKey + '&startDate=' + startDate + '&endDate=' + endDate + '&groupBy=months')
+        #         json2 = simplejson.loads(s.content)
+        #         for j in range(len(json2["day"])):
+        #             total += int(json2["day"][j]["@value"])
+        #
+        #
+        #     aplicacionesFlurry[apiKey] = []
+        #     aplicacionesFlurry[apiKey].append(flurryAppList[i]["@name"])
+        #     aplicacionesFlurry[apiKey].append(json["@category"])
+        #     aplicacionesFlurry[apiKey].append(total)
+        #     aplicacionesFlurry[apiKey].append(flurryAppList[i]["@platform"])
+        #     a1 = Application(appKey=apiKey, name=aplicacionesFlurry[apiKey][0], category=aplicacionesFlurry[apiKey][1],
+        #                      downloads=aplicacionesFlurry[apiKey][2], os=aplicacionesFlurry[apiKey][3], source="flurry")
+        #     try:
+        #         a2= Application.objects.get(appKey=apiKey)
+        #         a2.downloads = a1.downloads
+        #         a2.save()
+        #     except Exception as ex:
+        #         a1.save()
+
+
+        #rellenar array de ids de aplicaciones de cada tienda
+        BitmonlabIOSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_BITMONLAB_IOS +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(BitmonlabIOSAppList.content)
+        BitmonlabIOSAppList = json["products"]
+        for i in range(len(BitmonlabIOSAppList)):
+            if BitmonlabIOSAppList[i]['status']:
+                app_ids_BitmonlabIOS.append((BitmonlabIOSAppList[i]["product_id"]))
+
+        PyroMIOSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_PYROM_IOS +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(PyroMIOSAppList.content)
+        PyroMIOSAppList = json["products"]
+        for i in range(len(PyroMIOSAppList)):
+            if PyroMIOSAppList[i]['status']:
+                app_ids_PyroMIOS.append((PyroMIOSAppList[i]["product_id"]))
+
+        PlayerXAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_PLAYERX +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(PlayerXAppList.content)
+        PlayerXAppList = json["products"]
+        for i in range(len(PlayerXAppList)):
+            if PlayerXAppList[i]['status']:
+                app_ids_PlayerX.append((PlayerXAppList[i]["product_id"]))
+
+        ZWAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_ZW +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(ZWAppList.content)
+        ZWAppList = json["products"]
+        for i in range(len(ZWAppList)):
             try:
-                a2= Date.objects.get(id=1)
-                a2.dateAppannie = a1.dateAppannie
+                if ZWAppList[i]['status'] and (len(ZWAppList[i]['devices'])>0):
+                    app_ids_ZW.append((ZWAppList[i]["product_id"]))
+            except:
+                pass
+
+        BitmonlabAndroidAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_BITMONLAB_ANDROID +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(BitmonlabAndroidAppList.content)
+        BitmonlabAndroidAppList = json["products"]
+        for i in range(len(BitmonlabAndroidAppList)):
+            if BitmonlabAndroidAppList[i]['status']:
+                app_ids_BitmonlabAndroid.append((BitmonlabAndroidAppList[i]["product_id"]))
+
+        ZGPSAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_ZGPS +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(ZGPSAppList.content)
+        ZGPSAppList = json["products"]
+        for i in range(len(ZGPSAppList)):
+            if ZGPSAppList[i]['status']:
+                app_ids_ZGPS.append((ZGPSAppList[i]["product_id"]))
+
+        AZWAppList = requests.get('https://api.appannie.com/v1.2/accounts/'+ ACCOUNT_ID_AZW +'/products',
+                             headers={"Authorization": APIKEY_APPANNIE})
+        json = simplejson.loads(AZWAppList.content)
+        AZWAppList = json["products"]
+        for i in range(len(AZWAppList)):
+            if AZWAppList[i]['status']:
+                app_ids_AZW.append((AZWAppList[i]["product_id"]))
+
+        time.sleep(14)
+
+        #Crea un diccionario por cada tienda con id de aplicacion y nombre, categoria y numero de descargas, y revenues
+        for app_id in app_ids_BitmonlabIOS:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_IOS + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            category = json["product"]["main_category"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+            if category == None:
+                category = "unknown"
+            a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                             account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+            try:
+                a2= Application.objects.get(appKey=app_id)
+                a2.name = a1.name
+                a2.downloadsA = a1.downloadsA
+                a2.downloadsT = a1.downloadsT
+                a2.downloadsW = a1.downloadsW
+                a2.downloadsM = a1.downloadsM
+                a2.revenueA = a1.revenueA
+                a2.revenueT = a1.revenueT
+                a2.revenueW = a1.revenueW
+                a2.revenueM = a1.revenueM
                 a2.save()
             except Exception as ex:
                 a1.save()
 
-            print(today + ' ' + time.strftime("%H:%M:%S") + 'Database updated from appannie')
+        print('Bitmonlab iTunes updated')
 
+
+        for app_id in app_ids_PyroMIOS:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PYROM_IOS + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            category = json["product"]["main_category"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+            if category == None:
+                category = "unknown"
+            a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                             account="PyroM", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+            try:
+                a2= Application.objects.get(appKey=app_id)
+                a2.name = a1.name
+                a2.downloadsA = a1.downloadsA
+                a2.downloadsT = a1.downloadsT
+                a2.downloadsW = a1.downloadsW
+                a2.downloadsM = a1.downloadsM
+                a2.revenueA = a1.revenueA
+                a2.revenueT = a1.revenueT
+                a2.revenueW = a1.revenueW
+                a2.revenueM = a1.revenueM
+                a2.save()
+            except Exception as ex:
+                a1.save()
+
+        print('PyroM iTunes updated')
+
+
+        for app_id in app_ids_PlayerX:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_PLAYERX + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            category = json["product"]["main_category"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+            if category == None:
+                category = "unknown"
+            a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                             account="PlayerX", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+            try:
+                a2= Application.objects.get(appKey=app_id)
+                a2.name = a1.name
+                a2.downloadsA = a1.downloadsA
+                a2.downloadsT = a1.downloadsT
+                a2.downloadsW = a1.downloadsW
+                a2.downloadsM = a1.downloadsM
+                a2.revenueA = a1.revenueA
+                a2.revenueT = a1.revenueT
+                a2.revenueW = a1.revenueW
+                a2.revenueM = a1.revenueM
+                a2.save()
+            except Exception as ex:
+                a1.save()
+
+        print('PlayerX updated')
+
+
+        for app_id in app_ids_ZW:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/ios/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZW + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            category = json["product"]["main_category"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+            if category == None:
+                category = "unknown"
+            if name!=None:
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                                 account="ZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+                try:
+                    a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
+
+        print('ZW updated')
+
+
+        for app_id in app_ids_BitmonlabAndroid:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_BITMONLAB_ANDROID + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            category = json["product"]["main_category"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+            if category == None:
+                category = "unknown"
+            a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
+                             account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+            try:
+                a2= Application.objects.get(appKey=app_id)
+                a2.name = a1.name
+                a2.downloadsA = a1.downloadsA
+                a2.downloadsT = a1.downloadsT
+                a2.downloadsW = a1.downloadsW
+                a2.downloadsM = a1.downloadsM
+                a2.revenueA = a1.revenueA
+                a2.revenueT = a1.revenueT
+                a2.revenueW = a1.revenueW
+                a2.revenueM = a1.revenueM
+                a2.save()
+            except Exception as ex:
+                a1.save()
+
+        print('Bitmonlab Android updated')
+
+
+        for app_id in app_ids_ZGPS:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/google-play/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_ZGPS + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            category = json["product"]["main_category"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+            if category == None:
+                category = "unknown"
+            a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='Android',
+                             account="ZGPS", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+            try:
+                a2= Application.objects.get(appKey=app_id)
+                a2.name = a1.name
+                a2.downloadsA = a1.downloadsA
+                a2.downloadsT = a1.downloadsT
+                a2.downloadsW = a1.downloadsW
+                a2.downloadsM = a1.downloadsM
+                a2.revenueA = a1.revenueA
+                a2.revenueT = a1.revenueT
+                a2.revenueW = a1.revenueW
+                a2.revenueM = a1.revenueM
+                a2.save()
+            except Exception as ex:
+                a1.save()
+
+        print('ZGPS updated')
+
+        for app_id in app_ids_AZW:
+
+            time.sleep(10)
+            r = requests.get('https://api.appannie.com/v1.2/apps/amazon-appstore/app/' + str(app_id) + '/details',
+                             headers={"Authorization": APIKEY_APPANNIE})
+            json = simplejson.loads(r.content)
+
+            s = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
+                             str(app_id) + '/sales', headers={"Authorization": APIKEY_APPANNIE})
+            jsonA = simplejson.loads(s.content)
+
+            t = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
+                             str(app_id) + '/sales?start_date='+yesterday, headers={"Authorization": APIKEY_APPANNIE})
+            jsonY = simplejson.loads(t.content)
+
+            u = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastWeek, headers={"Authorization": APIKEY_APPANNIE})
+            jsonW = simplejson.loads(u.content)
+
+            v = requests.get('https://api.appannie.com/v1.2/accounts/' + ACCOUNT_ID_AZW + '/products/' +
+                             str(app_id) + '/sales?start_date='+lastMonth, headers={"Authorization": APIKEY_APPANNIE})
+            jsonM = simplejson.loads(v.content)
+
+            name = json["product"]["product_name"]
+            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+
+            a1 = Application(appKey=app_id, name=cleanName(name), category='Game', downloadsA=downloadsA, os='Fire/Android',
+                             account="AZW", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+            try:
+                a2= Application.objects.get(appKey=app_id)
+                a2.name = a1.name
+                a2.downloadsA = a1.downloadsA
+                a2.downloadsT = a1.downloadsT
+                a2.downloadsW = a1.downloadsW
+                a2.downloadsM = a1.downloadsM
+                a2.revenueA = a1.revenueA
+                a2.revenueT = a1.revenueT
+                a2.revenueW = a1.revenueW
+                a2.revenueM = a1.revenueM
+                a2.save()
+            except Exception as ex:
+                a1.save()
+
+        a1 = Date(dateAppannie=yesterday, dateExcel="unknown")
+        try:
+            a2= Date.objects.get(id=1)
+            a2.dateAppannie = a1.dateAppannie
+            a2.save()
         except Exception as ex:
-            print(datetime.date.today().strftime("%Y-%m-%d") + ' ' + time.strftime("%H:%M:%S"))
-            print(ex)
+            a1.save()
 
-        finally:
-            time.sleep(84800)
+        print(today + ' ' + time.strftime("%H:%M:%S") + 'Database updated from appannie')
+
+    except Exception as ex:
+        print(datetime.date.today().strftime("%Y-%m-%d") + ' ' + time.strftime("%H:%M:%S"))
+        print(ex)
+
+    finally:
+        pass
+        # time.sleep(84800)
 
 def fillDatabaseFromExcel():
     # Recoger datos del excel rusia xlsx

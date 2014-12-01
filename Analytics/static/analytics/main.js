@@ -388,20 +388,20 @@ function addRow(appsOS, osKey, k, time){
         case "PlayerX":
             totalDownloadIOS += appsOS[osKey[k]][time];
             totalRevenueIOS += parseFloat(appsOS[osKey[k]][time+4]);
-            dict.label = appsOS[osKey[k]][0].substring(0,13);
+            dict.label = appsOS[osKey[k]][0].substring(0,14);
             dict.value = parseFloat(appsOS[osKey[k]][time+4]);
             totalRevenuesArray.push(dict);
-            dictD.label = appsOS[osKey[k]][0].substring(0,13);
+            dictD.label = appsOS[osKey[k]][0].substring(0,14);
             dictD.value = parseFloat(appsOS[osKey[k]][time]);
             totalDownloadsArray.push(dictD);
             break;
         case "PyroM":
             totalDownloadIOS += appsOS[osKey[k]][time];
             totalRevenueIOS += parseFloat(appsOS[osKey[k]][time+4]);
-            dict.label = appsOS[osKey[k]][0].substring(0,13);
+            dict.label = appsOS[osKey[k]][0].substring(0,14);
             dict.value = parseFloat(appsOS[osKey[k]][time+4]);
             totalRevenuesArray.push(dict);
-            dictD.label = appsOS[osKey[k]][0].substring(0,13);
+            dictD.label = appsOS[osKey[k]][0].substring(0,14);
             dictD.value = parseFloat(appsOS[osKey[k]][time]);
             totalDownloadsArray.push(dictD);
             break;
@@ -412,11 +412,11 @@ function addRow(appsOS, osKey, k, time){
                         if (appsBitmonAndroid[BitmonAndroidKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadAndroid += appsBitmonAndroid[BitmonAndroidKeys[j]][time];
                             totalRevenueAndroid +=  parseFloat(appsBitmonAndroid[BitmonAndroidKeys[j]][time+4]);
-                            dict.label = appsBitmonAndroid[BitmonAndroidKeys[j]][0].substring(0,8) +
+                            dict.label = appsBitmonAndroid[BitmonAndroidKeys[j]][0].substring(0,9) +
                                 "-" + appsBitmonAndroid[BitmonAndroidKeys[j]][2].substring(0,3);
                             dict.value = parseFloat(appsBitmonAndroid[BitmonAndroidKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
-                            dictD.label = appsBitmonAndroid[BitmonAndroidKeys[j]][0].substring(0,8) +
+                            dictD.label = appsBitmonAndroid[BitmonAndroidKeys[j]][0].substring(0,9) +
                                 "-" + appsBitmonAndroid[BitmonAndroidKeys[j]][2].substring(0,3);
                             dictD.value = parseFloat(appsBitmonAndroid[BitmonAndroidKeys[j]][time]);
                             totalDownloadsArray.push(dictD);
@@ -428,11 +428,11 @@ function addRow(appsOS, osKey, k, time){
                         if (appsBitmonIOS[BitmoniOSKeys[l]][0] == appsOS[osKey[k]][0]){
                             totalDownloadIOS += appsBitmonIOS[BitmoniOSKeys[l]][time];
                             totalRevenueIOS +=  parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time+4]);
-                            dictAux.label = appsBitmonIOS[BitmoniOSKeys[l]][0].substring(0,8) +
+                            dictAux.label = appsBitmonIOS[BitmoniOSKeys[l]][0].substring(0,9) +
                                 "-" + appsBitmonIOS[BitmoniOSKeys[l]][2];
                             dictAux.value = parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time+4]);
                             totalRevenuesArray.push(dictAux);
-                            dictAuxD.label = appsBitmonIOS[BitmoniOSKeys[l]][0].substring(0,8) +
+                            dictAuxD.label = appsBitmonIOS[BitmoniOSKeys[l]][0].substring(0,9) +
                                 "-" + appsBitmonIOS[BitmoniOSKeys[l]][2];
                             dictAuxD.value = parseFloat(appsBitmonIOS[BitmoniOSKeys[l]][time]);
                             totalDownloadsArray.push(dictAuxD);
@@ -443,20 +443,20 @@ function addRow(appsOS, osKey, k, time){
             if (appsOS[osKey[k]][2] == "Android"){
                 totalDownloadAndroid += appsOS[osKey[k]][time];
                 totalRevenueAndroid +=  parseFloat(appsOS[osKey[k]][time+4]);
-                dict.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
+                dict.label = appsOS[osKey[k]][0].substring(0,14)+ "-" + appsOS[osKey[k]][2];
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
-                dictD.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
+                dictD.label = appsOS[osKey[k]][0].substring(0,14)+ "-" + appsOS[osKey[k]][2];
                 dictD.value = parseFloat(appsOS[osKey[k]][time]);
                 totalDownloadsArray.push(dictD);
             }
             if (appsOS[osKey[k]][2] == "iOS"){
                 totalDownloadIOS += appsOS[osKey[k]][time];
                 totalRevenueIOS +=  parseFloat(appsOS[osKey[k]][time+4]);
-                dict.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
+                dict.label = appsOS[osKey[k]][0].substring(0,14)+ "-" + appsOS[osKey[k]][2];
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
-                dictD.label = appsOS[osKey[k]][0].substring(0,13)+ "-" + appsOS[osKey[k]][2];
+                dictD.label = appsOS[osKey[k]][0].substring(0,14)+ "-" + appsOS[osKey[k]][2];
                 dictD.value = parseFloat(appsOS[osKey[k]][time]);
                 totalDownloadsArray.push(dictD);
             }
@@ -478,10 +478,10 @@ function addRow(appsOS, osKey, k, time){
                         if (appsZGPS[ZGPSKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadAndroid += appsZGPS[ZGPSKeys[j]][time];
                             totalRevenueAndroid +=  parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
-                            dict.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
+                            dict.label = appsZGPS[ZGPSKeys[j]][0].substring(0,9)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
                             dict.value = parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
-                            dictD.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
+                            dictD.label = appsZGPS[ZGPSKeys[j]][0].substring(0,9)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
                             dictD.value = parseFloat(appsZGPS[ZGPSKeys[j]][time]);
                             totalDownloadsArray.push(dictD);
                         }
@@ -494,10 +494,10 @@ function addRow(appsOS, osKey, k, time){
                         if (appsZGPS[ZGPSKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadAndroid += appsZGPS[ZGPSKeys[j]][time];
                             totalRevenueAndroid +=  parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
-                            dict.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
+                            dict.label = appsZGPS[ZGPSKeys[j]][0].substring(0,9)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
                             dict.value = parseFloat(appsZGPS[ZGPSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
-                            dictD.label = appsZGPS[ZGPSKeys[j]][0].substring(0,8)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
+                            dictD.label = appsZGPS[ZGPSKeys[j]][0].substring(0,9)+ "-" + appsZGPS[ZGPSKeys[j]][2].substring(0,3);
                             dictD.value = parseFloat(appsZGPS[ZGPSKeys[j]][time]);
                             totalDownloadsArray.push(dictD);
                         }
@@ -508,10 +508,10 @@ function addRow(appsOS, osKey, k, time){
                         if (appsZW[ZWKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadIOS += appsZW[ZWKeys[j]][time];
                             totalRevenueIOS +=  parseFloat(appsZW[ZWKeys[j]][time+4]);
-                            dictAux.label = appsZW[ZWKeys[j]][0].substring(0,8)+ "-" + appsZW[ZWKeys[j]][2];
+                            dictAux.label = appsZW[ZWKeys[j]][0].substring(0,9)+ "-" + appsZW[ZWKeys[j]][2];
                             dictAux.value = parseFloat(appsZW[ZWKeys[j]][time+4]);
                             totalRevenuesArray.push(dictAux);
-                            dictAuxD.label = appsZW[ZWKeys[j]][0].substring(0,8)+ "-" + appsZW[ZWKeys[j]][2];
+                            dictAuxD.label = appsZW[ZWKeys[j]][0].substring(0,9)+ "-" + appsZW[ZWKeys[j]][2];
                             dictAuxD.value = parseFloat(appsZW[ZWKeys[j]][time]);
                             totalDownloadsArray.push(dictAuxD);
                         }
@@ -521,10 +521,10 @@ function addRow(appsOS, osKey, k, time){
             if (appsOS[osKey[k]][2] == "Android"){
                 totalDownloadAndroid += appsOS[osKey[k]][time];
                 totalRevenueAndroid +=  parseFloat(appsOS[osKey[k]][time+4]);
-                dict.label = appsOS[osKey[k]][0].substring(0,13);
+                dict.label = appsOS[osKey[k]][0].substring(0,14);
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
-                dictD.label = appsOS[osKey[k]][0].substring(0,13);
+                dictD.label = appsOS[osKey[k]][0].substring(0,14);
                 dictD.value = parseFloat(appsOS[osKey[k]][time]);
                 totalDownloadsArray.push(dictD);
             }
@@ -536,10 +536,10 @@ function addRow(appsOS, osKey, k, time){
                         if (appsRUSiOS[RUSiOSKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadIOS += appsRUSiOS[RUSiOSKeys[j]][time];
                             totalRevenueIOS +=  parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
-                            dict.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,8)+ "-" + appsRUSiOS[RUSiOSKeys[j]][2];
+                            dict.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,9)+ "-" + appsRUSiOS[RUSiOSKeys[j]][2];
                             dict.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
-                            dictD.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,8)+ "-" + appsRUSiOS[RUSiOSKeys[j]][2];
+                            dictD.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,9)+ "-" + appsRUSiOS[RUSiOSKeys[j]][2];
                             dictD.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time]);
                             totalDownloadsArray.push(dictD);
                         }
@@ -550,11 +550,11 @@ function addRow(appsOS, osKey, k, time){
                         if (appsRUSAndroid[RUSAndroidKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadAndroid += appsRUSAndroid[RUSAndroidKeys[j]][time];
                             totalRevenueAndroid +=  parseFloat(appsRUSAndroid[RUSAndroidKeys[j]][time+4]);
-                            dictAux.label = appsRUSAndroid[RUSAndroidKeys[j]][0].substring(0,8)+ "-" +
+                            dictAux.label = appsRUSAndroid[RUSAndroidKeys[j]][0].substring(0,9)+ "-" +
                                 appsRUSAndroid[RUSAndroidKeys[j]][2].substring(0,3);
                             dictAux.value = parseFloat(appsRUSAndroid[RUSAndroidKeys[j]][time+4]);
                             totalRevenuesArray.push(dictAux);
-                            dictAuxD.label = appsRUSAndroid[RUSAndroidKeys[j]][0].substring(0,8)+ "-" +
+                            dictAuxD.label = appsRUSAndroid[RUSAndroidKeys[j]][0].substring(0,9)+ "-" +
                                 appsRUSAndroid[RUSAndroidKeys[j]][2].substring(0,3);
                             dictAuxD.value = parseFloat(appsRUSAndroid[RUSAndroidKeys[j]][time]);
                             totalDownloadsArray.push(dictAuxD);
@@ -565,10 +565,10 @@ function addRow(appsOS, osKey, k, time){
             if (appsOS[osKey[k]][2] == "Android"){
                 totalDownloadAndroid += appsOS[osKey[k]][time];
                 totalRevenueAndroid +=  parseFloat(appsOS[osKey[k]][time+4]);
-                dict.label = appsOS[osKey[k]][0].substring(0,13);
+                dict.label = appsOS[osKey[k]][0].substring(0,14);
                 dict.value = parseFloat(appsOS[osKey[k]][time+4]);
                 totalRevenuesArray.push(dict);
-                dictD.label = appsOS[osKey[k]][0].substring(0,13);
+                dictD.label = appsOS[osKey[k]][0].substring(0,14);
                 dictD.value = parseFloat(appsOS[osKey[k]][time]);
                 totalDownloadsArray.push(dictD);
             }
@@ -578,10 +578,10 @@ function addRow(appsOS, osKey, k, time){
                         if (appsRUSiOS[RUSiOSKeys[j]][0] == appsOS[osKey[k]][0]){
                             totalDownloadIOS += appsRUSiOS[RUSiOSKeys[j]][time];
                             totalRevenueIOS +=  parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
-                            dict.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,13);
+                            dict.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,14);
                             dict.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time+4]);
                             totalRevenuesArray.push(dict);
-                            dictD.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,13);
+                            dictD.label = appsRUSiOS[RUSiOSKeys[j]][0].substring(0,14);
                             dictD.value = parseFloat(appsRUSiOS[RUSiOSKeys[j]][time]);
                             totalDownloadsArray.push(dictD);
                         }
