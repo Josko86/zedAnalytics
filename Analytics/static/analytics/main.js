@@ -59,7 +59,25 @@ $(document).ready(function(){
     miTabla.appendChild(tbBody);
     miCapa = document.getElementById('resultado');
     miCapa.appendChild(miTabla);
+//    crear parser para ordenar la tabla sin tener en cuenta puntos y comas
+    $.tablesorter.addParser({
+        id: 'downloads',
+        is: function(s){
+            s = s.replace('.','');
+            return parseInt(s)
+        },
+        format: function(s){
+            s = s.replace('.','');
+            return parseInt(s)
+        },
+        type: 'numeric'
+    });
     $(".table").tablesorter({
+        header: {
+            2: {
+                sorter: 'downloads'
+            }
+        },
         widgets: ['staticRow']
 	});
     totalRevenuesArray.sort(function(a,b) { return b.value - a.value;});
@@ -357,16 +375,18 @@ function addRow(appsOS, osKey, k, time){
         td4 = document.createElement("td");
         td1.setAttribute("align", "center");
         td2.setAttribute("align", "center");
-        td3.setAttribute("align", "center");
-        td4.setAttribute("align", "center");
+        td3.setAttribute("align", "right");
+        td4.setAttribute("align", "rigth");
+        td4.setAttribute("style", 'text-align: right');
 
         td1.innerHTML = appsOS[osKey[k]][2];
         td2.innerHTML = appsOS[osKey[k]][0];
-        td3.innerHTML = appsOS[osKey[k]][time];
+        td3.innerHTML = appsOS[osKey[k]][time].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         if (appsOS[osKey[k]][time+4] == '0.00'){
-            td4.innerHTML = '0.0';
+            td4.innerHTML = '0,0';
         }else{
-            td4.innerHTML = appsOS[osKey[k]][time+4];
+            revenue_with_comma = appsOS[osKey[k]][time+4].replace('.',',');
+            td4.innerHTML = revenue_with_comma.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
         totalDownloads += appsOS[osKey[k]][time];
         totalRevenue += parseFloat(appsOS[osKey[k]][time+4]);
@@ -601,12 +621,14 @@ function addTotal(){
     td4 = document.createElement("td");
     td1.setAttribute("align", "center");
     td2.setAttribute("align", "center");
-    td3.setAttribute("align", "center");
-    td4.setAttribute("align", "center");
+    td3.setAttribute("align", "right");
+    td4.setAttribute("align", "right");
     td1.innerHTML = "";
     td2.innerHTML = "TOTAL";
-    td3.innerHTML = totalDownloads;
-    td4.innerHTML = totalRevenue.toFixed(2);
+    td3.innerHTML = totalDownloads.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    totalRevenueFixed = totalRevenue.toFixed(2);
+    total_revenue_with_comma = totalRevenueFixed.replace('.',',');
+    td4.innerHTML = total_revenue_with_comma.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     tr2.appendChild(td1);
     tr2.appendChild(td2);
     tr2.appendChild(td3);
@@ -807,7 +829,9 @@ function descargarPDF(){
     },
 
     function (dispose) {
-        pdf.save('ZED_Analytics.pdf');
+        setTimeout(function() {
+            pdf.save('ZED_Analytics.pdf');
+        }, 2);
     }, margins);
 }
 

@@ -869,8 +869,7 @@
                     table.tBodies[0].innerHTML = "";
                 }
             };
-        }
-    });
+        }});
 
     // extend plugin scope
     $.fn.extend({
@@ -889,12 +888,13 @@
             return $.trim(s.toLocaleLowerCase());
         }, type: "text"
     });
-
+//        is: function (s, table) {
+//            var c = table.config;
+//            return $.tablesorter.isDigit(s, c);
     ts.addParser({
         id: "digit",
-        is: function (s, table) {
-            var c = table.config;
-            return $.tablesorter.isDigit(s, c);
+        is: function (s) {
+            return false;
         }, format: function (s) {
             return $.tablesorter.formatFloat(s);
         }, type: "numeric"
