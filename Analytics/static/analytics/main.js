@@ -72,10 +72,27 @@ $(document).ready(function(){
         },
         type: 'numeric'
     });
+    $.tablesorter.addParser({
+        id: 'revenue',
+        is: function(s){
+            s = s.replace('.','');
+            s = s.replace(',','.');
+            return parseFloat(s)
+        },
+        format: function(s){
+            s = s.replace('.','');
+            s = s.replace(',','.');
+            return parseFloat(s)
+        },
+        type: 'numeric'
+    });
     $(".table").tablesorter({
-        header: {
+        headers: {
             2: {
                 sorter: 'downloads'
+            },
+            3: {
+                sorter: 'revenue'
             }
         },
         widgets: ['staticRow']
