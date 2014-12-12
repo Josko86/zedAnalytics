@@ -395,6 +395,8 @@ function addRow(appsOS, osKey, k, time){
         td3.setAttribute("align", "right");
         td4.setAttribute("align", "rigth");
         td4.setAttribute("style", 'text-align: right');
+        td3.setAttribute("class", 'derecha');
+        td4.setAttribute("class", 'derecha');
 
         td1.innerHTML = appsOS[osKey[k]][2];
         td2.innerHTML = appsOS[osKey[k]][0];
@@ -640,6 +642,8 @@ function addTotal(){
     td2.setAttribute("align", "center");
     td3.setAttribute("align", "right");
     td4.setAttribute("align", "right");
+    td3.setAttribute("class", "derecha");
+    td4.setAttribute("class", "derecha");
     td1.innerHTML = "";
     td2.innerHTML = "TOTAL";
     td3.innerHTML = totalDownloads.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -773,19 +777,6 @@ function descargarPDF(){
     };
     pdf.setFontSize(10);
 
-//    var today = new Date();
-
-//    today.setDate(today.getDate()-2);
-//    var dd = today.getDate();
-//    var mm = today.getMonth()+1; //January is 0!
-//
-//    var yyyy = today.getFullYear();
-//    if(dd<10){
-//        dd='0'+dd
-//    }
-//    if(mm<10){
-//        mm='0'+mm
-//    }
     var today = $('#dateExcel').first().text().substring(7,17);
 
     var dayBefore = new Date(today);
@@ -807,7 +798,7 @@ function descargarPDF(){
         pdf.text(582, 50, "~ / " + today);
     }
 
-    pdf.text(25, 50, "Apps and games downloads and revenue");
+    pdf.text(18, 50, "Apps and games downloads and revenue");
 
 
     var canvas1 = $("#canvas1")[0];
@@ -830,26 +821,56 @@ function descargarPDF(){
     pdf.addImage(imgData3, 'JPEG', 655, 880, 620, 370);
     pdf.text(675, 1120, 'Revenue Breakdown (%) by sku');
 
-    margins = {
-        top: 50,
-        bottom: 40,
-        left: 20,
-        right: 350,
-        width: 522
-    };
-    pdf.fromHTML(
-    source,
-    margins.left,
-    margins.top, {
-        'width': margins.width,
-        'elementHandlers': specialElementHandlers
-    },
+//    margins = {
+//        top: 50,
+//        bottom: 40,
+//        left: 20,
+//        right: 350,
+//        width: 522
+//    };
 
-    function (dispose) {
-        setTimeout(function() {
-            pdf.save('ZED_Analytics.pdf');
-        }, 2);
-    }, margins);
+//    var divider = 1;
+//    // clone table one to create table two
+//    var $tableOne = $('table').attr('id','newTable1');
+//    $tableOne.appendTo('#table1');
+//    var $tableTwo = $tableOne.clone().attr('id','newTable2').appendTo('#table2');
+//
+//    // number of rows in table
+//    var numOfRows = $tableOne.find('tr').length;
+//
+//    // select rows of each table
+//    var $tableOneRows = $tableOne.find('tr');
+//    var $tableTwoRows = $tableTwo.find('tr');
+//
+//    // loop through each row in table one.
+//    // since table two is a clone of table one,
+//    // we will also manipulate table two at the same time.
+//    $tableOneRows.each(function(index){
+//          // save row for each table
+//          var $trOne = $(this);
+//          var $trTwo = $tableTwoRows.eq(index);
+//
+//          // remove columns greater than divider from table one
+//          $trOne.children(':gt('+divider+')').remove();
+//          $trTwo.children(':lt('+(divider+1)+')').remove();
+//    });
+    pdf.htmlTable(10, 57, source);
+//    pdf.htmlTable(470, -557, $tableTwo, options2);
+    pdf.save('ZED_Analytics.pdf');
+    verEstadisticas();
+//    pdf.fromHTML(
+//    source,
+//    margins.left,
+//    margins.top, {
+//        'width': margins.width,
+//        'elementHandlers': specialElementHandlers
+//    },
+//
+//    function (dispose) {
+//        setTimeout(function() {
+//            pdf.save('ZED_Analytics.pdf');
+//        }, 2);
+//    }, margins);
 }
 
 function canvas(){
