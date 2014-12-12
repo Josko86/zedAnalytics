@@ -23,6 +23,7 @@
     <script src="{{ STATIC_URL }}analytics/bootstrap.js"></script>
     <script src="{{ STATIC_URL }}analytics/jquery.tablesorter.js"></script>
     <script src="{{ STATIC_URL }}analytics/jspdf.debug.js"></script>
+    <script src="{{ STATIC_URL }}analytics/jspdf.plugin.htmltable.js"></script>
     <script src="{{ STATIC_URL }}analytics/jquery.tablesorter.staticrow.min.js"></script>
     <script src="{{ STATIC_URL }}analytics/d3.js"></script>
     <script src="{{ STATIC_URL }}analytics/nv.d3.js"></script>
@@ -170,7 +171,10 @@
         </div>
 
     </div>
-    <div class="col-xs-8" id="resultado"></div>
+    <div class="col-xs-8" id="resultado">
+        <div class="col-xs-5" id="table1"></div>
+        <div class="col-xs-3" id="table2"></div>
+    </div>
     <div class="col-xs-4">
         <style>
         svg {
