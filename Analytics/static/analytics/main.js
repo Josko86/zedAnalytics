@@ -381,6 +381,7 @@ function createTable(){
 
     miTabla.appendChild(tbHead);
     miTabla.setAttribute("class", "table table-bordered");
+//    miTabla.style.width = '855px';
 }
 
 function addRow(appsOS, osKey, k, time){
@@ -770,6 +771,7 @@ function descargarPDF(){
     canvas();
     var pdf = new jsPDF('p', 'pt', 'a3');
     source = $('#resultado')[0];
+    source.style.width = '885px';
     specialElementHandlers = {
         '#bypassme': function (element, renderer) {
             return true
@@ -857,6 +859,8 @@ function descargarPDF(){
     pdf.htmlTable(10, 57, source);
 //    pdf.htmlTable(470, -557, $tableTwo, options2);
     pdf.save('ZED_Analytics.pdf');
+    source.style.width = '100%';
+    $('#resultado').attr('style', 'width: 66.66666667%');
     verEstadisticas();
 //    pdf.fromHTML(
 //    source,
