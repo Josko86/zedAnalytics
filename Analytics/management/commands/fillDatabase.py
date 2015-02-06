@@ -184,52 +184,55 @@ def fillDatabaseFromAppannie(dateEx):
                              headers={"Authorization": APIKEY_APPANNIE})
             jsonM = simplejson.loads(v.content)
 
-            name = json["product"]["product_name"]
-            category = json["product"]["main_category"]
-            downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
-            downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
-            downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
-            downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
-            revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                           float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
-                           float(jsonA['sales_list'][0]["revenue"]["ad"]) +
-                           float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                           float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
-            revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                           float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
-                           float(jsonM['sales_list'][0]["revenue"]["ad"]) +
-                           float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                           float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
-            revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                           float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
-                           float(jsonW['sales_list'][0]["revenue"]["ad"]) +
-                           float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                           float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
-            revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
-                           float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
-                           float(jsonY['sales_list'][0]["revenue"]["ad"]) +
-                           float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
-                           float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
-
-            if category == None:
-                category = "unknown"
-            a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
-                             account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
-                             revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
             try:
-                a2= Application.objects.get(appKey=app_id)
-                a2.name = a1.name
-                a2.downloadsA = a1.downloadsA
-                a2.downloadsT = a1.downloadsT
-                a2.downloadsW = a1.downloadsW
-                a2.downloadsM = a1.downloadsM
-                a2.revenueA = a1.revenueA
-                a2.revenueT = a1.revenueT
-                a2.revenueW = a1.revenueW
-                a2.revenueM = a1.revenueM
-                a2.save()
+                name = json["product"]["product_name"]
+                category = json["product"]["main_category"]
+                downloadsA = jsonA["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsM = jsonM["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsW = jsonW["sales_list"][0]["units"]["product"]["downloads"]
+                downloadsY = jsonY["sales_list"][0]["units"]["product"]["downloads"]
+                revenueA = str(float(jsonA['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonA['sales_list'][0]["revenue"]["ad"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                               float(jsonA['sales_list'][0]["revenue"]["product"]["refunds"]))
+                revenueM = str(float(jsonM['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonM['sales_list'][0]["revenue"]["ad"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                               float(jsonM['sales_list'][0]["revenue"]["product"]["refunds"]))
+                revenueW = str(float(jsonW['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonW['sales_list'][0]["revenue"]["ad"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                               float(jsonW['sales_list'][0]["revenue"]["product"]["refunds"]))
+                revenueY = str(float(jsonY['sales_list'][0]["revenue"]["product"]["downloads"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["sales"])+
+                               float(jsonY['sales_list'][0]["revenue"]["ad"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["iap"]["refunds"]) +
+                               float(jsonY['sales_list'][0]["revenue"]["product"]["refunds"]))
+
+                if category == None:
+                    category = "unknown"
+                a1 = Application(appKey=app_id, name=cleanName(name), category=category, downloadsA=downloadsA, os='iOS',
+                                 account="Bitmonlab", downloadsM=downloadsM, downloadsW=downloadsW, downloadsT=downloadsY,
+                                 revenueA=revenueA, revenueM=revenueM, revenueW=revenueW, revenueT=revenueY)
+                try:
+                    a2= Application.objects.get(appKey=app_id)
+                    a2.name = a1.name
+                    a2.downloadsA = a1.downloadsA
+                    a2.downloadsT = a1.downloadsT
+                    a2.downloadsW = a1.downloadsW
+                    a2.downloadsM = a1.downloadsM
+                    a2.revenueA = a1.revenueA
+                    a2.revenueT = a1.revenueT
+                    a2.revenueW = a1.revenueW
+                    a2.revenueM = a1.revenueM
+                    a2.save()
+                except Exception as ex:
+                    a1.save()
             except Exception as ex:
-                a1.save()
+                print('Bitmonlab updating has an error')
 
         print('Bitmonlab iTunes updated')
 
